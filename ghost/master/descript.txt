@@ -5,7 +5,7 @@ sakura.name,ƒ`ƒ…ƒ“ƒ`ƒ…ƒ“
 kero.name,none
 craftman,Don
 craftmanurl,http://nikolat.herokuapp.com/
-homeurl,
+homeurl,https://raw.githubusercontent.com/nikolat/jong-chunchun/main/
 shiori,shiori.dll
 icon,icon.ico
 sstp.allowunspecifiedsend,0

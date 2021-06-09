@@ -7,7 +7,7 @@
 #################################################
 
 #ネットワーク更新
-homeurl:
+homeurl: https://raw.githubusercontent.com/nikolat/jong-chunchun/main/
 useorigin1: 1
 
 #################################################
