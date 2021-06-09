@@ -1,0 +1,11 @@
+charset,Shift_JIS
+type,ghost
+name,雀-チュンチュン
+sakura.name,チュンチュン
+kero.name,none
+craftman,Don
+craftmanurl,http://nikolat.herokuapp.com/
+homeurl,
+shiori,shiori.dll
+icon,icon.ico
+sstp.allowunspecifiedsend,0

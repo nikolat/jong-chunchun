@@ -1,0 +1,170 @@
+#===========================================================
+# LICENSE: CC0 1.0 Universal
+# http://creativecommons.org/publicdomain/zero/1.0/
+#===========================================================
+
+#===========================================================
+# 何を切るか
+#===========================================================
+# ひたすら七対子を目指す
+=kis
+function MJ.Naniwokiru $(
+	setstr @strTehai $@arg[1];
+	setstr @strKawa $@arg[2];
+	split @arTehai $(
+		MJ.MakeArrayFromString ${@strTehai};
+	) ,;
+	split @arKawa $(
+		MJ.MakeArrayFromString ${@strKawa};
+	) ,;
+	#3枚同じ牌があれば切る
+	setstr @dahai $(
+		MJ.Get3SameElement $(
+			MJ.SortHai $(join @arTehai ,);
+		);
+	);
+	if $[ ${@dahai} != "" ] $(
+		return ${@dahai};
+	);
+	#過去に切った牌をツモ切り フリテン防止(配列の最後の要素がツモである前提のため注意)
+	setstr @dahai $@arTehai[-1];
+	if $[ $(find @arKawa ${@dahai}) >= 0 ] $(
+		return ${@dahai};
+	);
+	#1枚のみの牌を切る
+	split @arDahai $(
+		MJ.GetSoloElements $(join @arTehai ,);
+	) ,;
+	setstr @dahai $(entry @arDahai);
+	if $[ ${@dahai} != "" ] $(
+		return ${@dahai};
+	);
+	#それは和了である
+	return "";
+);
+
+#"1m2m3m" -> "1m,2m,3m"変換
+function MJ.MakeArrayFromString $(
+	setstr @s $@arg[1];
+	setstr @i 0;
+	while 1 $(
+		setstr @e $(
+			substr ${@s} ${@i} 2;
+		);
+		if $[ ${@e} == "" ] $(
+			break;
+		);
+		adddictstr @r ${@e};
+		inc @i 2;
+	);
+	return $(join @r ,);
+);
+
+#ソート
+function MJ.SortHai $(
+	split @a $@arg[1] ,;
+	#バブルソートでいいや…
+	while $[ $(size @a) > 0 ] $(
+		setstr @n $(size @a);
+		setstr @index -1;
+		setstr @minValue 99;
+		clear @an;
+		setstr @i 0;
+		while $[ ${@i} < ${@n} ] $(
+			setstr @v $(
+				MJ.GetSortCode $@a[${@i}];
+			);
+			if $[ ${@v} < ${@minValue} ] $(
+				if $[ ${@index} >= 0 ] $(
+					adddictstr @an $@a[${@index}];
+				);
+				setstr @index ${@i};
+				setstr @minValue ${@v};
+			) else $(
+				adddictstr @an $@a[${@i}];
+			);
+			inc @i;
+		);
+		adddictstr @r $@a[${@index}];
+		clear @a;
+		copy @an @a;
+	);
+	return $(join @r ,);
+);
+
+#ソート順定義
+function MJ.GetSortCode $(
+	setstr @s $@arg[1];
+	split @a "1m,2m,3m,4m,5m,6m,7m,8m,9m,1p,2p,3p,4p,5p,6p,7p,8p,9p,1s,2s,3s,4s,5s,6s,7s,8s,9s,1z,2z,3z,4z,5z,6z,7z" ",";
+	setstr @r $(
+		find @a ${@s};
+	);
+	return ${@r};
+);
+
+#3枚同じ牌があるものを返す ソート済前提のため注意
+function MJ.Get3SameElement $(
+	split @a $@arg[1] ,;
+	setstr @n $(size @a);
+	setstr @e $@a[0];
+	setstr @i 1;
+	while $[ ${@i} < ${@n} - 1 ] $(
+		if $[ ${@e} == $@a[${@i}] && ${@e} == $@a[${@i} + 1] ] $(
+			return ${@e};
+		) else $(
+			setstr @e $@a[${@i}];
+		);
+		inc @i;
+	);
+	return "";
+);
+
+#同じ牌がない(1枚だけの)ものをすべて返す
+function MJ.GetSoloElements $(
+	split @a $@arg[1] ,;
+	setstr @n $(size @a);
+	setstr @i 0;
+	while $[ ${@i} < ${@n} ] $(
+		if $[ $(find @a $@a[${@i}]) == $(rfind @a $@a[${@i}]) ] $(
+			adddictstr @r $@a[${@i}];
+		);
+		inc @i;
+	);
+	return $(join @r ,);
+);
+
+#===========================================================
+# 向聴数計算
+#===========================================================
+#tehaiはソートされてる前提
+function MJ.GetShanten $(
+	#今は七対子のみ
+	return $(MJ.GetShantenChitoitsu $@arg[1]);
+);
+
+function MJ.GetShantenChitoitsu $(
+	split @tehai $@arg[1] ,;
+	setstr @nToitsu 0;
+	setstr @nType 0;
+	setstr @baseHai "";
+	setstr @n $(size @tehai);
+	setstr @i 0;
+	while $[ ${@i} < ${@n} ] $(
+		if $[ ${@baseHai} != $@tehai[${@i}] ] $(
+			inc @nType;
+			setstr @baseHai $@tehai[${@i}];
+			if $[ ${@baseHai} == $@tehai[${@i} + 1] ] $(
+				inc @i;
+				inc @nToitsu;
+			);
+		);
+		inc @i;
+	);
+	if $[ ${@nType} >= 7 ] $(
+		setstr @nType 7;
+	);
+	setstr @n $[ 6 - ${@nToitsu} + (7 - ${@nType})];
+	return ${@n};
+);
+
+=end

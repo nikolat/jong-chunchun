@@ -1,0 +1,317 @@
+#===========================================================
+# LICENSE: CC0 1.0 Universal
+# http://creativecommons.org/publicdomain/zero/1.0/
+#===========================================================
+
+#===========================================================
+# 設定
+#===========================================================
+# バージョン
+MJ.Version: UKAJONG/0.2
+
+# 返答時のイベント名
+MJ.ResponseEventID: OnMahjongResponse
+
+#イベントログをだらだら見るモード
+MJ.ShowAllLogMode: 0
+
+# 自分の名前(sakura.name)
+MJ.PlayerName: チュンチュン
+
+#===========================================================
+# ID: OnMahjong
+# Reference0: バージョン(UKAJONG/0.1)
+# Reference1: サーバコマンド(gamestart|gameend|...)
+# Reference2以降: サーバコマンド追加情報
+#===========================================================
+OnMahjong: $(
+	if ${MJ.ShowAllLogMode} $(
+		entry MJ.ShowAllLog;
+	) else if $[ ${System.Request.Reference0} == ${MJ.Version} ] $(
+		entry MJ.Main;
+	) else $(
+		echo "";
+	);
+)
+
+#===========================================================
+# イベントログ垂れ流し
+#===========================================================
+MJ.ShowAllLog: $(
+	setstr @res "ID: OnMahjong\n";
+	setstr @i 0;
+	while $[ ${System.Request.Reference${@i}} != "" ] $(
+		setstr @res ${@res}Reference${@i}:" "${System.Request.Reference${@i}}\n;
+		inc @i;
+	);
+	setstr @res "\C\0\s[0]\n\_q"${@res}"\_q\e";
+	entry @res;
+)
+
+#===========================================================
+# メイン処理
+#===========================================================
+MJ.Main: $(
+	entry MJ.${System.Request.Reference1};
+)
+
+#===========================================================
+# hello 接続確認
+#===========================================================
+MJ.hello: $(
+	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},ump=${MJ.ump_version},name=${MJ.PlayerName}];
+)
+MJ.ump_version: ?
+
+#===========================================================
+# gamestart ゲーム(半荘)開始
+# Reference2: 席(東|南|西|北)
+# Reference3: プレイヤー名1
+# Reference4: プレイヤー名2
+# Reference5: プレイヤー名3
+# Reference6: プレイヤー名4
+#===========================================================
+MJ.gamestart: \0\s[0]いくよー。\e
+MJ.gamestart: \0\s[5]お手柔らかに。\e
+
+#===========================================================
+# gameend ゲーム終了
+# Reference2: プレイヤー名1[0x01]点数
+# Reference3: プレイヤー名2[0x01]点数
+# Reference4: プレイヤー名3[0x01]点数
+# Reference5: プレイヤー名4[0x01]点数
+#===========================================================
+MJ.gameend: \0\s[0]楽しかったね。\e
+MJ.gameend: \0\s[0]また遊んでね。\e
+
+#===========================================================
+# kyokustart 一局が始まるときに送る
+# Reference2: 場風(東|南|西|北)
+# Reference3: 親(ex.プレイヤー名1)
+# Reference4: 本場(ex.1)
+# Reference5: 供託(ex.1000)
+#===========================================================
+MJ.kyokustart: $(
+	echo \0\s[0]\e;
+	setstr MJ.Save.Kawa "";
+	setstr MJ.Save.Richi 0;
+)
+
+#===========================================================
+# kyokuend 一局終了
+#===========================================================
+MJ.kyokuend: $(
+	if $[ $(match ${System.Request.Status} talking) < 0 ] $(
+		echo \0\s[0]\e;
+	);
+	clear MJ.Save.Tehai;
+	clear MJ.Save.Kawa;
+	clear MJ.Save.Richi;
+)
+
+#===========================================================
+# point プレイヤーの点数を通知する
+# Reference2: プレイヤー名
+# Reference3: (=|+|-) =は点数の直指定、+-は増減を意味する
+# Reference4: 点数
+#===========================================================
+MJ.point: $(
+	if $[ ${System.Request.Reference2} != ${MJ.PlayerName} ] $(
+		#自分の点数通知のみに反応
+	) else if $[ ${MJ.Save.Status} == "流局" || ${MJ.Save.Status} == "" ] $(
+		#流局では一々喋らない
+		clear MJ.Save.Status;
+	) else if $[ ${System.Request.Reference3} == "=" ] $(
+		#増減のみに反応
+	) else if $[ ${System.Request.Reference3} == "+" ] $(
+		clear MJ.Save.Status;
+		echo \0\s[5]ありがと。\e;
+	) else if $[ 8000 <= ${System.Request.Reference4} ] $(
+		clear MJ.Save.Status;
+		echo \0\s[4]あちゃー…。\e;
+	) else $(
+		clear MJ.Save.Status;
+		entry MJ.point.minus;
+	);
+)
+MJ.point.minus: \0\s[3]ひどーい。\e
+MJ.point.minus: \0\s[7]むー。\e
+
+#===========================================================
+# haipai 配牌を配る
+# Reference2: プレイヤー名
+# Reference3: 配牌(ex.1m2m3m4p5p6p7s8s9s1z5z6z7z)
+#===========================================================
+MJ.haipai: $(
+	setstr MJ.Save.Tehai ${System.Request.Reference3};
+)
+
+#===========================================================
+# dora ドラ表示牌を送る
+# Reference2: 牌(ex.7z)
+#===========================================================
+MJ.dora: 
+
+#===========================================================
+# tsumo 自摸
+# Reference2: プレイヤー名(自分)
+# Reference3: 残り枚数
+# Reference4: 牌(ex.7z)
+#===========================================================
+MJ.tsumo: $(
+	setstr MJ.Save.Tsumo ${System.Request.Reference4};
+	if $[ $(match ${System.Request.Status} talking) < 0 ] $(
+		echo \0\s[0]\e;
+	);
+)
+
+#===========================================================
+# sutehai 捨牌
+# Reference2: プレイヤー名
+# Reference3: 牌(ex.7z)
+#===========================================================
+MJ.sutehai: $(
+	if $[ ${System.Request.Reference2} != ${MJ.PlayerName} ] $(
+		#自分の捨牌通知のみに反応
+	) else if $[ ${MJ.Save.Tsumo} == ${System.Request.Reference3} ] $(
+		#ツモ切り
+		if $[ $(match ${System.Request.Status} talking) < 0 && $(rand 5) == 0 ] $(
+			echo \0\s[3]…。\e;
+		);
+		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${System.Request.Reference3};
+		clear MJ.Save.Tsumo;
+	) else $(
+		#ツモ切りでない
+		if $[ $(match ${System.Request.Status} talking) < 0 && $(rand 5) == 0 ] $(
+			echo \0\s[5]♪\e;
+		);
+		setstr MJ.Save.Tehai ${MJ.Save.Tehai}${MJ.Save.Tsumo};
+		setstr MJ.Save.Tehai $(sub ${MJ.Save.Tehai} ${System.Request.Reference3} "");
+		setstr @tehai $(
+			MJ.MakeArrayFromString ${MJ.Save.Tehai};
+		);
+		setstr @tehai $(
+			MJ.SortHai ${@tehai};
+		);
+		setstr MJ.Save.Tehai $(gsub ${@tehai} "," "");
+		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${System.Request.Reference3};
+		clear MJ.Save.Tsumo;
+	);
+)
+
+#===========================================================
+# sutehai? 捨牌を尋ねる
+#===========================================================
+MJ.sutehai?: $(
+	if $[ ${MJ.Save.Richi} == 1 ] $(
+		#リーチ済ならツモ切り
+		setstr @dahai ${MJ.Save.Tsumo};
+	) else $(
+		setstr @dahai $(
+			MJ.Naniwokiru ${MJ.Save.Tehai}${MJ.Save.Tsumo} ${MJ.Save.Kawa};
+		);
+	);
+	setstr @shanten $(
+		MJ.GetShanten $(
+			MJ.SortHai $(
+				MJ.MakeArrayFromString ${MJ.Save.Tehai}${MJ.Save.Tsumo};
+			);
+		);
+	);
+	setstr @action sutehai;
+	if $[ ${@shanten} == 0 && ${MJ.Save.Richi} == 0 ] $(
+		setstr @action richi;
+		setstr MJ.Save.Richi 1;
+	) else if $[ ${@shanten} == -1 ] $(
+		setstr @action tsumo;
+		setstr @dahai "";
+	);
+	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@action},${@dahai}]\e;
+)
+
+#コマンドを送らないことでサーバーに対応を委任することもできる
+#MJ.sutehai?: $(
+#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
+#)
+
+#===========================================================
+# naku? 牌を鳴くか尋ねる。クライアントが可能なコマンドも送る
+# Reference2: (ron|kan|pon|chi)
+# Reference3: 以降、Reference2同様
+#===========================================================
+MJ.naku?: $(
+	setstr @r "no";
+	setstr @i 2;
+	while $[ ${System.Request.Reference${@i}} != $(NULL) ] $(
+		if $[ ${System.Request.Reference${@i}} == "ron" ] $(
+			setstr @r "ron";
+			break;
+		);
+		inc @i;
+	);
+	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@r}]\e;
+)
+
+#===========================================================
+# tenpai? テンパイを宣言するか尋ねる
+#===========================================================
+MJ.tenpai?: $(
+	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},yes]\e;
+)
+
+#===========================================================
+# say 発声
+# Reference2: プレイヤー名
+# Reference3: (chi|pon|kan|ron|tsumo|richi|tenpai|noten)
+#===========================================================
+MJ.say: $(
+	if $[ ${System.Request.Reference2} == ${MJ.PlayerName} ] $(
+		if $[ ${System.Request.Reference3} == "chi" ] $(
+			setstr @say "\s[0]チー";
+			setstr @aqtk "ち'ー";
+		) else if $[ ${System.Request.Reference3} == "pon" ] $(
+			setstr @say "\s[0]ポン";
+			setstr @aqtk "ぽ'ん";
+		) else if $[ ${System.Request.Reference3} == "kan" ] $(
+			setstr @say "\s[0]カン";
+			setstr @aqtk "か'ん";
+		) else if $[ ${System.Request.Reference3} == "ron" ] $(
+			setstr @say "\s[5]ロン";
+			setstr @aqtk "ろ'ん";
+		) else if $[ ${System.Request.Reference3} == "tsumo" ] $(
+			setstr @say "\s[5]ツモ";
+			setstr @aqtk "つ'も";
+		) else if $[ ${System.Request.Reference3} == "richi" ] $(
+			setstr @say "\s[6]リーチ";
+			setstr @aqtk "り'ーち";
+		) else if $[ ${System.Request.Reference3} == "tenpai" ] $(
+			setstr @say "\s[5]テンパイ";
+			setstr @aqtk "て'んぱい";
+		) else if $[ ${System.Request.Reference3} == "noten" ] $(
+			setstr @say "\s[3]ノーテン";
+			setstr @aqtk "の'ーてん";
+		);
+		echo \0${@say}\_w[2000]\e;
+		callsaori aqtk PLAYASYNC ${@aqtk};
+	) else if $[ ${System.Request.Reference3} == "richi" ] $(
+		echo \0\s[0]\w9\w9\s[2]ふええ。\_w[2000]\e
+	);
+)
+
+#===========================================================
+# agari あがり
+# Reference2: プレイヤー名
+# Reference3: Reserved(符)
+# Reference4: Reserved(役,ハン数)
+#===========================================================
+MJ.agari: $(
+	setstr MJ.Save.Status 和了;
+)
+
+#===========================================================
+# ryukyoku 流局
+#===========================================================
+MJ.ryukyoku: $(
+	setstr MJ.Save.Status 流局;
+)
+

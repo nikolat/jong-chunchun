@@ -1,0 +1,106 @@
+
+#「華和梨」偽AI辞書
+#　Event Script
+
+#################################################
+#イベント呼び出し
+#################################################
+
+System.Callback.OnEvent    : ${System.Request.Event}
+System.Callback.OnResource : ${System.Request.ID}
+System.Callback.OnGET      : ${${System.Request.ID}}
+
+#################################################
+#基礎イベント
+#################################################
+
+OnFirstBoot          : \1\s[10]\0\s[5]はじめまして、\_w[500]よろしくー。\e
+OnBoot               : \1\s[10]\0\s[5]よろしくー。\e
+OnGhostChanged       : \1\s[10]\0\s[5]はーい、\_w[500]%selfnameでーす。\e
+OnShellChanged       : \1\s[10]\0\s[0]おまたせ。\e
+OnWindowStateRestore : \1\s[10]\0\s[0]\e
+OnClose              : \1\s[10]\0\s[5]じゃーねー。\_w[500]\-\e
+
+#################################################
+#ネットワークイベント
+#################################################
+
+OnUpdateBegin    : \0\s[0]\_qUpdate Begin.\_q\e
+OnUpdateReady    : \0\s[0]\_qUpdating...\_q\e
+OnUpdateComplete : \0\s[0]\_q${System.Request.Reference0}.\_q\e
+OnUpdateFailure  : \0\s[0]\_q${System.Request.Reference0}.\_q\e
+
+#################################################
+#マウスイベント
+#################################################
+
+OnMouseDoubleClick : $(
+	entry
+	MouseDoubleClick${System.Request.Reference3}${System.Request.Reference4}
+	${MouseDoubleClick${System.Request.Reference3}}
+)
+
+MouseDoubleClick0 : \0\s[0]なあに？\e
+MouseDoubleClick0 : \0\s[5]１索ってカワイイ！\e
+MouseDoubleClick0 : \0\s[4]点数計算って全然わかんないよー。\e
+MouseDoubleClick0 : \0\s[6]手加減しなくていいんだよ？\e
+
+MouseDoubleClick0Head : \0\s[4]入ってますよー？\e
+MouseDoubleClick0Head : \0\s[3]嫌いになっちゃうぞ？\e
+
+MouseDoubleClick0Face : \0\s[2]顔に何か付いてた？\e
+MouseDoubleClick0Face : \0\s[0]どうかした？\e
+
+MouseDoubleClick0Bust : \0\s[8]ダーメ！\e
+MouseDoubleClick0Bust : \0\s[1]負けたら脱ぐルール？\e
+
+# まずは「撫でられたキャラクター」を確定
+OnMouseMove : $(
+	if $[ ${System.Request.Reference3} == 0 ] $(
+		entry env.MouseMove.1st;
+	) else if $[ ${System.Request.Reference3} == 1 ] $(
+		entry env.MouseMove.2nd;
+	);
+)
+
+# 続いて、キャラクター毎に「撫でカウント」をカウントアップし、設定された数値に達したら
+# カウンターをリセットし、そのポイントの撫で反応トークを行う。
+
+#\h(\0)側。
+env.MouseMove.1st : $(
+	inc sys.Move;
+	if $[ $[ ${sys.Move} > ${sys.SetMove1st} ] && $[ $(match ${System.Request.Status} talking) < 0 ] ] $(
+		setstr sys.Move 0;
+		entry MouseMove${System.Request.Reference3}${System.Request.Reference4} ${MouseMove${System.Request.Reference3}};
+	);
+)
+
+# 撫で反応までの待ち時間
+sys.SetMove1st : 100
+
+MouseMove0 :
+MouseMove0Head : \0\s[5]%selfname、えらい？\e
+MouseMove0Head : \0\s[6]%selfname、いい子。\e
+
+MouseMove0Face : \0\s[6]ポーカーフェイス。\e
+MouseMove0Face : \0\s[5]白（ハク）！\e
+
+MouseMove0Bust : \0\s[1]%usernameが勝ったら、\_w[5]好きにしていいよ…？\e
+MouseMove0Bust : \0\s[2]イカサマ？\_w[500]何も隠してないよ？\e
+
+#################################################
+#キーイベント
+#################################################
+
+OnKeyPress: $(
+	if $[ ${System.Request.Reference0} == "r" ] $(
+		echo "\![reload,shiori]\0\s[0]\_qReloaded.\e";
+	);
+)
+
+#################################################
+#ほか
+#################################################
+
+OnSurfaceRestore: \1\s[10]\0\s[0]\e
+

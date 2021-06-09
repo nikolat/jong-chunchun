@@ -1,0 +1,11 @@
+#辞書ファイルロード指定
+=kis
+load dict\event.txt;
+load dict\resource.txt;
+load OnMahjong.txt;
+load MahjongAI.txt;
+=end
+#SAORI登録
+=kis
+saoriregist saori\aqtk\AqTalkSaori.dll aqtk preload;
+=end
