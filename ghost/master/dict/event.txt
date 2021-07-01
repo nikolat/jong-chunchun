@@ -85,7 +85,7 @@ MouseMove0Head : \0\s[6]%selfname、いい子。\e
 MouseMove0Face : \0\s[6]ポーカーフェイス。\e
 MouseMove0Face : \0\s[5]白（ハク）！\e
 
-MouseMove0Bust : \0\s[1]%usernameが勝ったら、\_w[5]好きにしていいよ…？\e
+MouseMove0Bust : \0\s[1]%usernameが勝ったら、\_w[500]好きにしていいよ…？\e
 MouseMove0Bust : \0\s[2]イカサマ？\_w[500]何も隠してないよ？\e
 
 #################################################

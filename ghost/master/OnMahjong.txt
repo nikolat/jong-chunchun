@@ -202,37 +202,37 @@ MJ.sutehai: $(
 #===========================================================
 # sutehai? 捨牌を尋ねる
 #===========================================================
-MJ.sutehai?: $(
-	if $[ ${MJ.Save.Richi} == 1 ] $(
-		#リーチ済ならツモ切り
-		setstr @dahai ${MJ.Save.Tsumo};
-	) else $(
-		setstr @dahai $(
-			MJ.Naniwokiru ${MJ.Save.Tehai}${MJ.Save.Tsumo} ${MJ.Save.Kawa};
-		);
-	);
-	setstr @shanten $(
-		MJ.GetShanten $(
-			MJ.SortHai $(
-				MJ.MakeArrayFromString ${MJ.Save.Tehai}${MJ.Save.Tsumo};
-			);
-		);
-	);
-	setstr @action sutehai;
-	if $[ ${@shanten} == 0 && ${MJ.Save.Richi} == 0 ] $(
-		setstr @action richi;
-		setstr MJ.Save.Richi 1;
-	) else if $[ ${@shanten} == -1 ] $(
-		setstr @action tsumo;
-		setstr @dahai "";
-	);
-	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@action},${@dahai}]\e;
-)
-
-#コマンドを送らないことでサーバーに対応を委任することもできる
 #MJ.sutehai?: $(
-#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
+#	if $[ ${MJ.Save.Richi} == 1 ] $(
+#		#リーチ済ならツモ切り
+#		setstr @dahai ${MJ.Save.Tsumo};
+#	) else $(
+#		setstr @dahai $(
+#			MJ.Naniwokiru ${MJ.Save.Tehai}${MJ.Save.Tsumo} ${MJ.Save.Kawa};
+#		);
+#	);
+#	setstr @shanten $(
+#		MJ.GetShanten $(
+#			MJ.SortHai $(
+#				MJ.MakeArrayFromString ${MJ.Save.Tehai}${MJ.Save.Tsumo};
+#			);
+#		);
+#	);
+#	setstr @action sutehai;
+#	if $[ ${@shanten} == 0 && ${MJ.Save.Richi} == 0 ] $(
+#		setstr @action richi;
+#		setstr MJ.Save.Richi 1;
+#	) else if $[ ${@shanten} == -1 ] $(
+#		setstr @action tsumo;
+#		setstr @dahai "";
+#	);
+#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@action},${@dahai}]\e;
 #)
+
+#コマンドを送らないことでサーバーに対応を委任する
+MJ.sutehai?: $(
+	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
+)
 
 #===========================================================
 # naku? 牌を鳴くか尋ねる。クライアントが可能なコマンドも送る
