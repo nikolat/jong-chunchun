@@ -239,17 +239,22 @@ MJ.sutehai?: $(
 # Reference2: (ron|kan|pon|chi)
 # Reference3: 以降、Reference2同様
 #===========================================================
+#MJ.naku?: $(
+#	setstr @r "no";
+#	setstr @i 2;
+#	while $[ ${System.Request.Reference${@i}} != $(NULL) ] $(
+#		if $[ ${System.Request.Reference${@i}} == "ron" ] $(
+#			setstr @r "ron";
+#			break;
+#		);
+#		inc @i;
+#	);
+#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@r}]\e;
+#)
+
+#コマンドを送らないことでサーバーに対応を委任する
 MJ.naku?: $(
-	setstr @r "no";
-	setstr @i 2;
-	while $[ ${System.Request.Reference${@i}} != $(NULL) ] $(
-		if $[ ${System.Request.Reference${@i}} == "ron" ] $(
-			setstr @r "ron";
-			break;
-		);
-		inc @i;
-	);
-	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@r}]\e;
+	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
 )
 
 #===========================================================
