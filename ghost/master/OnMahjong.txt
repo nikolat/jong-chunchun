@@ -44,7 +44,7 @@ MJ.ShowAllLog: $(
 		setstr @res ${@res}Reference${@i}:" "${System.Request.Reference${@i}}\n;
 		inc @i;
 	);
-	setstr @res "\C\0\s[0]\n\_q"${@res}"\_q\e";
+	setstr @res "\C\0\b[2]\s[0]\n\_q"${@res}$(entry MJ.Main);
 	entry @res;
 )
 
