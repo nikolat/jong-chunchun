@@ -1,4 +1,4 @@
-charset,Shift_JIS
+charset,UTF-8
 
 //======================================================================
 // SERIKO/2.0
@@ -9,7 +9,7 @@ version,1
 }
 
 //======================================================================
-// ƒGƒCƒŠƒAƒX’è‹`
+// ã‚¨ã‚¤ãƒªã‚¢ã‚¹å®šç¾©
 //======================================================================
 sakura.surface.alias
 {
@@ -25,22 +25,22 @@ sakura.surface.alias
 }
 
 //======================================================================
-// Šî–{ƒT[ƒtƒBƒX
+// åŸºæœ¬ã‚µãƒ¼ãƒ•ã‚£ã‚¹
 //======================================================================
 surface100
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,161,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -48,19 +48,19 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface101
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0101.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,162,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -68,19 +68,19 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface102
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0102.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,164,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -88,19 +88,19 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface103
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0103.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,165,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -108,14 +108,14 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface104
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0104.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,4
 animation1.pattern0,overlayfast,164,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -125,14 +125,14 @@ animation1.pattern3,overlayfast,-1,100,0,0
 
 surface105
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0105.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,166,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -140,14 +140,14 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface106
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0106.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,161,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -155,19 +155,19 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface107
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0107.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,4
 animation1.pattern0,overlayfast,164,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -177,28 +177,28 @@ animation1.pattern3,overlayfast,-1,100,0,0
 
 surface108
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0108.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,166,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
 }
 
 //======================================================================
-// ƒp[ƒc
+// ãƒ‘ãƒ¼ãƒ„
 //======================================================================
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 surface151
 {
 element0,base,element0151.png,0,0
@@ -207,7 +207,7 @@ surface152
 {
 element0,base,element0152.png,0,0
 }
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 surface161
 {
 element0,base,element0161.png,0,0
@@ -234,23 +234,23 @@ element0,base,element0166.png,0,0
 }
 
 //======================================================================
-// Šî–{ƒT[ƒtƒBƒX—pƒGƒCƒŠƒAƒX
+// åŸºæœ¬ã‚µãƒ¼ãƒ•ã‚£ã‚¹ç”¨ã‚¨ã‚¤ãƒªã‚¢ã‚¹
 //======================================================================
 surface201
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0201.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,163,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -258,19 +258,19 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface202
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0202.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,0,0,0
 animation0.pattern1,overlayfast,152,80,0,0
 animation0.pattern2,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,165,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -278,18 +278,18 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface203
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0203.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,80,0,0
 animation0.pattern1,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,165,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -297,14 +297,14 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface204
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0204.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,165,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -312,18 +312,18 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface205
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0205.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,80,0,0
 animation0.pattern1,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,166,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -331,18 +331,18 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface207
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0207.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//–Úƒpƒ`
+//ç›®ãƒ‘ãƒ
 animation0.interval,sometimes
 animation0.pattern0,overlayfast,151,80,0,0
 animation0.pattern1,overlayfast,-1,80,0,0
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,165,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0
@@ -350,14 +350,14 @@ animation1.pattern1,overlayfast,-1,100,0,0
 
 surface208
 {
-//ƒGƒŒƒƒ“ƒg‡¬
+//ã‚¨ãƒ¬ãƒ¡ãƒ³ãƒˆåˆæˆ
 element0,base,surface0000.png,0,0
 element1,overlayfast,element0208.png,0,0
-//“–‚½‚è”»’è
+//å½“ãŸã‚Šåˆ¤å®š
 collision0,39,46,179,126,Head
 collision1,81,139,152,190,Face
 collision2,71,219,156,260,Bust
-//ŒûƒpƒN
+//å£ãƒ‘ã‚¯
 animation1.interval,talk,2
 animation1.pattern0,overlayfast,166,50,0,0
 animation1.pattern1,overlayfast,-1,100,0,0

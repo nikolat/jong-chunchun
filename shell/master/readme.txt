@@ -1,7 +1,7 @@
 
-ƒ{ƒgƒ‹”L(774447)—l‚ÌƒtƒŠ[ƒVƒFƒ‹up008iŽ¨K”öbrjv‚ð‰ÁH‚µ‚Ä
-Žg—p‚µ‚Ä‚¨‚è‚Ü‚·B‚ ‚è‚ª‚Æ‚¤‚²‚´‚¢‚Ü‚·B
+ãƒœãƒˆãƒ«çŒ«(774447)æ§˜ã®ãƒ•ãƒªãƒ¼ã‚·ã‚§ãƒ«ã€Œp008ï¼ˆè€³å°»å°¾brï¼‰ã€ã‚’åŠ å·¥ã—ã¦
+ä½¿ç”¨ã—ã¦ãŠã‚Šã¾ã™ã€‚ã‚ã‚ŠãŒã¨ã†ã”ã–ã„ã¾ã™ã€‚
 
-    ”Lƒ{ƒgƒ‹/catbottle
+    çŒ«ãƒœãƒˆãƒ«/catbottle
       http://catbottle.sakura.ne.jp/
 

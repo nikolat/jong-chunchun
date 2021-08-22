@@ -1,4 +1,4 @@
-charset,Shift_JIS
+charset,UTF-8
 type,ghost
-name,-ƒ`ƒ…ƒ“ƒ`ƒ…ƒ“
+name,é›€-ãƒãƒ¥ãƒ³ãƒãƒ¥ãƒ³
 directory,jong-chunchun

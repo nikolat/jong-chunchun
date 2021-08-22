@@ -1,57 +1,57 @@
 ========================================================================
-yƒ\ƒtƒg–¼Ìz-ƒ`ƒ…ƒ“ƒ`ƒ…ƒ“
-y § ì ŽÒ zDon
-y “®ìŠÂ‹« zWindows10 21H1 + SSP/2.5.07
-y ƒ^ ƒC ƒv zuŽf‚©v—pƒS[ƒXƒg
-y ŽæˆµŽí•Ê zƒtƒŠ[ƒEƒFƒA
-y ”z•zŒŽ“ú z2014/01/18
-y ”z •z Œ³ zhttp://nikolat.herokuapp.com/
-y  ”õ  l  zŒãq
+ã€ã‚½ãƒ•ãƒˆåç§°ã€‘é›€-ãƒãƒ¥ãƒ³ãƒãƒ¥ãƒ³
+ã€ åˆ¶ ä½œ è€… ã€‘Don
+ã€ å‹•ä½œç’°å¢ƒ ã€‘Windows10 21H1 + SSP/2.5.16
+ã€ ã‚¿ ã‚¤ ãƒ— ã€‘ã€Œä¼ºã‹ã€ç”¨ã‚´ãƒ¼ã‚¹ãƒˆ
+ã€ å–æ‰±ç¨®åˆ¥ ã€‘ãƒ•ãƒªãƒ¼ã‚¦ã‚§ã‚¢
+ã€ é…å¸ƒæœˆæ—¥ ã€‘2014/01/18
+ã€ é… å¸ƒ å…ƒ ã€‘http://nikolat.herokuapp.com/
+ã€  å‚™  è€ƒ  ã€‘å¾Œè¿°
 ========================================================================
-¡ŠT—v
+â– æ¦‚è¦
 
-  Žf‚©ŒÝŠ·ƒx[ƒXƒEƒFƒA‚É‘Î‚µ‚ÄSSTP‘—M‚ðs‚¤–ƒƒQ[ƒ€ƒ\ƒtƒg‚©‚ç‚Ì
-  ƒCƒxƒ“ƒg’Ê’m‚É‘Î‰ž‚µ‚½ƒvƒŒƒCƒ„[ƒS[ƒXƒg‚Å‚·B
+  ä¼ºã‹äº’æ›ãƒ™ãƒ¼ã‚¹ã‚¦ã‚§ã‚¢ã«å¯¾ã—ã¦SSTPé€ä¿¡ã‚’è¡Œã†éº»é›€ã‚²ãƒ¼ãƒ ã‚½ãƒ•ãƒˆã‹ã‚‰ã®
+  ã‚¤ãƒ™ãƒ³ãƒˆé€šçŸ¥ã«å¯¾å¿œã—ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚´ãƒ¼ã‚¹ãƒˆã§ã™ã€‚
 
-¡ƒ‰ƒCƒZƒ“ƒX
+â– ãƒ©ã‚¤ã‚»ãƒ³ã‚¹
 
- SHIORI‚Æ‚µ‚Äu‰Ø˜a—œv‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·B
+â–¡SHIORIã¨ã—ã¦ã€Œè¯å’Œæ¢¨ã€ã‚’ä½¿ç”¨ã—ã¦ã„ã¾ã™ã€‚
 
-    ƒvƒƒOƒ‰ƒ}ƒuƒ‹€AI ‰Ø˜a—œ
+    ãƒ—ãƒ­ã‚°ãƒ©ãƒžãƒ–ãƒ«æº–AI è¯å’Œæ¢¨
       http://kawari.sourceforge.net/
 
- SAORI‚Æ‚µ‚ÄuAquesTalkSaoriv‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·B
+â–¡SAORIã¨ã—ã¦ã€ŒAquesTalkSaoriã€ã‚’ä½¿ç”¨ã—ã¦ã„ã¾ã™ã€‚
 
-    •‚Žq‰®–{•Ü
+    æµ®å­å±‹æœ¬èˆ—
       http://ukiya.sakura.ne.jp/
 
- Š”Ž®‰ïŽÐƒAƒNƒGƒXƒg‚Ì‰¹º‡¬ƒGƒ“ƒWƒ“uAquesTalkv‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·B
+â–¡æ ªå¼ä¼šç¤¾ã‚¢ã‚¯ã‚¨ã‚¹ãƒˆã®éŸ³å£°åˆæˆã‚¨ãƒ³ã‚¸ãƒ³ã€ŒAquesTalkã€ã‚’ä½¿ç”¨ã—ã¦ã„ã¾ã™ã€‚
 
 -=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-
-E‚±‚ÌƒS[ƒXƒg‚ÍAŠ”Ž®‰ïŽÐƒAƒNƒGƒXƒg‚Ì‹K‘¥‰¹º‡¬ƒ‰ƒCƒuƒ‰ƒŠAquesTalk‚ð
-  Žg—p‚µ‚Ä‚¢‚Ü‚·B
-EAquesTalk ‹K‘¥‰¹º‡¬ƒ‰ƒCƒuƒ‰ƒŠ AquesTalk.dll AquesTalkDa.dll ‚ÍA
-  Š”Ž®‰ïŽÐƒAƒNƒGƒXƒg ‚Ì’˜ì•¨‚Å‚·B
+ãƒ»ã“ã®ã‚´ãƒ¼ã‚¹ãƒˆã¯ã€æ ªå¼ä¼šç¤¾ã‚¢ã‚¯ã‚¨ã‚¹ãƒˆã®è¦å‰‡éŸ³å£°åˆæˆãƒ©ã‚¤ãƒ–ãƒ©ãƒªAquesTalkã‚’
+  ä½¿ç”¨ã—ã¦ã„ã¾ã™ã€‚
+ãƒ»AquesTalk è¦å‰‡éŸ³å£°åˆæˆãƒ©ã‚¤ãƒ–ãƒ©ãƒª AquesTalk.dll AquesTalkDa.dll ã¯ã€
+  æ ªå¼ä¼šç¤¾ã‚¢ã‚¯ã‚¨ã‚¹ãƒˆ ã®è‘—ä½œç‰©ã§ã™ã€‚
 -=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-*-=-
 
- ƒAƒCƒRƒ“‚¨‚æ‚ÑƒTƒ€ƒlƒCƒ‹‚É–³—¿‘fÞ‹äŠy•”—l‚Ìƒ}[ƒWƒƒƒ“”v‰æ‘œ‘fÞ‚ð
-  Žg—p‚µ‚Ä‚¢‚Ü‚·B
+â–¡ã‚¢ã‚¤ã‚³ãƒ³ãŠã‚ˆã³ã‚µãƒ ãƒã‚¤ãƒ«ã«ç„¡æ–™ç´ æå€¶æ¥½éƒ¨æ§˜ã®ãƒžãƒ¼ã‚¸ãƒ£ãƒ³ç‰Œç”»åƒç´ æã‚’
+  ä½¿ç”¨ã—ã¦ã„ã¾ã™ã€‚
 
-    –³—¿‘fÞ‹äŠy•”
+    ç„¡æ–™ç´ æå€¶æ¥½éƒ¨
       http://sozai.7gates.net/docs/mahjong01/
 
- ƒtƒŠ[ƒVƒFƒ‹up008iŽ¨K”öbrjv‚ðŽg—p‚µ‚Ä‚¢‚Ü‚·B
+â–¡ãƒ•ãƒªãƒ¼ã‚·ã‚§ãƒ«ã€Œp008ï¼ˆè€³å°»å°¾brï¼‰ã€ã‚’ä½¿ç”¨ã—ã¦ã„ã¾ã™ã€‚
 
-    ”Lƒ{ƒgƒ‹/catbottle
+    çŒ«ãƒœãƒˆãƒ«/catbottle
       http://catbottle.sakura.ne.jp/
 
- ã‹LˆÈŠO‚ÌƒeƒLƒXƒgƒtƒ@ƒCƒ‹AŽ«‘ƒtƒ@ƒCƒ‹‚Ì—Þ‚¢‚É‚Â‚¢‚Ä
-  ’˜ìŽÒlŠiŒ ‚ÍDon‚É‹A‘®‚µ‚Ü‚·
+â–¡ä¸Šè¨˜ä»¥å¤–ã®ãƒ†ã‚­ã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã€è¾žæ›¸ãƒ•ã‚¡ã‚¤ãƒ«ã®é¡žã„ã«ã¤ã„ã¦
+  è‘—ä½œè€…äººæ ¼æ¨©ã¯Donã«å¸°å±žã—ã¾ã™
 
-    ‚·‚­‚è‚â
+    ã™ãã‚Šã‚„
       http://nikolat.herokuapp.com/
 
-  ƒ‰ƒCƒZƒ“ƒX‚ÍuCC0 1.0 Universalv‚Å‚·B
+  ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã¯ã€ŒCC0 1.0 Universalã€ã§ã™ã€‚
 
     Creative Commons - CC0 1.0 Universal
       http://creativecommons.org/publicdomain/zero/1.0/

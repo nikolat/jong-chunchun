@@ -1,12 +1,13 @@
-charset,Shift_JIS
+charset,UTF-8
 type,shell
 name,master
 
 craftman,bottlecat_774447
-craftmanw,ƒ{ƒgƒ‹”L—774447
+craftmanw,ãƒœãƒˆãƒ«çŒ«ï¼ 774447
 craftmanurl,http://catbottle.sakura.ne.jp/
 
 readme,readme.txt
+readme.charset,UTF-8
 
 menu.background.bitmap.filename,menu/menu_background.png
 menu.foreground.bitmap.filename,menu/menu_foreground.png
