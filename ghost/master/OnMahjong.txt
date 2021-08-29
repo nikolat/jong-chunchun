@@ -303,10 +303,10 @@ MJ.say: $(
 			setstr @say "\s[3]ノーテン";
 			setstr @aqtk "の'ーてん";
 		);
-		echo \0${@say}\_w[2000]\e;
+		echo \0${@say}\e;
 		callsaori aqtk PLAYASYNC ${@aqtk};
 	) else if $[ ${System.Request.Reference3} == "richi" ] $(
-		echo \0\s[0]\w9\w9\s[2]ふええ。\_w[2000]\e
+		echo \0\s[0]\w9\w9\s[2]ふええ。\e
 	);
 )
 
