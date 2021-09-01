@@ -267,8 +267,14 @@ MJ.naku?: $(
 #===========================================================
 # tenpai? テンパイを宣言するか尋ねる
 #===========================================================
+#MJ.tenpai?: $(
+#	setstr @r "yes";
+#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@r}]\e;
+#)
+
+#コマンドを送らないことでサーバーに対応を委任する
 MJ.tenpai?: $(
-	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},yes]\e;
+	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
 )
 
 #===========================================================
