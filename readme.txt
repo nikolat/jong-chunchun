@@ -20,6 +20,11 @@
     プログラマブル準AI 華和梨
       http://kawari.sourceforge.net/
 
+□SAORIとして「MahjongUtil.dll」を使用しています。
+
+    すくりや
+      http://nikolat.herokuapp.com/
+
 □SAORIとして「AquesTalkSaori」を使用しています。
 
     浮子屋本舗

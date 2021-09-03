@@ -101,9 +101,10 @@ MouseMove0Bust : \0\s[2]イカサマ？\_w[500]何も隠してないよ？\e
 #################################################
 
 OnKeyPress: $(
-	if $[ ${System.Request.Reference0} == "r" ] $(
-		echo "\![reload,shiori]\0\s[0]\_qReloaded.\e";
-	);
+	entry sys.key.${System.Request.Reference0};
+)
+sys.key.r: $(
+	echo \![reload,shiori]\0\s[0]\_qReloaded.\e;
 )
 
 #################################################

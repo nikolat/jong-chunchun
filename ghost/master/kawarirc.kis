@@ -8,4 +8,5 @@ load MahjongAI.txt;
 #SAORI“o˜^
 =kis
 saoriregist saori\aqtk\AqTalkSaori.dll aqtk preload;
+saoriregist saori\MahjongUtil\MahjongUtil.dll mj preload;
 =end

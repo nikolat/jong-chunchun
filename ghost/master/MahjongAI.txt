@@ -2,45 +2,287 @@
 # LICENSE: CC0 1.0 Universal
 # http://creativecommons.org/publicdomain/zero/1.0/
 #===========================================================
-
+#時間がかかりすぎて実用に耐えない
+MJ.Enable.MentsuPattern: 0
 #===========================================================
 # 何を切るか
 #===========================================================
-# ひたすら七対子を目指す
+#テンパイに近づける
 =kis
 function MJ.Naniwokiru $(
-	setstr @strTehai $@arg[1];
-	setstr @strKawa $@arg[2];
-	split @arTehai $(
-		MJ.MakeArrayFromString ${@strTehai};
-	) ,;
-	split @arKawa $(
-		MJ.MakeArrayFromString ${@strKawa};
-	) ,;
-	#3枚同じ牌があれば切る
-	setstr @dahai $(
-		MJ.Get3SameElement $(
-			MJ.SortHai $(join @arTehai ,);
+	setstr @strTehai13 $@arg[1];
+	setstr @strTsumo $@arg[2];
+	setstr @strKawa $@arg[3];
+	setstr @strBafuhai $@arg[4];
+	setstr @strJifuhai $@arg[5];
+	setstr @strDorahyouji $@arg[6];
+	split @aryPlayerRichi $@arg[7] ,;
+	split @aryPlayerGenbutsu $@arg[8] ,;
+
+	setstr @strTehai14 $(MJ.AddHai ${@strTehai13} ${@strTsumo});
+	split @arSutehaiKouho $(MJ.Uniq $(MJ.GetTehaiArrayWithoutFuro ${@strTehai14})) ,;
+	#ドラ
+	split @arDorahyouji $(MJ.MakeArrayFromString ${@strDorahyouji}) ,;
+	foreach @d @arDorahyouji $(
+		adddictstr @arDora $(MJ.GetDoraFromDorahyouji ${@d});
+	);
+	setstr @strDora $(join @arDora "");
+	#孤立牌
+	split @arKoritsuhai $(MJ.GetKoritsuHaiArray ${@strTehai14}) ,;
+
+	setstr @point -1;
+	foreach @sutehai @arSutehaiKouho $(
+		setstr @strTehaiRemoved $(MJ.RemoveHai ${@strTehai14} ${@sutehai});
+		setstr @shanten $(MJ.GetShantenYaku ${@strTehaiRemoved} ${@strBafuhai} ${@strJifuhai});
+		setstr @shantenPoint $[ 1000 * (10 - ${@shanten}) ];
+		setstr @machiPoint 0;
+		setstr @elementMaxPoint 0;
+		#テンパイ時は待ちの広さ・和了点の高さを考慮
+		if $[ ${@shanten} == 0 ] $(
+			split @arMachi $(MJ.GetMachiArray ${@strTehaiRemoved}) ,;
+			foreach @machi @arMachi $(
+				#ツモった場合を想定
+				setstr @isTsumo 1;
+				setstr @score $(MJ.GetScore ${@strTehaiRemoved} ${@machi} ${@strBafuhai} ${@strJifuhai} ${@strDora} ${@isTsumo});
+				if $[ ${@score} > 0 ] $(
+					setstr @machiPoint $[ ${@machiPoint} + ${@score} ];
+				);
+			);
+			#テンパイを崩してまでオリないこととする
+			inc @shantenPoint 10000;
+		) else if ${MJ.Enable.MentsuPattern} $(
+			split @arMentsuPattern $(MJ.GetMentsuPattern ${@strTehaiRemoved}) |;
+			foreach @strMentsu @arMentsuPattern $(
+				setstr @elementPoint 0;
+				if $[ ${@strMentsu} == "chitoitsu" || ${@strMentsu} == "kokushimusou"] $(
+					setstr @elementPoint 0;
+				) else $(
+					split @ap ${@strMentsu} ,;
+					clear @arTatsu;
+					foreach @p @ap $(
+						if $[ $(length ${@p}) == 6 ] $(
+							#面子
+							inc @elementPoint 90;
+						) else if $[ $(length ${@p}) == 4 ] $(
+							adddictstr @arTatsu ${@p};
+						);
+					);
+					foreach @tatsu @arTatsu $(
+						setstr @t1 $(substr ${@tatsu} 0 1);
+						setstr @t2 $(substr ${@tatsu} 2 1);
+						if $[ ${@t1} != 1 && ${@t1} + 1 == ${@t2} && ${@t2} != 9 ] $(
+							#両面
+							inc @elementPoint 60;
+						) else if $[ ${@t1} == ${@t2} ] $(
+							#対子
+							inc @elementPoint 40;
+						) else if $[ ${@t1} == 1 && ${@t2} == 2 || ${@t1} == 8 && ${@t2} == 9 ] $(
+							#辺張
+							inc @elementPoint 20;
+						) else $(
+							#嵌張
+							inc @elementPoint 30;
+						);
+					);
+				);
+				if $[ ${@elementMaxPoint} < ${@elementPoint} ] $(
+					setstr @elementMaxPoint ${@elementPoint};
+				);
+			);
+		);
+		#孤立牌を優先的に切る
+		setstr @koritsuPoint 0;
+		if $[ $(find @arKoritsuhai ${@sutehai}) >= 0 ] $(
+			setstr @koritsuPoint 500;
+		);
+		#既に捨てた牌を優先的に切る
+		setstr @furitenPoint 0;
+		if $[ $(match ${@strKawa} ${@sutehai}) >= 0 ] $(
+			setstr @furitenPoint 10;
+		);
+		#ドラは残しておきたい
+		setstr @doraPoint 0;
+		if $[ $(find @arDora ${@sutehai}) >= 0 ] $(
+			setstr @doraPoint -50;
+		);
+		#現物を優先的に切る
+		setstr @genbutsuPoint 0;
+		setstr @i 0;
+		while $[ $@aryPlayerRichi[${@i}] != "" ] $(
+			if $@aryPlayerRichi[${@i}] $(
+				if $[ $(match @aryPlayerGenbutsu[${@i}] ${@sutehai}) >= 0 ] $(
+					setstr @genbutsuPoint $[ ${@genbutsuPoint} + 2000 ];
+					#親のリーチは特に避けたい
+					if $[ ${@i} == 0 ] $(
+						setstr @genbutsuPoint $[ ${@genbutsuPoint} + 1000 ];
+					);
+				);
+			);
+			inc @i;
+		);
+		setstr @dahaiPoint $[ ${@shantenPoint} + ${@machiPoint} + ${@elementMaxPoint} + ${@koritsuPoint} + ${@furitenPoint} + ${@doraPoint} + ${@genbutsuPoint} ];
+		if $[ ${@point} < ${@dahaiPoint} ] $(
+			setstr @point ${@dahaiPoint};
+			clear @arDahai;
+			adddictstr @arDahai ${@sutehai};
+		) else if $[ ${@point} == ${@dahaiPoint} ] $(
+			adddictstr @arDahai ${@sutehai};
 		);
 	);
-	if $[ ${@dahai} != "" ] $(
-		return ${@dahai};
+	return $(entry @arDahai);
+);
+
+#手牌から副露を除去
+function MJ.GetTehaiArrayWithoutFuro $(
+	setstr @strTehai $@arg[1];
+	setstr @i 0;
+	while $[ $(substr ${@strTehai} ${@i} 2) != "" ] $(
+		setstr @s1 $(substr ${@strTehai} ${@i} 1);
+		if $[ ${@s1} == "<" || ${@s1} == "(" ] $(
+			return $(join @r ,);
+		);
+		adddictstr @r $(substr ${@strTehai} ${@i} 2);
+		inc @i 2;
 	);
-	#過去に切った牌をツモ切り フリテン防止(配列の最後の要素がツモである前提のため注意)
-	setstr @dahai $@arTehai[-1];
-	if $[ $(find @arKawa ${@dahai}) >= 0 ] $(
-		return ${@dahai};
+	return $(join @r ,);
+);
+
+#配列から重複する要素を除く
+function MJ.Uniq $(
+	split @ary $@arg[1] ,;
+	setstr @i 0;
+	while $[ $@ary[${@i}] != "" ] $(
+		if $[ $(find @r $@ary[${@i}]) == -1 ] $(
+			adddictstr @r $@ary[${@i}];
+		);
+		inc @i;
 	);
-	#1枚のみの牌を切る
-	split @arDahai $(
-		MJ.GetSoloElements $(join @arTehai ,);
-	) ,;
-	setstr @dahai $(entry @arDahai);
-	if $[ ${@dahai} != "" ] $(
-		return ${@dahai};
+	return $(join @r ,);
+);
+
+#孤立牌の探索
+function MJ.GetKoritsuHaiArray $(
+	split @hai $(MJ.GetTehaiArrayWithoutFuro $@arg[1]) ,;
+	setstr @strTehai $(join @hai "");
+	setstr @i 0;
+	while $[ $@hai[${@i}] != "" ] $(
+		setstr @num $(substr $@hai[${@i}] 0 1);
+		setstr @color $(substr $@hai[${@i}] 1 1);
+		setstr @rem $(sub ${@strTehai} $@hai[${@i}] "");
+		if $[ ${@color} == "m" || ${@color} == "p" || ${@color} == "s" ] $(
+			setstr @haiP2 $[ ${@num} - 2 ]${@color};
+			setstr @haiP1 $[ ${@num} - 1 ]${@color};
+			setstr @haiN1 $[ ${@num} + 1 ]${@color};
+			setstr @haiN2 $[ ${@num} + 2 ]${@color};
+			if $[ !( $(match ${@strTehai} ${@haiP2}) >= 0
+				|| $(match ${@strTehai} ${@haiP1}) >= 0
+				|| $(match ${@rem} $@hai[${@i}]) >= 0
+				|| $(match ${@strTehai} ${@haiN1}) >= 0
+				|| $(match ${@strTehai} ${@haiN2}) >= 0
+				) ] $(
+				adddictstr @r $@hai[${@i}];
+			);
+		) else if $[ ${@color} == "z" ] $(
+			if $[ $(match ${@rem} $@hai[${@i}]) == -1 ] $(
+				adddictstr @r $@hai[${@i}];
+			);
+		);
+		inc @i;
 	);
-	#それは和了である
-	return "";
+	return $(join @r ,);
+);
+
+#牌を追加
+function MJ.AddHai $(
+	setstr @strHai1 $@arg[1];
+	setstr @strHai2 $@arg[2];
+	split @arHai2 $(MJ.MakeArrayFromString ${@strHai2}) ,;
+	setstr @strToAdd ${@strHai1};
+	setstr @i 0;
+	while $[ $@arHai2[${@i}] != "" ] $(
+		setstr @strAdded "";
+		setstr @isAdded 0;
+		setstr @j 0;
+		while $[ ${@j} < $(length ${@strToAdd}) ] $(
+			setstr @s1 $(substr ${@strToAdd} ${@j} 1);
+			if $[ ${@s1} == "<" ] $(
+				if $[ !${@isAdded} ] $(
+					setstr @isAdded 1;
+					setstr @s $(MJ.SortHai $(MJ.MakeArrayFromString ${@strAdded}$@arHai2[${@i}]));
+					setstr @strAdded $(gsub ${@s} , "");
+				);
+				if $[ $(substr ${@strToAdd} $[ ${@j} + 7 ] 1) == ">" ] $(
+					setstr @strAdded ${@strAdded}$(substr ${@strToAdd} ${@j} 8);
+					inc @j 7;
+				) else if $[ $(substr ${@strToAdd} $[ ${@j} + 9 ] 1) == ">" ] $(
+					setstr @strAdded ${@strAdded}$(substr ${@strToAdd} ${@j} 10);
+					inc @j 9;
+				);
+			) else if $[ ${@s1} == "(" ] $(
+				if $[ !${@isAdded} ] $(
+					setstr @isAdded 1;
+					setstr @s $(MJ.SortHai $(MJ.MakeArrayFromString ${@strAdded}$@arHai2[${@i}]));
+					setstr @strAdded $(gsub ${@s} , "");
+				);
+				if $[ $(substr ${@strToAdd} $[ ${@j} + 9 ] 1) == ")" ] $(
+					setstr @strAdded ${@strAdded}$(substr ${@strToAdd} ${@j} 10);
+					inc @j 9;
+				);				
+			) else $(
+				setstr @strAdded ${@strAdded}$(substr ${@strToAdd} ${@j} 2);
+				inc @j;
+			);
+			inc @j;
+		);
+		if $[ !${@isAdded} ] $(
+			setstr @strAdded $(gsub $(MJ.SortHai $(MJ.MakeArrayFromString ${@strAdded}$@arHai2[${@i}])) , "");
+		);
+		setstr @strToAdd ${@strAdded};
+		inc @i;
+	);
+	return ${@strToAdd};
+);
+
+#牌を除去
+function MJ.RemoveHai $(
+	setstr @strHai1 $@arg[1];
+	setstr @strHai2 $@arg[2];
+	split @arHai2 $(MJ.MakeArrayFromString ${@strHai2}) ,;
+	setstr @strToRemove ${@strHai1};
+	setstr @i 0;
+	while $[ $@arHai2[${@i}] != "" ] $(
+		setstr @strRemoved "";
+		setstr @isRemoved 0;
+		setstr @j 0;
+		while $[ ${@j} < $(length ${@strToRemove}) ] $(
+			setstr @s1 $(substr ${@strToRemove} ${@j} 1);
+			if $[ ${@s1} == "<" ] $(
+				if $[ $(substr ${@strToRemove} $[ ${@j} + 7 ] 1) == ">" ] $(
+					setstr @strRemoved ${@strRemoved}$(substr ${@strToRemove} ${@j} 8);
+					inc @j 7;
+				) else if $[ $(substr ${@strToRemove} $[ ${@j} + 9 ] 1) == ">" ] $(
+					setstr @strRemoved ${@strRemoved}$(substr ${@strToRemove} ${@j} 10);
+					inc @j 9;
+				);
+			) else if $[ ${@s1} == "(" ] $(
+				if $[ $(substr ${@strToRemove} $[ ${@j} + 9 ] 1) == ")" ] $(
+					setstr @strRemoved ${@strRemoved}$(substr ${@strToRemove} ${@j} 10);
+					inc @j 9;
+				);
+			) else $(
+				if $[ !${@isRemoved} && ($(substr ${@strToRemove} ${@j} 2) == $@arHai2[${@i}]) ] $(
+					setstr @isRemoved 1;
+				) else $(
+					setstr @strRemoved ${@strRemoved}$(substr ${@strToRemove} ${@j} 2);
+				);
+				inc @j;
+			);
+			inc @j;
+		);
+		setstr @strToRemove ${@strRemoved};
+		inc @i;
+	);
+	return ${@strToRemove};
 );
 
 #"1m2m3m" -> "1m,2m,3m"変換
@@ -48,9 +290,7 @@ function MJ.MakeArrayFromString $(
 	setstr @s $@arg[1];
 	setstr @i 0;
 	while 1 $(
-		setstr @e $(
-			substr ${@s} ${@i} 2;
-		);
+		setstr @e $(substr ${@s} ${@i} 2);
 		if $[ ${@e} == "" ] $(
 			break;
 		);
@@ -92,79 +332,140 @@ function MJ.SortHai $(
 	return $(join @r ,);
 );
 
+#ドラ表示牌からドラを求める
+function MJ.GetDoraFromDorahyouji $(
+	setstr @hai $@arg[1];
+	setstr @num $(substr ${@hai} 0 1);
+	setstr @color $(substr ${@hai} 1 1);
+	if $[ ${color} == "m" || ${color} == "p" || ${color} == "s" ] $(
+		setstr @n $[ ${@num} % 9 + 1 ];
+		return ${@n}${@color};
+	) else if $[ 1 <= ${@num} && ${@num} <= 4 ] $(
+		setstr @n $[ ${@num} % 4 + 1 ];
+		return ${@n}${@color};
+	) else if $[ ${@num} == 7 ] $(
+		return 5z;
+	) else $(
+		setstr @n $[ ${@num} + 1 ];
+		return ${@n}${@color};
+	);
+);
+
 #ソート順定義
 function MJ.GetSortCode $(
 	setstr @s $@arg[1];
 	split @a "1m,2m,3m,4m,5m,6m,7m,8m,9m,1p,2p,3p,4p,5p,6p,7p,8p,9p,1s,2s,3s,4s,5s,6s,7s,8s,9s,1z,2z,3z,4z,5z,6z,7z" ",";
-	setstr @r $(
-		find @a ${@s};
-	);
+	setstr @r $(find @a ${@s});
 	return ${@r};
 );
 
-#3枚同じ牌があるものを返す ソート済前提のため注意
-function MJ.Get3SameElement $(
-	split @a $@arg[1] ,;
-	setstr @n $(size @a);
-	setstr @e $@a[0];
-	setstr @i 1;
-	while $[ ${@i} < ${@n} - 1 ] $(
-		if $[ ${@e} == $@a[${@i}] && ${@e} == $@a[${@i} + 1] ] $(
-			return ${@e};
-		) else $(
-			setstr @e $@a[${@i}];
-		);
-		inc @i;
-	);
+#===========================================================
+# 副露判断
+#===========================================================
+function MJ.GetAnkanHaiBest $(
 	return "";
 );
 
-#同じ牌がない(1枚だけの)ものをすべて返す
-function MJ.GetSoloElements $(
-	split @a $@arg[1] ,;
-	setstr @n $(size @a);
+#本当は5回目の槓の場合を考慮しないといけない
+function MJ.CanAnkan $(
+	return 0;
+);
+
+function MJ.GetAnkanHai $(
+	return "";
+);
+
+function MJ.GetKakanHaiBest $(
+	return "";
+);
+
+#本当は5回目の槓の場合を考慮しないといけない
+function MJ.CanKakan $(
+	return 0;
+);
+
+function MJ.GetKakanHai $(
+	return "";
+);
+
+function MJ.ShouldRichi $(
+	return 0;
+);
+
+function MJ.CanRichi $(
+	return 0;
+);
+
+function MJ.ShouldDaiminkan $(
+	return 0;
+);
+
+function MJ.ShouldPon $(
+	return 0;
+);
+
+function MJ.GetChiMaterialBest $(
+	return "";
+)
+
+function MJ.GetChiMaterial $(
+	return "";
+);
+
+function MJ.ShouldSayTenpai $(
+	return 1;
+);
+
+#===========================================================
+# SAORIを使用する関数
+#===========================================================
+#役のあるシャンテン数を求める
+function MJ.GetShantenYaku $(
+	setstr @strTehai $@arg[1];
+	setstr @strBafuhai $@arg[2];
+	setstr @strJifuhai $@arg[3];
+	setstr @r $(callsaori mj shanten_yaku ${@strTehai} ${@strBafuhai} ${@strJifuhai});
+	return ${@r};
+);
+
+#手牌の形のパターンを求める(戻り値の区切り文字に注意)
+function MJ.GetMentsuPattern $(
+	setstr @strTehai $@arg[1];
+	setstr @res $(callsaorix mj @res shanten ${@strTehai});
 	setstr @i 0;
-	while $[ ${@i} < ${@n} ] $(
-		if $[ $(find @a $@a[${@i}]) == $(rfind @a $@a[${@i}]) ] $(
-			adddictstr @r $@a[${@i}];
-		);
+	while $[ ${@res.Value${@i}} != "" ] $(
+		adddictstr @r ${@res.Value${@i}};
 		inc @i;
 	);
+	return $(join @r |);
+);
+
+#待ちを求める
+function MJ.GetMachiArray $(
+	setstr @strTehai $@arg[1];
+	setstr @res $(callsaori mj machi ${@strTehai});
+	setstr @r $(MJ.MakeArrayFromString ${@res});
 	return $(join @r ,);
 );
 
-#===========================================================
-# 向聴数計算
-#===========================================================
-#tehaiはソートされてる前提
-function MJ.GetShanten $(
-	#今は七対子のみ
-	return $(MJ.GetShantenChitoitsu $@arg[1]);
+#和了点を求める
+function MJ.GetScore $(
+	setstr @strTehai $@arg[1];
+	setstr @strAtarihai $@arg[2];
+	setstr @strBafuhai $@arg[3];
+	setstr @strJifuhai $@arg[4];
+	setstr @strDora $@arg[5];
+	setstr @isTsumo $@arg[6];
+	setstr @isRichi 0;
+	setstr @isIppatsu 0;
+	setstr @isChankan 0;
+	setstr @isRinshan 0;
+	setstr @isFinalTileWin 0;
+	setstr @is1stRound 0;
+	setstr @r $(callsaori mj score
+		${@strTehai} ${@strAtarihai} ${@strBafuhai} ${@strJifuhai} ${@strDora}
+		${@isTsumo} ${@isRichi} ${@isIppatsu} ${@isChankan} ${@isRinshan}
+		${@isFinalTileWin} ${@is1stRound});
+	return ${@r};
 );
-
-function MJ.GetShantenChitoitsu $(
-	split @tehai $@arg[1] ,;
-	setstr @nToitsu 0;
-	setstr @nType 0;
-	setstr @baseHai "";
-	setstr @n $(size @tehai);
-	setstr @i 0;
-	while $[ ${@i} < ${@n} ] $(
-		if $[ ${@baseHai} != $@tehai[${@i}] ] $(
-			inc @nType;
-			setstr @baseHai $@tehai[${@i}];
-			if $[ ${@baseHai} == $@tehai[${@i} + 1] ] $(
-				inc @i;
-				inc @nToitsu;
-			);
-		);
-		inc @i;
-	);
-	if $[ ${@nType} >= 7 ] $(
-		setstr @nType 7;
-	);
-	setstr @n $[ 6 - ${@nToitsu} + (7 - ${@nType})];
-	return ${@n};
-);
-
 =end
