@@ -59,7 +59,7 @@ MJ.Main: $(
 # hello 接続確認
 #===========================================================
 MJ.hello: $(
-	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},ump=${MJ.ump_version},name=${MJ.PlayerName}];
+	MJ.SendResponse ${System.Request.Reference1} ump=${MJ.ump_version} name=${MJ.PlayerName};
 )
 MJ.ump_version: ?
 
@@ -124,63 +124,6 @@ MJ.kyokustart: $(
 )
 MJ.kyokustart.talk: \0\s[0]\e
 
-=kis
-function MJ.GetBafuhai $(
-	setstr @bafu $@arg[1];
-	if $[ ${@bafu} == "東" ] $(
-		return 1z;
-	) else if $[ ${@bafu} == "南" ] $(
-		return 2z;
-	);
-	return "";
-);
-
-function MJ.GetJifuhai $(
-	setstr @oyaname $@arg[1];
-	setstr @oya -1;
-	setstr @self -1;
-	setstr @i 0;
-	while $[ $MJ.Save.PlayerName[${@i}] != "" ] $(
-		if $[ $MJ.Save.PlayerName[${@i}] == ${@oyaname} ] $(
-			setstr @oya ${@i};
-		);
-		if $[ $MJ.Save.PlayerName[${@i}] == ${MJ.PlayerName} ] $(
-			setstr @self ${@i};
-		);
-		inc @i;
-	);
-	setstr @n $[ (4 + ${@self} - ${@oya}) % 4 + 1 ];
-	return ${@n}z;
-);
-
-#MJ.Save.PlayerNameを東家から並べ直したものを得る
-function MJ.GetPlayers $(
-	setstr @oyaname $@arg[1];
-	setstr @findoya 0;
-	setstr @i 0;
-	while $[ $(size @r) < 4 ] $(
-		if $[ $MJ.Save.PlayerName[${@i}] == ${@oyaname} ] $(
-			setstr @findoya 1;
-		);
-		if ${@findoya} $(
-			adddictstr @r $MJ.Save.PlayerName[${@i}];
-		);
-		setstr @i $[ (${@i} + 1) % 4 ];
-	);
-	return $(join @r ,);
-);
-
-#ゲーム開始時席順index
-function MJ.B $(
-	return $(find MJ.Save.PlayerName $@arg[1]);
-);
-
-#東家からのindex
-function MJ.I $(
-	return $(find MJ.Save.Players $@arg[1]);
-);
-=end
-
 #===========================================================
 # kyokuend 一局終了
 #===========================================================
@@ -237,37 +180,6 @@ MJ.point: $(
 MJ.point.minus.small: \0\s[4]あちゃー…。\e
 MJ.point.minus.large: \0\s[3]ひどーい。\e
 MJ.point.minus.large: \0\s[7]むー。\e
-
-=kis
-#name[index] = value
-function MJ.SetArrayElement $(
-	setstr @name $@arg[1];
-	setstr @index $@arg[2];
-	setstr @value $@arg[3];
-	setstr @i 0;
-	while $[ $${@name}[${@i}] != "" ] $(
-		if $[ ${@i} == ${@index} ] $(
-			adddictstr @r ${@value};
-		) else $(
-			adddictstr @r $${@name}[${@i}];
-		);
-		inc @i;
-	);
-	return $(join @r ,);
-);
-
-function MJ.GetLeadPoint $(
-	setstr @secondscore -100000;
-	setstr @i 0;
-	while $[ $MJ.Save.Player.Score[${@i}] != "" ] $(
-		if $[ ${@i} != $(MJ.B ${MJ.PlayerName}) && $MJ.Save.Player.Score[${@i}] > ${@secondScore} ] $(
-			setstr @secondScore $MJ.Save.Player.Score[${@i}];
-		);
-		inc @i;
-	);
-	return $[ $MJ.Save.Player.Score[$(MJ.B ${MJ.PlayerName})] - ${@secondScore} ];
-);
-=end
 
 #===========================================================
 # haipai 配牌を配る
@@ -428,12 +340,12 @@ MJ.sutehai.talk.tedashi: \0\s[5]♪\e
 #		setstr @action sutehai;
 #		setstr @select ${@dahai};
 #	);
-#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@action},${@select}]\e;
+#	MJ.SendResponse ${System.Request.Reference1} ${@action} ${@select};
 #)
 
 #コマンドを送らないことでサーバーに対応を委任する
 MJ.sutehai?: $(
-	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
+	MJ.SendResponse ${System.Request.Reference1} "";
 )
 
 #===========================================================
@@ -474,12 +386,12 @@ MJ.sutehai?: $(
 #	if $[ ${@action} == ""] $(
 #		setstr @action no;
 #	);
-#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@action}]\e;
+#	MJ.SendResponse ${System.Request.Reference1} ${@action};
 #)
 
 #コマンドを送らないことでサーバーに対応を委任する
 MJ.naku?: $(
-	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
+	MJ.SendResponse ${System.Request.Reference1} "";
 )
 
 #===========================================================
@@ -492,12 +404,12 @@ MJ.naku?: $(
 #	) else $(
 #		setstr @action no;
 #	);
-#	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},${@action}]\e;
+#	MJ.SendResponse ${System.Request.Reference1} ${@action};
 #)
 
 #コマンドを送らないことでサーバーに対応を委任する
 MJ.tenpai?: $(
-	echo \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},${System.Request.Reference1},]\e;
+	MJ.SendResponse ${System.Request.Reference1} "";
 )
 
 #===========================================================
@@ -570,3 +482,117 @@ MJ.agari: $(
 MJ.ryukyoku: $(
 	setstr MJ.Save.Status 流局;
 )
+
+#===========================================================
+# utility
+#===========================================================
+=kis
+function MJ.SendResponse $(
+	if $(MJ.IsSSTP) $(
+		setstr System.Response.X-SSTP-PassThru-ID ${MJ.ResponseEventID};
+		setstr System.Response.X-SSTP-PassThru-Reference0 ${MJ.Version};
+		setstr @i 1;
+		while $[ $@arg[${@i}] != "" ] $(
+			setstr System.Response.X-SSTP-PassThru-Reference${@i} $@arg[${@i}];
+			inc @i;
+		);
+		return "";
+	) else $(
+		setstr @i 1;
+		while $[ $@arg[${@i}] != "" ] $(
+			adddictstr @a $@arg[${@i}];
+			inc @i;
+		);
+		return \![raiseother,${System.Request.Sender},${MJ.ResponseEventID},${MJ.Version},$(join @a ,)]\e;
+	);
+);
+
+function MJ.IsSSTP $(
+	split @sendertype ${System.Request.SenderType} ,;
+	return $[ $(find @sendertype sstp) >= 0 ];
+);
+
+#name[index] = value
+function MJ.SetArrayElement $(
+	setstr @name $@arg[1];
+	setstr @index $@arg[2];
+	setstr @value $@arg[3];
+	setstr @i 0;
+	while $[ $${@name}[${@i}] != "" ] $(
+		if $[ ${@i} == ${@index} ] $(
+			adddictstr @r ${@value};
+		) else $(
+			adddictstr @r $${@name}[${@i}];
+		);
+		inc @i;
+	);
+	return $(join @r ,);
+);
+
+function MJ.GetLeadPoint $(
+	setstr @secondscore -100000;
+	setstr @i 0;
+	while $[ $MJ.Save.Player.Score[${@i}] != "" ] $(
+		if $[ ${@i} != $(MJ.B ${MJ.PlayerName}) && $MJ.Save.Player.Score[${@i}] > ${@secondScore} ] $(
+			setstr @secondScore $MJ.Save.Player.Score[${@i}];
+		);
+		inc @i;
+	);
+	return $[ $MJ.Save.Player.Score[$(MJ.B ${MJ.PlayerName})] - ${@secondScore} ];
+);
+
+function MJ.GetBafuhai $(
+	setstr @bafu $@arg[1];
+	if $[ ${@bafu} == "東" ] $(
+		return 1z;
+	) else if $[ ${@bafu} == "南" ] $(
+		return 2z;
+	);
+	return "";
+);
+
+function MJ.GetJifuhai $(
+	setstr @oyaname $@arg[1];
+	setstr @oya -1;
+	setstr @self -1;
+	setstr @i 0;
+	while $[ $MJ.Save.PlayerName[${@i}] != "" ] $(
+		if $[ $MJ.Save.PlayerName[${@i}] == ${@oyaname} ] $(
+			setstr @oya ${@i};
+		);
+		if $[ $MJ.Save.PlayerName[${@i}] == ${MJ.PlayerName} ] $(
+			setstr @self ${@i};
+		);
+		inc @i;
+	);
+	setstr @n $[ (4 + ${@self} - ${@oya}) % 4 + 1 ];
+	return ${@n}z;
+);
+
+#MJ.Save.PlayerNameを東家から並べ直したものを得る
+function MJ.GetPlayers $(
+	setstr @oyaname $@arg[1];
+	setstr @findoya 0;
+	setstr @i 0;
+	while $[ $(size @r) < 4 ] $(
+		if $[ $MJ.Save.PlayerName[${@i}] == ${@oyaname} ] $(
+			setstr @findoya 1;
+		);
+		if ${@findoya} $(
+			adddictstr @r $MJ.Save.PlayerName[${@i}];
+		);
+		setstr @i $[ (${@i} + 1) % 4 ];
+	);
+	return $(join @r ,);
+);
+
+#ゲーム開始時席順index
+function MJ.B $(
+	return $(find MJ.Save.PlayerName $@arg[1]);
+);
+
+#東家からのindex
+function MJ.I $(
+	return $(find MJ.Save.Players $@arg[1]);
+);
+=end
