@@ -1,7 +1,7 @@
 ========================================================================
 【ソフト名称】雀-チュンチュン
 【 制 作 者 】Don
-【 動作環境 】Windows10 21H1 + SSP/2.5.16
+【 動作環境 】Windows10 21H1 + SSP/2.5.24
 【 タ イ プ 】「伺か」用ゴースト
 【 取扱種別 】フリーウェア
 【 配布月日 】2014/01/18
@@ -10,8 +10,22 @@
 ========================================================================
 ■概要
 
+  これは「伺か」で動作するゴーストです。
   伺か互換ベースウェアに対してSSTP送信を行う麻雀ゲームソフトからの
   イベント通知に対応したプレイヤーゴーストです。
+
+  ゴーストの使い方 - SSP
+    http://keshiki.nobody.jp/
+
+  ※音が出ます。「m」キーでミュート。
+
+■通信仕様
+
+  UKADOC Project SHIORI Eventリスト（外部）
+    http://ssp.shillest.net/ukadoc/manual/list_shiori_event_ex.html#OnMahjong
+
+  UMP(Universal Mahjong Protocol)
+    https://osdn.net/projects/openmj/wiki/UMP
 
 ■ライセンス
 
@@ -51,7 +65,8 @@
       http://catbottle.sakura.ne.jp/
 
 □上記以外のテキストファイル、辞書ファイルの類いについて
-  著作者人格権はDonに帰属します
+
+  著作者人格権はDonに帰属します。
 
     すくりや
       http://nikolat.herokuapp.com/
@@ -60,4 +75,3 @@
 
     Creative Commons - CC0 1.0 Universal
       http://creativecommons.org/publicdomain/zero/1.0/
-

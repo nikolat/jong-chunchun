@@ -451,7 +451,9 @@ MJ.say: $(
 			setstr @aqtk "の'ーてん";
 		);
 		echo \0${@say}\e;
-		callsaori aqtk PLAYASYNC ${@aqtk};
+		if ${MJ.IsSoundEnabled} $(
+			callsaori aqtk PLAYASYNC ${@aqtk};
+		);
 	) else if $[ ${@word} == "richi" ] $(
 		entry MJ.say.talk.other.richi;
 		split @a $(MJ.SetArrayElement MJ.Save.Player.Richi $(MJ.I ${@playerName}) 1) ,;
@@ -469,8 +471,9 @@ MJ.say.talk.other.richi: \0\s[0]\w9\w9\s[2]ふええ。\e
 #===========================================================
 # agari あがり
 # Reference2: プレイヤー名
-# Reference3: Reserved(符)
-# Reference4: Reserved(役,ハン数)
+# Reference3: 符
+# Reference4: 役,ハン数
+# Reference5: 以降、Reference4同様
 #===========================================================
 MJ.agari: $(
 	setstr MJ.Save.Status 和了;
@@ -596,3 +599,27 @@ function MJ.I $(
 	return $(find MJ.Save.Players $@arg[1]);
 );
 =end
+
+#===========================================================
+# Sound
+#===========================================================
+MJ.SoundDefault: 1
+MJ.IsSoundEnabled: $(
+	if $[ ${MJ.Sound} != "" ] $(
+		entry MJ.Sound;
+	) else $(
+		echo ${MJ.SoundDefault};
+	);
+)
+sys.key.m: $(
+	if $[ ${MJ.Sound} == "" ] $(
+		setstr MJ.Sound $[ !${MJ.SoundDefault} ];
+	) else $(
+		setstr MJ.Sound $[ !${MJ.Sound} ];
+	);
+	if ${MJ.Sound} $(
+		echo \0\_qSound: ON\_q\e;
+	) else $(
+		echo \0\_qSound: OFF\_q\e;
+	);
+)
