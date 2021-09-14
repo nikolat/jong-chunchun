@@ -91,12 +91,30 @@ MJ.gamestart.talk: \0\s[5]お手柔らかに。\e
 # Reference5: プレイヤー名4[0x01]点数
 #===========================================================
 MJ.gameend: $(
+	setstr @i 2;
+	while $[ ${System.Request.Reference${@i}} != "" ] $(
+		clear @a;
+		split @a ${System.Request.Reference${@i}} $(chr 1);
+		setstr @playerName $@a[0];
+		setstr @score $@a[1];
+		clear @a;
+		split @a $(MJ.SetArrayElement MJ.Save.Player.Score $(MJ.B ${@playerName}) ${@score}) ,;
+		clear MJ.Save.Player.Score;
+		copy @a MJ.Save.Player.Score;
+		inc @i;
+	);
+	if $[ $(MJ.GetLeadPoint) > 0] $(
+		entry MJ.gameend.talk.top;
+	) else $(
+		entry MJ.gameend.talk.normal;
+	);
 	clear MJ.Save.PlayerName;
 	clear MJ.Save.Player.Score;
-	entry MJ.gameend.talk;
 )
-MJ.gameend.talk: \0\s[0]楽しかったね。\e
-MJ.gameend.talk: \0\s[0]また遊んでね。\e
+MJ.gameend.talk.top: \0\s[5]いっちばーん！\e
+MJ.gameend.talk.top: \0\s[1]%selfname、\_w[500]勝っちゃった？\e
+MJ.gameend.talk.normal: \0\s[0]楽しかったね。\e
+MJ.gameend.talk.normal: \0\s[0]また遊んでね。\e
 
 #===========================================================
 # kyokustart 一局が始まるときに送る
@@ -164,19 +182,27 @@ MJ.point: $(
 	) else if $[ ${MJ.Save.Status} == "流局" || ${MJ.Save.Status} == "" ] $(
 		#流局では一々喋らない
 		clear MJ.Save.Status;
-	) else if $[ ${System.Request.Reference3} == "=" ] $(
-		#増減のみに反応
 	) else if $[ ${System.Request.Reference3} == "+" ] $(
+		if $[ 8000 <= ${System.Request.Reference4} ] $(
+			entry MJ.point.plus.large;
+		) else $(
+			entry MJ.point.plus.small;
+		);
 		clear MJ.Save.Status;
-		echo \0\s[5]ありがと。\e;
-	) else if $[ 8000 <= ${System.Request.Reference4} ] $(
+	) else if $[ ${System.Request.Reference3} == "-" ] $(
+		if $[ 8000 <= ${System.Request.Reference4} ] $(
+			entry MJ.point.minus.large;
+		) else $(
+			entry MJ.point.minus.small;
+		);
 		clear MJ.Save.Status;
-		entry MJ.point.minus.small;
-	) else $(
-		clear MJ.Save.Status;
-		entry MJ.point.minus.large;
 	);
 )
+MJ.point.plus.small: \0\s[5]ありがと。\e
+MJ.point.plus.small: \0\s[6]見直した？\e
+MJ.point.plus.large: \0\s[5]ラッキー♪\e
+MJ.point.plus.large: \0\s[1]ごめんね？\e
+MJ.point.minus.small: \0\s[8]強いんだね。\e
 MJ.point.minus.small: \0\s[4]あちゃー…。\e
 MJ.point.minus.large: \0\s[3]ひどーい。\e
 MJ.point.minus.large: \0\s[7]むー。\e
@@ -440,7 +466,11 @@ MJ.say: $(
 			setstr @say "\s[5]ツモ";
 			setstr @aqtk "つ'も";
 		) else if $[ ${@word} == "richi" ] $(
-			setstr @say "\s[6]リーチ";
+			if $[ $(find MJ.Save.Player.Richi 1) >= 0 ] $(
+				setstr @say "\s[5]追っかけリーチ！";
+			) else $(
+				setstr @say "\s[6]リーチ";
+			);
 			setstr @aqtk "り'ーち";
 			setstr MJ.Save.Richi 1;
 		) else if $[ ${@word} == "tenpai" ] $(
