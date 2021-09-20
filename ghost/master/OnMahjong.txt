@@ -216,7 +216,7 @@ MJ.hasUradora: $(
 	if $[ ${MJ.Save.Tsumo} != "" ] $(
 		setstr @atarihai ${MJ.Save.Tsumo};
 	) else if $[ ${MJ.Save.Sutehai} != "" ] $(
-		setstr @atarihai ${MJ.Save.Tsumo};
+		setstr @atarihai ${MJ.Save.Sutehai};
 	);
 	setstr @tehai ${MJ.Save.Tehai}${@atarihai};
 	split @a $(MJ.MakeArrayFromString ${MJ.Save.Uradorahyouji}) ,;
