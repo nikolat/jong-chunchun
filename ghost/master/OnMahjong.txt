@@ -409,64 +409,66 @@ MJ.sutehai?: $(
 # Reference2: (ron|kan|pon|chi)
 # Reference3: 以降、Reference2同様
 #===========================================================
-#MJ.naku?: $(
-#	setstr @action "";
-#	setstr @i 2;
-#	while $[ ${System.Request.Reference${@i}} != "" ] $(
-#		if $[ ${System.Request.Reference${@i}} == "ron" ] $(
-#			setstr @action ron;
-#			break;
-#		);
-#		if $[ ${System.Request.Reference${@i}} == "kan" ] $(
-#			if $(MJ.ShouldDaiminkan ${MJ.Save.Tehai} ${MJ.Save.Sutehai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} $(join MJ.Save.Player.Richi ,)) $(
-#				setstr @action kan;
-#				break;
-#			);
-#		);
-#		if $[ ${System.Request.Reference${@i}} == "pon" ] $(
-#			if $(MJ.ShouldPon ${MJ.Save.Tehai} ${MJ.Save.Sutehai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} $(join MJ.Save.Player.Richi ,)) $(
-#				setstr @action pon;
-#				break;
-#			);
-#		);
-#		if $[ ${System.Request.Reference${@i}} == "chi" ] $(
-#			setstr @cm $(MJ.GetChiMaterialBest ${MJ.Save.Tehai} ${MJ.Save.Sutehai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} $(join MJ.Save.Player.Richi ,));
-#			if $[ ${@cm} != "" ] $(
-#				split @am $(MJ.MakeArrayFromString ${@cm}) ,;
-#				setstr @action chi,$@am[0],$@am[1];
-#				break;
-#			);
-#		);
-#		inc @i;
-#	);
-#	if $[ ${@action} == ""] $(
-#		setstr @action no;
-#	);
-#	MJ.SendResponse ${System.Request.Reference1} ${@action};
-#)
+MJ.naku?: $(
+	setstr @action "";
+	setstr @i 2;
+	while $[ ${System.Request.Reference${@i}} != "" ] $(
+		if $[ ${System.Request.Reference${@i}} == "ron" ] $(
+			setstr @action ron;
+			break;
+		);
+		if $[ ${System.Request.Reference${@i}} == "kan" ] $(
+			if $(MJ.ShouldDaiminkan ${MJ.Save.Tehai} ${MJ.Save.Sutehai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} $(join MJ.Save.Player.Richi ,)) $(
+				setstr @action kan;
+				break;
+			);
+		);
+		if $[ ${System.Request.Reference${@i}} == "pon" ] $(
+			if $(MJ.ShouldPon ${MJ.Save.Tehai} ${MJ.Save.Sutehai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} $(join MJ.Save.Player.Richi ,)) $(
+				setstr @action pon;
+				break;
+			);
+		);
+		if $[ ${System.Request.Reference${@i}} == "chi" ] $(
+			setstr @cm $(MJ.GetChiMaterialBest ${MJ.Save.Tehai} ${MJ.Save.Sutehai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} $(join MJ.Save.Player.Richi ,));
+			if $[ ${@cm} != "" ] $(
+				split @am $(MJ.MakeArrayFromString ${@cm}) ,;
+				setstr @action chi;
+				setstr @h1 $@am[0];
+				setstr @h2 $@am[1];
+				break;
+			);
+		);
+		inc @i;
+	);
+	if $[ ${@action} == ""] $(
+		setstr @action no;
+	);
+	MJ.SendResponse ${System.Request.Reference1} ${@action} ${@h1} ${@h2};
+)
 
 #コマンドを送らないことでサーバーに対応を委任する
-MJ.naku?: $(
-	MJ.SendResponse ${System.Request.Reference1} "";
-)
+#MJ.naku?: $(
+#	MJ.SendResponse ${System.Request.Reference1} "";
+#)
 
 #===========================================================
 # tenpai? テンパイを宣言するか尋ねる
 #===========================================================
-#MJ.tenpai?: $(
-#	setstr @action "";
-#	if $(MJ.ShouldSayTenpai ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Kyoku} ${MJ.Save.Richi} $(MJ.GetLeadPoint)) $(
-#		setstr @action yes;
-#	) else $(
-#		setstr @action no;
-#	);
-#	MJ.SendResponse ${System.Request.Reference1} ${@action};
-#)
+MJ.tenpai?: $(
+	setstr @action "";
+	if $(MJ.ShouldSayTenpai ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Kyoku} ${MJ.Save.Richi} $(MJ.GetLeadPoint)) $(
+		setstr @action yes;
+	) else $(
+		setstr @action no;
+	);
+	MJ.SendResponse ${System.Request.Reference1} ${@action};
+)
 
 #コマンドを送らないことでサーバーに対応を委任する
-MJ.tenpai?: $(
-	MJ.SendResponse ${System.Request.Reference1} "";
-)
+#MJ.tenpai?: $(
+#	MJ.SendResponse ${System.Request.Reference1} "";
+#)
 
 #===========================================================
 # say 発声

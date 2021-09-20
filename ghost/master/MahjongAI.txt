@@ -365,8 +365,8 @@ function MJ.GetAnkanHaiBest $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
 	setstr @isRichi $@arg[3];
-	setstr @bafuHai $@arg[4];
-	setstr @jifuHai $@arg[5];
+#	setstr @bafuHai $@arg[4];
+#	setstr @jifuHai $@arg[5];
 	setstr @nokori $@arg[6];
 	if $[ !$(MJ.CanAnkan ${@tehai} ${@tsumoHai} ${@isRichi} ${@nokori}) ] $(
 		return "";
@@ -383,7 +383,6 @@ function MJ.CanAnkan $(
 	setstr @tsumoHai $@arg[2];
 	setstr @isRichi $@arg[3];
 	setstr @nokori $@arg[4];
-
 	if $[ ${@nokori} == 0 ] $(
 		return 0;
 	);
@@ -442,8 +441,7 @@ function MJ.GetKakanHaiBest $(
 	setstr @bafuHai $@arg[3];
 	setstr @jifuHai $@arg[4];
 	setstr @nokori $@arg[5];
-	split @aryPlayerRichi $@arg[6] ,;
-
+#	split @aryPlayerRichi $@arg[6] ,;
 	if $[ !$(MJ.CanKakan ${@tehai} ${@tsumoHai} ${@nokori}) ] $(
 		return "";
 	);
@@ -466,7 +464,6 @@ function MJ.CanKakan $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
 	setstr @nokori $@arg[3];
-
 	if $[ ${@nokori} == 0 ] $(
 		return 0;
 	);
@@ -495,11 +492,11 @@ function MJ.ShouldRichi $(
 	setstr @shanten $@arg[2];
 	setstr @isRichi $@arg[3];
 	setstr @nokori $@arg[4];
-	setstr @tsumo $@arg[5];
-	setstr @dahai $@arg[6];
-	setstr @strBafuhai $@arg[7];
-	setstr @strJifuhai $@arg[8];
-	setstr @strDorahyouji $@arg[9];
+#	setstr @tsumo $@arg[5];
+#	setstr @dahai $@arg[6];
+#	setstr @strBafuhai $@arg[7];
+#	setstr @strJifuhai $@arg[8];
+#	setstr @strDorahyouji $@arg[9];
 	if $[ !$(MJ.CanRichi ${@tehai} ${@shanten} ${@isRichi} ${@nokori}) ] $(
 		return 0;
 	);
@@ -519,28 +516,82 @@ function MJ.CanRichi $(
 );
 
 function MJ.ShouldDaiminkan $(
-	#未実装
 	return 0;
 );
 
 function MJ.ShouldPon $(
-	#未実装
+	setstr @tehai $@arg[1];
+	setstr @sutehai $@arg[2];
+	setstr @bafuHai $@arg[3];
+	setstr @jifuHai $@arg[4];
+#	split @aryPlayerRichi $@arg[5] ,;
+	setstr @h ${@sutehai};
+	setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@h}${@h})<${@h}${@h}${@h}>;
+	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
+	setstr @shantenAfter $(MJ.GetShantenYaku ${@tehaiNew} ${@bafuHai} ${@jifuHai});
+	if $[ ${@shantenAfter} < ${@shantenBefore} ] $(
+		return 1;
+	);
 	return 0;
 );
 
 function MJ.GetChiMaterialBest $(
-	#未実装
-	return "";
+	setstr @tehai $@arg[1];
+	setstr @sutehai $@arg[2];
+	setstr @bafuHai $@arg[3];
+	setstr @jifuHai $@arg[4];
+#	split @aryPlayerRichi $@arg[5] ,;
+	split @arChi $(MJ.GetChiMaterial ${@tehai} ${@sutehai}) ,;
+	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
+	foreach @c @arChi $(
+		setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@c})<$(join $(MJ.SortHai $(MJ.MakeArrayFromString ${@c}${@sutehai})) "")>;
+		setstr @shantenAfter $(MJ.GetShantenYaku ${@tehaiNew} ${@bafuHai} ${@jifuHai});
+		if $[ ${@shantenAfter} < ${@shantenBefore} ] $(
+			adddictstr @r ${@c};
+		);
+	);
+	return $(entry @r);
 );
 
 function MJ.GetChiMaterial $(
-	#未実装
-	return "";
+	setstr @strTehai $@arg[1];
+	setstr @sutehai $@arg[2];
+	clear @r;
+	setstr @n $(substr ${@sutehai} 0 1);
+	setstr @color $(substr ${@sutehai} 1 1);
+	if $[ ${@color} == "z" ] $(
+		return ${@r};
+	);
+	split @arTehai $(MJ.GetTehaiArrayWithoutFuro ${@strTehai}) ,;
+	clear @a;
+	foreach @hai @arTehai $(
+		if $[ $(substr ${@hai} 1 1) == ${@color} ] $(
+			adddictstr @a $(substr ${@hai} 0 1);
+		);
+	);
+	if $[ $(find @a $[ ${@n} - 2 ]) >= 0 && $(find @a $[ ${@n} - 1 ]) >= 0 ] $(
+		adddictstr @r $[ ${@n} - 2 ]${@color}$[ ${@n} - 1 ]${@color};
+	);
+	if $[ $(find @a $[ ${@n} - 1 ]) >= 0 && $(find @a $[ ${@n} + 1 ]) >= 0 ] $(
+		adddictstr @r $[ ${@n} - 1 ]${@color}$[ ${@n} + 1 ]${@color};
+	);
+	if $[ $(find @a $[ ${@n} + 1 ]) >= 0 && $(find @a $[ ${@n} + 2 ]) >= 0 ] $(
+		adddictstr @r $[ ${@n} + 1 ]${@color}$[ ${@n} + 2 ]${@color};
+	);
+	return $(join @r ,);
 );
 
 function MJ.ShouldSayTenpai $(
-	#未実装
-	return 1;
+	setstr @bafuHai $@arg[1];
+	setstr @jifuHai $@arg[2];
+	setstr @kyoku $@arg[3];
+	setstr @isRichi $@arg[4];
+	setstr @lead $@arg[5];
+	#オーラスで東家で未リーチで現在1位で2位との差が4000点より多いならノーテン宣言する
+	if $[ ${@bafuhai} != "2z" || ${@jifuhai} != "1z" || ${@kyoku} != 4 || ${@isRichi} || ${@lead} <= 4000 ] $(
+		return 1;
+	);
+	return 0;
 );
 
 #===========================================================
