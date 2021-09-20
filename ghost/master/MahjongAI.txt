@@ -544,7 +544,7 @@ function MJ.GetChiMaterialBest $(
 	split @arChi $(MJ.GetChiMaterial ${@tehai} ${@sutehai}) ,;
 	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
 	foreach @c @arChi $(
-		setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@c})<$(join $(MJ.SortHai $(MJ.MakeArrayFromString ${@c}${@sutehai})) "")>;
+		setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@c})<$(gsub $(MJ.SortHai $(MJ.MakeArrayFromString ${@c}${@sutehai})) , "")>;
 		setstr @shantenAfter $(MJ.GetShantenYaku ${@tehaiNew} ${@bafuHai} ${@jifuHai});
 		if $[ ${@shantenAfter} < ${@shantenBefore} ] $(
 			adddictstr @r ${@c};
