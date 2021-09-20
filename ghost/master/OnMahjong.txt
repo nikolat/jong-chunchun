@@ -127,6 +127,7 @@ MJ.kyokustart: $(
 	setstr MJ.Save.Kawa "";
 	setstr MJ.Save.Richi 0;
 	setstr MJ.Save.Dorahyouji "";
+	setstr MJ.Save.Uradorahyouji "";
 	setstr MJ.Save.Bafuhai $(MJ.GetBafuhai ${System.Request.Reference2});
 	setstr MJ.Save.Jifuhai $(MJ.GetJifuhai ${System.Request.Reference3});
 	setstr MJ.Save.Kyoku $[ $(find MJ.Save.PlayerName ${System.Request.Reference3}) + 1 ];
@@ -150,6 +151,7 @@ MJ.kyokuend: $(
 	clear MJ.Save.Kawa;
 	clear MJ.Save.Richi;
 	clear MJ.Save.Dorahyouji;
+	clear MJ.Save.Uradorahyouji;
 	clear MJ.Save.Bafuhai;
 	clear MJ.Save.Jifuhai;
 	clear MJ.Save.Kyoku;
@@ -183,7 +185,9 @@ MJ.point: $(
 		#流局では一々喋らない
 		clear MJ.Save.Status;
 	) else if $[ ${System.Request.Reference3} == "+" ] $(
-		if $[ 8000 <= ${System.Request.Reference4} ] $(
+		if ${MJ.hasUradora} $(
+			entry MJ.point.plus.hasUradora;
+		) else if $[ 8000 <= ${System.Request.Reference4} ] $(
 			entry MJ.point.plus.large;
 		) else $(
 			entry MJ.point.plus.small;
@@ -198,6 +202,7 @@ MJ.point: $(
 		clear MJ.Save.Status;
 	);
 )
+MJ.point.plus.hasUradora: \0\s[5]わーい、\_w[500]裏ドラ♪\e
 MJ.point.plus.small: \0\s[5]ありがと。\e
 MJ.point.plus.small: \0\s[6]見直した？\e
 MJ.point.plus.large: \0\s[5]ラッキー♪\e
@@ -206,6 +211,27 @@ MJ.point.minus.small: \0\s[8]強いんだね。\e
 MJ.point.minus.small: \0\s[4]あちゃー…。\e
 MJ.point.minus.large: \0\s[3]ひどーい。\e
 MJ.point.minus.large: \0\s[7]むー。\e
+
+MJ.hasUradora: $(
+	if $[ ${MJ.Save.Tsumo} != "" ] $(
+		setstr @atarihai ${MJ.Save.Tsumo};
+	) else if $[ ${MJ.Save.Sutehai} != "" ] $(
+		setstr @atarihai ${MJ.Save.Tsumo};
+	);
+	setstr @tehai ${MJ.Save.Tehai}${@atarihai};
+	split @a $(MJ.MakeArrayFromString ${MJ.Save.Uradorahyouji}) ,;
+	setstr @r 0;
+	setstr @i 0;
+	while $[ $@a[${@i}] != "" ] $(
+		setstr @dora $(MJ.GetDoraFromDorahyouji $@a[${@i}]);
+		if $[ $(match ${@tehai} ${@dora}) >= 0 ] $(
+			setstr @r 1;
+			break;
+		);
+		inc @i;
+	);
+	entry @r;
+)
 
 #===========================================================
 # haipai 配牌を配る
@@ -221,7 +247,11 @@ MJ.haipai: $(
 # Reference2: 牌(ex.7z)
 #===========================================================
 MJ.dora: $(
-	setstr MJ.Save.Dorahyouji ${MJ.Save.Dorahyouji}${System.Request.Reference2};
+	if $[ ${MJ.Save.Status} == "和了" ] $(
+		setstr MJ.Save.Uradorahyouji ${MJ.Save.Uradorahyouji}${System.Request.Reference2};
+	) else $(
+		setstr MJ.Save.Dorahyouji ${MJ.Save.Dorahyouji}${System.Request.Reference2};
+	);
 )
 
 #===========================================================

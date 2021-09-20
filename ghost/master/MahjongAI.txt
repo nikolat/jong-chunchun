@@ -337,7 +337,7 @@ function MJ.GetDoraFromDorahyouji $(
 	setstr @hai $@arg[1];
 	setstr @num $(substr ${@hai} 0 1);
 	setstr @color $(substr ${@hai} 1 1);
-	if $[ ${color} == "m" || ${color} == "p" || ${color} == "s" ] $(
+	if $[ ${@color} == "m" || ${@color} == "p" || ${@color} == "s" ] $(
 		setstr @n $[ ${@num} % 9 + 1 ];
 		return ${@n}${@color};
 	) else if $[ 1 <= ${@num} && ${@num} <= 4 ] $(
