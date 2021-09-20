@@ -2,8 +2,6 @@
 # LICENSE: CC0 1.0 Universal
 # http://creativecommons.org/publicdomain/zero/1.0/
 #===========================================================
-#時間がかかりすぎて実用に耐えない
-MJ.Enable.MentsuPattern: 0
 #===========================================================
 # 何を切るか
 #===========================================================
@@ -34,11 +32,12 @@ function MJ.Naniwokiru $(
 	foreach @sutehai @arSutehaiKouho $(
 		setstr @strTehaiRemoved $(MJ.RemoveHai ${@strTehai14} ${@sutehai});
 		setstr @shanten $(MJ.GetShantenYaku ${@strTehaiRemoved} ${@strBafuhai} ${@strJifuhai});
-		setstr @shantenPoint $[ 1000 * (10 - ${@shanten}) ];
+		setstr @shantenPoint $[ 10000 * (10 - ${@shanten}) ];
 		setstr @machiPoint 0;
 		setstr @elementMaxPoint 0;
 		#テンパイ時は待ちの広さ・和了点の高さを考慮
 		if $[ ${@shanten} == 0 ] $(
+			clear @arMachi;
 			split @arMachi $(MJ.GetMachiArray ${@strTehaiRemoved}) ,;
 			foreach @machi @arMachi $(
 				#ツモった場合を想定
@@ -48,15 +47,15 @@ function MJ.Naniwokiru $(
 					setstr @machiPoint $[ ${@machiPoint} + ${@score} ];
 				);
 			);
-			#テンパイを崩してまでオリないこととする
-			inc @shantenPoint 10000;
-		) else if ${MJ.Enable.MentsuPattern} $(
+		) else $(
+			clear @arMentsuPattern;
 			split @arMentsuPattern $(MJ.GetMentsuPattern ${@strTehaiRemoved}) |;
 			foreach @strMentsu @arMentsuPattern $(
 				setstr @elementPoint 0;
 				if $[ ${@strMentsu} == "chitoitsu" || ${@strMentsu} == "kokushimusou"] $(
 					setstr @elementPoint 0;
 				) else $(
+					clear @ap;
 					split @ap ${@strMentsu} ,;
 					clear @arTatsu;
 					foreach @p @ap $(
@@ -363,56 +362,184 @@ function MJ.GetSortCode $(
 # 副露判断
 #===========================================================
 function MJ.GetAnkanHaiBest $(
+	setstr @tehai $@arg[1];
+	setstr @tsumoHai $@arg[2];
+	setstr @isRichi $@arg[3];
+	setstr @bafuHai $@arg[4];
+	setstr @jifuHai $@arg[5];
+	setstr @nokori $@arg[6];
+	if $[ !$(MJ.CanAnkan ${@tehai} ${@tsumoHai} ${@isRichi} ${@nokori}) ] $(
+		return "";
+	);
+	if ${@isRichi} $(
+		return ${@tsumoHai};
+	);
 	return "";
 );
 
 #本当は5回目の槓の場合を考慮しないといけない
 function MJ.CanAnkan $(
-	return 0;
+	setstr @tehai $@arg[1];
+	setstr @tsumoHai $@arg[2];
+	setstr @isRichi $@arg[3];
+	setstr @nokori $@arg[4];
+
+	if $[ ${@nokori} == 0 ] $(
+		return 0;
+	);
+	setstr @tehaiAdd $(MJ.AddHai ${@tehai} ${@tsumoHai});
+	split @arAnkanHai $(MJ.GetAnkanHai ${@tehaiAdd}) ,;
+	if $[ $(size @arAnkanHai) == 0 ] $(
+		return 0;
+	);
+	#リーチ後の場合
+	if ${@isRichi} $(
+		#送りカンの場合
+		if $[ $(find @arAnkanHai ${@tsumoHai}) == -1 ] $(
+			return 0;
+		);
+		#和了の形が変わる場合
+		split @arMentsuPattern $(MJ.GetMentsuPattern ${@tehai}) |;
+		foreach @m @arMentsuPattern $(
+			clear @ap;
+			split @ap ${@m} ,;
+			#常に暗刻でないとダメ
+			if $[ $(find @ap ${@tsumoHai}${@tsumoHai}${@tsumoHai}) == -1 ] $(
+				return 0;
+			);
+		);
+	);
+	return 1;
 );
 
 function MJ.GetAnkanHai $(
-	return "";
+	setstr @tehai $@arg[1];
+	split @arHai $(MJ.GetTehaiArrayWithoutFuro ${@tehai}) ,;
+	split @arHaiUniq $(MJ.Uniq $(join @arHai ,)) ,;
+	foreach @h @arHaiUniq $(
+		if $[ $(MJ.Count $(join @arHai ,) ${@h}) >= 4 ] $(
+			adddictstr @r ${@h};
+		);
+	);
+	return $(join @r ,);
+);
+
+function MJ.Count $(
+	split @a $@arg[1] ,;
+	setstr @s $@arg[2];
+	setstr @n 0;
+	foreach @e @a $(
+		if $[ ${@e} == ${@s} ] $(
+			inc @n;
+		);
+	);
+	return ${@n};
 );
 
 function MJ.GetKakanHaiBest $(
-	return "";
+	setstr @tehai $@arg[1];
+	setstr @tsumoHai $@arg[2];
+	setstr @bafuHai $@arg[3];
+	setstr @jifuHai $@arg[4];
+	setstr @nokori $@arg[5];
+	split @aryPlayerRichi $@arg[6] ,;
+
+	if $[ !$(MJ.CanKakan ${@tehai} ${@tsumoHai} ${@nokori}) ] $(
+		return "";
+	);
+	setstr @tehaiAdd $(MJ.AddHai ${@tehai} ${@tsumoHai});
+	split @arKakanHai $(MJ.GetKakanHai ${@tehaiAdd}) ,;
+	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
+	foreach @h @arKakanHai $(
+		setstr @strTehai $(sub ${@tehaiAdd} <${@h}${@h}${@h}> <${@h}${@h}${@h}${@h}>);
+		setstr @strTehai $(MJ.RemoveHai ${@strTehai} ${@h});
+		setstr @shantenAfter $(MJ.GetShantenYaku ${@strTehai} ${@bafuHai} ${@jifuHai});
+		if $[ ${@shantenBefore} >= ${@shantenAfter} ] $(
+			adddictstr @arKakanHaiUseful ${@h};
+		);
+	);
+	entry @arKakanHaiUseful;
 );
 
 #本当は5回目の槓の場合を考慮しないといけない
 function MJ.CanKakan $(
-	return 0;
+	setstr @tehai $@arg[1];
+	setstr @tsumoHai $@arg[2];
+	setstr @nokori $@arg[3];
+
+	if $[ ${@nokori} == 0 ] $(
+		return 0;
+	);
+	setstr @tehaiAdd $(MJ.AddHai ${@tehai} ${@tsumoHai});
+	split @arKakanHai $(MJ.GetKakanHai ${@tehaiAdd}) ,;
+	if $[ $(size @arKakanHai) == 0 ] $(
+		return 0;
+	);
+	return 1;
 );
 
 function MJ.GetKakanHai $(
-	return "";
+	setstr @tehai $@arg[1];
+	split @arHai $(MJ.GetTehaiArrayWithoutFuro ${@tehai}) ,;
+	split @arHaiUniq $(MJ.Uniq $(join @arHai ,)) ,;
+	foreach @h @arHaiUniq $(
+		if $[ $(match ${@tehai} <${@h}${@h}${@h}>) >= 0 ] $(
+			adddictstr @r ${@h};
+		);
+	);
+	return $(join @r ,);
 );
 
 function MJ.ShouldRichi $(
-	return 0;
+	setstr @tehai $@arg[1];
+	setstr @shanten $@arg[2];
+	setstr @isRichi $@arg[3];
+	setstr @nokori $@arg[4];
+	setstr @tsumo $@arg[5];
+	setstr @dahai $@arg[6];
+	setstr @strBafuhai $@arg[7];
+	setstr @strJifuhai $@arg[8];
+	setstr @strDorahyouji $@arg[9];
+	if $[ !$(MJ.CanRichi ${@tehai} ${@shanten} ${@isRichi} ${@nokori}) ] $(
+		return 0;
+	);
+	#テンパイ即リー
+	return 1;
 );
 
 function MJ.CanRichi $(
+	setstr @tehai $@arg[1];
+	setstr @shanten $@arg[2];
+	setstr @isRichi $@arg[3];
+	setstr @nokori $@arg[4];
+	if $[ $(match ${@tehai} <) == -1 && ${@shanten} == 0 && !${@isRichi} && ${@nokori} >= 4 ] $(
+		return 1;
+	);
 	return 0;
 );
 
 function MJ.ShouldDaiminkan $(
+	#未実装
 	return 0;
 );
 
 function MJ.ShouldPon $(
+	#未実装
 	return 0;
 );
 
 function MJ.GetChiMaterialBest $(
+	#未実装
 	return "";
-)
+);
 
 function MJ.GetChiMaterial $(
+	#未実装
 	return "";
 );
 
 function MJ.ShouldSayTenpai $(
+	#未実装
 	return 1;
 );
 

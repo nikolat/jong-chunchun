@@ -361,48 +361,48 @@ MJ.sutehai.talk.tedashi: \0\s[5]♪\e
 #===========================================================
 # sutehai? 捨牌を尋ねる
 #===========================================================
-#MJ.sutehai?: $(
-#	setstr @shanten $(MJ.GetShantenYaku $(MJ.AddHai ${MJ.Save.Tehai} ${MJ.Save.Tsumo}) ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai});
-#	setstr @dahai "";
-#	setstr @ankanHai "";
-#	setstr @kakanHai "";
-#	if $[ ${@shanten} >= 0 ] $(
-#		if ${MJ.Save.Richi} $(
-#			#リーチ済ならツモ切り
-#			setstr @dahai ${MJ.Save.Tsumo};
-#		) else $(
-#			setstr @dahai $(MJ.Naniwokiru ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Kawa} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Dorahyouji}
-#				$(join MJ.Save.Player.Richi ,) $(join MJ.Save.Player.Genbutsu ,));
-#			setstr @kakanHai $(MJ.GetKakanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} $(join MJ.Save.Player.Richi ,));
-#		);
-#		setstr @ankanHai $(MJ.GetAnkanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Richi} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai});
-#	);
-#	setstr @action "";
-#	setstr @select "";
-#	if $[ ${@shanten} == -1 ] $(
-#		setstr @action tsumo;
-#		setstr @select "";
-#	) else if $[ $(MJ.ShouldRichi ${MJ.Save.Tehai} ${@shanten} ${MJ.Save.Richi} ${MJ.Save.Nokori} ${MJ.Save.Tsumo}
-#			${@dahai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Dorahyouji}) ] $(
-#		setstr @action richi;
-#		setstr @select ${@dahai};
-#	) else if $[ ${@ankanHai} != "" ] $(
-#		setstr @action ankan;
-#		setstr @select ${@ankanHai};
-#	) else if $[ ${@kakanHai} != "" ] $(
-#		setstr @action kakan;
-#		setstr @select ${@kakanHai};
-#	) else $(
-#		setstr @action sutehai;
-#		setstr @select ${@dahai};
-#	);
-#	MJ.SendResponse ${System.Request.Reference1} ${@action} ${@select};
-#)
+MJ.sutehai?: $(
+	setstr @shanten $(MJ.GetShantenYaku $(MJ.AddHai ${MJ.Save.Tehai} ${MJ.Save.Tsumo}) ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai});
+	setstr @dahai "";
+	setstr @ankanHai "";
+	setstr @kakanHai "";
+	if $[ ${@shanten} >= 0 ] $(
+		if ${MJ.Save.Richi} $(
+			#リーチ済ならツモ切り
+			setstr @dahai ${MJ.Save.Tsumo};
+		) else $(
+			setstr @dahai $(MJ.Naniwokiru ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Kawa} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Dorahyouji}
+				$(join MJ.Save.Player.Richi ,) $(join MJ.Save.Player.Genbutsu ,));
+			setstr @kakanHai $(MJ.GetKakanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Nokori} $(join MJ.Save.Player.Richi ,));
+		);
+		setstr @ankanHai $(MJ.GetAnkanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Richi} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Nokori});
+	);
+	setstr @action "";
+	setstr @select "";
+	if $[ ${@shanten} == -1 ] $(
+		setstr @action tsumo;
+		setstr @select "";
+	) else if $[ $(MJ.ShouldRichi ${MJ.Save.Tehai} ${@shanten} ${MJ.Save.Richi} ${MJ.Save.Nokori} ${MJ.Save.Tsumo}
+			${@dahai} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Dorahyouji}) ] $(
+		setstr @action richi;
+		setstr @select ${@dahai};
+	) else if $[ ${@ankanHai} != "" ] $(
+		setstr @action ankan;
+		setstr @select ${@ankanHai};
+	) else if $[ ${@kakanHai} != "" ] $(
+		setstr @action kakan;
+		setstr @select ${@kakanHai};
+	) else $(
+		setstr @action sutehai;
+		setstr @select ${@dahai};
+	);
+	MJ.SendResponse ${System.Request.Reference1} ${@action} ${@select};
+)
 
 #コマンドを送らないことでサーバーに対応を委任する
-MJ.sutehai?: $(
-	MJ.SendResponse ${System.Request.Reference1} "";
-)
+#MJ.sutehai?: $(
+#	MJ.SendResponse ${System.Request.Reference1} "";
+#)
 
 #===========================================================
 # naku? 牌を鳴くか尋ねる。クライアントが可能なコマンドも送る
