@@ -375,7 +375,7 @@ MJ.sutehai?: $(
 				$(join MJ.Save.Player.Richi ,) $(join MJ.Save.Player.Genbutsu ,));
 			setstr @kakanHai $(MJ.GetKakanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Nokori} $(join MJ.Save.Player.Richi ,));
 		);
-		setstr @ankanHai $(MJ.GetAnkanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Richi} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Nokori});
+		setstr @ankanHai $(MJ.GetAnkanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Richi} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Nokori} $(join MJ.Save.Player.Richi ,));
 	);
 	setstr @action "";
 	setstr @select "";

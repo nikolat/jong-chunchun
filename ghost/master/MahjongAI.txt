@@ -361,20 +361,32 @@ function MJ.GetSortCode $(
 #===========================================================
 # 副露判断
 #===========================================================
+#カン大好き設定 シャンテン数が上がらない限りカンする
 function MJ.GetAnkanHaiBest $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
 	setstr @isRichi $@arg[3];
-#	setstr @bafuHai $@arg[4];
-#	setstr @jifuHai $@arg[5];
+	setstr @bafuHai $@arg[4];
+	setstr @jifuHai $@arg[5];
 	setstr @nokori $@arg[6];
+#	split @aryPlayerRichi $@arg[7] ,;
 	if $[ !$(MJ.CanAnkan ${@tehai} ${@tsumoHai} ${@isRichi} ${@nokori}) ] $(
 		return "";
 	);
 	if ${@isRichi} $(
 		return ${@tsumoHai};
 	);
-	return "";
+	setstr @tehaiAdd $(MJ.AddHai ${@tehai} ${@tsumoHai});
+	split @arAnkanHai $(MJ.GetAnkanHai ${@tehaiAdd}) ,;
+	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
+	foreach @h @arAnkanHai $(
+		setstr @strTehai $(MJ.RemoveHai ${@tehaiAdd} ${@h}${@h}${@h}${@h})"("${@h}${@h}${@h}${@h}")";
+		setstr @shantenAfter $(MJ.GetShantenYaku ${@strTehai} ${@bafuHai} ${@jifuHai});
+		if $[ ${@shantenBefore} >= ${@shantenAfter} ] $(
+			adddictstr @arAnkanHaiUseful ${@h};
+		);
+	);
+	return $(entry @arAnkanHaiUseful);
 );
 
 #本当は5回目の槓の場合を考慮しないといけない
@@ -435,6 +447,7 @@ function MJ.Count $(
 	return ${@n};
 );
 
+#カン大好き設定 シャンテン数が上がらない限りカンする
 function MJ.GetKakanHaiBest $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
@@ -456,7 +469,7 @@ function MJ.GetKakanHaiBest $(
 			adddictstr @arKakanHaiUseful ${@h};
 		);
 	);
-	entry @arKakanHaiUseful;
+	return $(entry @arKakanHaiUseful);
 );
 
 #本当は5回目の槓の場合を考慮しないといけない
@@ -515,7 +528,20 @@ function MJ.CanRichi $(
 	return 0;
 );
 
+#カン大好き設定 シャンテン数が上がらない限りカンする
 function MJ.ShouldDaiminkan $(
+	setstr @tehai $@arg[1];
+	setstr @sutehai $@arg[2];
+	setstr @bafuHai $@arg[3];
+	setstr @jifuHai $@arg[4];
+#	split @aryPlayerRichi $@arg[5] ,;
+	setstr @h ${@sutehai};
+	setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@h}${@h}${@h})<${@h}${@h}${@h}${@h}>;
+	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
+	setstr @shantenAfter $(MJ.GetShantenYaku ${@tehaiNew} ${@bafuHai} ${@jifuHai});
+	if $[ ${@shantenAfter} <= ${@shantenBefore} ] $(
+		return 1;
+	);
 	return 0;
 );
 
