@@ -382,7 +382,7 @@ function MJ.GetAnkanHaiBest $(
 	foreach @h @arAnkanHai $(
 		setstr @strTehai $(MJ.RemoveHai ${@tehaiAdd} ${@h}${@h}${@h}${@h})"("${@h}${@h}${@h}${@h}")";
 		setstr @shantenAfter $(MJ.GetShantenYaku ${@strTehai} ${@bafuHai} ${@jifuHai});
-		if $[ ${@shantenBefore} >= ${@shantenAfter} ] $(
+		if $[ ${@shantenAfter} != "" && ${@shantenAfter} <= ${@shantenBefore} ] $(
 			adddictstr @arAnkanHaiUseful ${@h};
 		);
 	);
@@ -465,7 +465,7 @@ function MJ.GetKakanHaiBest $(
 		setstr @strTehai $(sub ${@tehaiAdd} <${@h}${@h}${@h}> <${@h}${@h}${@h}${@h}>);
 		setstr @strTehai $(MJ.RemoveHai ${@strTehai} ${@h});
 		setstr @shantenAfter $(MJ.GetShantenYaku ${@strTehai} ${@bafuHai} ${@jifuHai});
-		if $[ ${@shantenBefore} >= ${@shantenAfter} ] $(
+		if $[ ${@shantenAfter} != "" && ${@shantenAfter} <= ${@shantenBefore} ] $(
 			adddictstr @arKakanHaiUseful ${@h};
 		);
 	);
@@ -539,7 +539,7 @@ function MJ.ShouldDaiminkan $(
 	setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@h}${@h}${@h})<${@h}${@h}${@h}${@h}>;
 	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
 	setstr @shantenAfter $(MJ.GetShantenYaku ${@tehaiNew} ${@bafuHai} ${@jifuHai});
-	if $[ ${@shantenAfter} <= ${@shantenBefore} ] $(
+	if $[ ${@shantenAfter} != "" && ${@shantenAfter} <= ${@shantenBefore} ] $(
 		return 1;
 	);
 	return 0;
@@ -555,7 +555,7 @@ function MJ.ShouldPon $(
 	setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@h}${@h})<${@h}${@h}${@h}>;
 	setstr @shantenBefore $(MJ.GetShantenYaku ${@tehai} ${@bafuHai} ${@jifuHai});
 	setstr @shantenAfter $(MJ.GetShantenYaku ${@tehaiNew} ${@bafuHai} ${@jifuHai});
-	if $[ ${@shantenAfter} < ${@shantenBefore} ] $(
+	if $[ ${@shantenAfter} != "" && ${@shantenAfter} < ${@shantenBefore} ] $(
 		return 1;
 	);
 	return 0;
@@ -572,7 +572,7 @@ function MJ.GetChiMaterialBest $(
 	foreach @c @arChi $(
 		setstr @tehaiNew $(MJ.RemoveHai ${@tehai} ${@c})<$(gsub $(MJ.SortHai $(MJ.MakeArrayFromString ${@c}${@sutehai})) , "")>;
 		setstr @shantenAfter $(MJ.GetShantenYaku ${@tehaiNew} ${@bafuHai} ${@jifuHai});
-		if $[ ${@shantenAfter} < ${@shantenBefore} ] $(
+		if $[ ${@shantenAfter} != "" && ${@shantenAfter} < ${@shantenBefore} ] $(
 			adddictstr @r ${@c};
 		);
 	);
