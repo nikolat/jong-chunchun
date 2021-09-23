@@ -334,8 +334,11 @@ MJ.sutehai: $(
 		copy @a MJ.Save.Player.Kawa;
 	) else $(
 		clear MJ.Save.Sutehai;
-		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${System.Request.Reference3};
-		if $[ ${MJ.Save.Tsumo} == ${System.Request.Reference3} ] $(
+		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${@sutehai};
+		if $[ ${MJ.Save.Tsumo} == "" ] $(
+			#•›˜IŒã
+			setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@sutehai});
+		) else if $[ ${MJ.Save.Tsumo} == ${@sutehai} ] $(
 			#ƒcƒ‚Ø‚è
 			if $[ $(match ${System.Request.Status} talking) < 0 && $(rand 5) == 0 ] $(
 				entry MJ.sutehai.talk.tsumogiri;
