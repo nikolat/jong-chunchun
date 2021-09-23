@@ -128,6 +128,7 @@ MJ.kyokustart: $(
 	setstr MJ.Save.Richi 0;
 	setstr MJ.Save.Dorahyouji "";
 	setstr MJ.Save.Uradorahyouji "";
+	setstr MJ.Save.Status "";
 	setstr MJ.Save.Bafuhai $(MJ.GetBafuhai ${System.Request.Reference2});
 	setstr MJ.Save.Jifuhai $(MJ.GetJifuhai ${System.Request.Reference3});
 	setstr MJ.Save.Kyoku $[ $(find MJ.Save.PlayerName ${System.Request.Reference3}) + 1 ];
@@ -183,7 +184,6 @@ MJ.point: $(
 		#自分の点数通知のみに反応
 	) else if $[ ${MJ.Save.Status} == "流局" || ${MJ.Save.Status} == "" ] $(
 		#流局では一々喋らない
-		clear MJ.Save.Status;
 	) else if $[ ${System.Request.Reference3} == "+" ] $(
 		if ${MJ.hasUradora} $(
 			entry MJ.point.plus.hasUradora;
@@ -192,14 +192,12 @@ MJ.point: $(
 		) else $(
 			entry MJ.point.plus.small;
 		);
-		clear MJ.Save.Status;
 	) else if $[ ${System.Request.Reference3} == "-" ] $(
 		if $[ 8000 <= ${System.Request.Reference4} ] $(
 			entry MJ.point.minus.large;
 		) else $(
 			entry MJ.point.minus.small;
 		);
-		clear MJ.Save.Status;
 	);
 )
 MJ.point.plus.hasUradora: \0\s[5]わーい、\_w[500]裏ドラ♪\e
