@@ -120,34 +120,25 @@ MJ.gameend.talk.normal: \0\s[0]また遊んでね。\e
 # Reference4: 本場(ex.1)
 # Reference5: 供託(ex.1000)
 #===========================================================
-MJ.kyokustart: $(
-	setstr MJ.Save.Kawa "";
+MJ.kyokustart: ${MJ.kyokuinit}$(
 	setstr MJ.Save.Richi 0;
-	setstr MJ.Save.Dorahyouji "";
-	setstr MJ.Save.Uradorahyouji "";
-	setstr MJ.Save.Status "";
 	setstr MJ.Save.Bafuhai $(MJ.GetBafuhai ${System.Request.Reference2});
 	setstr MJ.Save.Jifuhai $(MJ.GetJifuhai ${System.Request.Reference3});
 	setstr MJ.Save.Kyoku $[ $(find MJ.Save.PlayerName ${System.Request.Reference3}) + 1 ];
-	setstr MJ.Save.Furo.Own "";
-	setstr MJ.Save.Furo.Other "";
-	setstr MJ.Save.Sutehai "";
 	split MJ.Save.Players $(MJ.GetPlayers ${System.Request.Reference3}) ,;
 	loop 4 $(
 		adddictstr MJ.Save.Player.Kawa dummy;
 		adddictstr MJ.Save.Player.Richi 0;
 		adddictstr MJ.Save.Player.Genbutsu dummy;
 	);
-	setstr MJ.Save.VisiblePai "";
 	entry MJ.kyokustart.talk;
 )
 MJ.kyokustart.talk: \0\s[0]\e
 
-#===========================================================
-# kyokuend 一局終了
-#===========================================================
-MJ.kyokuend: $(
+MJ.kyokuinit: $(
+	clear MJ.Save.Status;
 	clear MJ.Save.Tehai;
+	clear MJ.Save.Tsumo;
 	clear MJ.Save.Kawa;
 	clear MJ.Save.Richi;
 	clear MJ.Save.Dorahyouji;
@@ -163,6 +154,12 @@ MJ.kyokuend: $(
 	clear MJ.Save.Player.Richi;
 	clear MJ.Save.Player.Genbutsu;
 	clear MJ.Save.VisiblePai;
+)
+
+#===========================================================
+# kyokuend 一局終了
+#===========================================================
+MJ.kyokuend: ${MJ.kyokuinit}$(
 	if $[ $(match ${System.Request.Status} talking) < 0 ] $(
 		entry MJ.kyokuend.talk;
 	);
@@ -181,7 +178,7 @@ MJ.point: $(
 		#増減のみに反応
 	) else if $[ ${System.Request.Reference2} != ${MJ.PlayerName} ] $(
 		#自分の点数通知のみに反応
-	) else if $[ ${MJ.Save.Status} == "流局" || ${MJ.Save.Status} == "" ] $(
+	) else if $[ ${MJ.Save.Status} == "流局" ] $(
 		#流局では一々喋らない
 	) else if $[ ${System.Request.Reference3} == "+" ] $(
 		if ${MJ.hasUradora} $(
@@ -363,8 +360,8 @@ MJ.sutehai: $(
 			setstr MJ.Save.Tehai $(MJ.AddHai ${MJ.Save.Tehai} ${MJ.Save.Tsumo});
 			setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@sutehai});
 		);
-		clear MJ.Save.Tsumo;
 	);
+	clear MJ.Save.Tsumo;
 )
 # 他家（ユーザ）に悟られることは自分が不利になること。
 # でもゴーストにはそれくらいの「可愛らしさ」があってもよい。
