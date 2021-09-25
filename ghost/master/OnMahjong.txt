@@ -130,6 +130,7 @@ MJ.kyokustart: $(
 	setstr MJ.Save.Jifuhai $(MJ.GetJifuhai ${System.Request.Reference3});
 	setstr MJ.Save.Kyoku $[ $(find MJ.Save.PlayerName ${System.Request.Reference3}) + 1 ];
 	setstr MJ.Save.Furo.Own "";
+	setstr MJ.Save.Furo.Other "";
 	setstr MJ.Save.Sutehai "";
 	split MJ.Save.Players $(MJ.GetPlayers ${System.Request.Reference3}) ,;
 	loop 4 $(
@@ -137,6 +138,7 @@ MJ.kyokustart: $(
 		adddictstr MJ.Save.Player.Richi 0;
 		adddictstr MJ.Save.Player.Genbutsu dummy;
 	);
+	setstr MJ.Save.VisiblePai "";
 	entry MJ.kyokustart.talk;
 )
 MJ.kyokustart.talk: \0\s[0]\e
@@ -154,11 +156,13 @@ MJ.kyokuend: $(
 	clear MJ.Save.Jifuhai;
 	clear MJ.Save.Kyoku;
 	clear MJ.Save.Furo.Own;
+	clear MJ.Save.Furo.Other;
 	clear MJ.Save.Sutehai;
 	clear MJ.Save.Players;
 	clear MJ.Save.Player.Kawa;
 	clear MJ.Save.Player.Richi;
 	clear MJ.Save.Player.Genbutsu;
+	clear MJ.Save.VisiblePai;
 	if $[ $(match ${System.Request.Status} talking) < 0 ] $(
 		entry MJ.kyokuend.talk;
 	);
@@ -233,6 +237,7 @@ MJ.hasUradora: $(
 #===========================================================
 MJ.haipai: $(
 	setstr MJ.Save.Tehai ${System.Request.Reference3};
+	setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${System.Request.Reference3};
 )
 
 #===========================================================
@@ -244,6 +249,7 @@ MJ.dora: $(
 		setstr MJ.Save.Uradorahyouji ${MJ.Save.Uradorahyouji}${System.Request.Reference2};
 	) else $(
 		setstr MJ.Save.Dorahyouji ${MJ.Save.Dorahyouji}${System.Request.Reference2};
+		setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${System.Request.Reference2};
 	);
 )
 
@@ -253,8 +259,8 @@ MJ.dora: $(
 # Reference3: îv(ex.1p2p3p)
 #===========================================================
 MJ.open: $(
+	setstr @h ${System.Request.Reference3};
 	if $[ ${System.Request.Reference2} == ${MJ.PlayerName} ] $(
-		setstr @h ${System.Request.Reference3};
 		if $[ ${MJ.Save.Furo.Own} == "chi" ] $(
 			setstr @toRemove $(MJ.RemoveHai ${@h} ${MJ.Save.Sutehai});
 			setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@toRemove})<${@h}>;
@@ -279,6 +285,24 @@ MJ.open: $(
 		);
 		setstr MJ.Save.Furo.Own "";
 		setstr MJ.Save.Sutehai "";
+	) else $(
+		if $[ ${MJ.Save.Furo.Other} == "chi" || ${MJ.Save.Furo.Other} == "pon" ] $(
+			setstr @toAdd $(MJ.RemoveHai ${@h} ${MJ.Save.Sutehai});
+			setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@toAdd};
+		) else if $[ ${MJ.Save.Furo.Other} == "kan" ] $(
+			if $[ $(length ${@h}) == 2 ] $(
+				#â¡û»
+				setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@h};
+			) else if $[ $(match ${@h} ${MJ.Save.Sutehai}) == -1 ] $(
+				#à√û»
+				setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@h};
+			) else $(
+				#ëÂñæû»
+				setstr @toAdd $(MJ.RemoveHai ${@h} ${MJ.Save.Sutehai});
+				setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@toAdd};
+			);
+		);
+		clear MJ.Save.Furo.Other;
 	);
 )
 
@@ -291,6 +315,7 @@ MJ.open: $(
 MJ.tsumo: $(
 	setstr MJ.Save.Nokori ${System.Request.Reference3};
 	setstr MJ.Save.Tsumo ${System.Request.Reference4};
+	setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${System.Request.Reference4};
 	if $[ $(match ${System.Request.Status} talking) < 0 ] $(
 		entry MJ.tsumo.talk;
 	);
@@ -305,6 +330,7 @@ MJ.tsumo.talk: \0\s[0]\e
 MJ.sutehai: $(
 	setstr @playerName ${System.Request.Reference2};
 	setstr @sutehai ${System.Request.Reference3};
+	setstr MJ.Save.Sutehai ${@sutehai};
 	#íNÇ©ÉäÅ[É`ÇµÇƒÇ¢ÇΩÇÁåªï®ÇçXêV
 	setstr @i 0;
 	while $[ $MJ.Save.Player.Richi[${@i}] != "" ] $(
@@ -316,11 +342,10 @@ MJ.sutehai: $(
 	);
 	if $[ ${@playerName} != ${MJ.PlayerName} ] $(
 		#ëºâ∆ÇÃéÃîvÇÃèÍçáÇÕèÓïÒéÊìæÇ…óØÇﬂÇÈ
-		setstr MJ.Save.Sutehai ${@sutehai};
 		setstr @newstr $(sub $MJ.Save.Player.Kawa[$(MJ.I ${@playerName})] dummy "")${@sutehai};
 		setstr MJ.Save.Player.Kawa[$(MJ.I ${@playerName})] ${@newstr};
+		setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@sutehai};
 	) else $(
-		clear MJ.Save.Sutehai;
 		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${@sutehai};
 		if $[ ${MJ.Save.Tsumo} == "" ] $(
 			#ïõòIå„
@@ -360,7 +385,7 @@ MJ.sutehai?: $(
 			setstr @dahai ${MJ.Save.Tsumo};
 		) else $(
 			setstr @dahai $(MJ.Naniwokiru ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Kawa} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Dorahyouji}
-				$(join MJ.Save.Player.Richi ,) $(join MJ.Save.Player.Genbutsu ,));
+				$(join MJ.Save.Player.Richi ,) $(join MJ.Save.Player.Genbutsu ,) ${MJ.Save.VisiblePai});
 			setstr @kakanHai $(MJ.GetKakanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Nokori} $(join MJ.Save.Player.Richi ,));
 		);
 		setstr @ankanHai $(MJ.GetAnkanHaiBest ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Richi} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Nokori} $(join MJ.Save.Player.Richi ,));
@@ -504,10 +529,14 @@ MJ.say: $(
 		if ${MJ.IsSoundEnabled} $(
 			callsaori aqtk PLAYASYNC ${@aqtk};
 		);
-	) else if $[ ${@word} == "richi" ] $(
-		entry MJ.say.talk.other.richi;
-		setstr MJ.Save.Player.Richi[$(MJ.I ${@playerName})] 1;
-		setstr MJ.Save.Player.Genbutsu[$(MJ.I ${@playerName})] $MJ.Save.Player.Kawa[$(MJ.I ${@playerName})];
+	) else $(
+		if $[ ${@word} == "chi" || ${@word} == "pon" || ${@word} == "kan" ] $(
+			setstr MJ.Save.Furo.Other ${@word};
+		) else if $[ ${@word} == "richi" ] $(
+			entry MJ.say.talk.other.richi;
+			setstr MJ.Save.Player.Richi[$(MJ.I ${@playerName})] 1;
+			setstr MJ.Save.Player.Genbutsu[$(MJ.I ${@playerName})] $MJ.Save.Player.Kawa[$(MJ.I ${@playerName})];
+		);
 	);
 )
 MJ.say.talk.other.richi: \0\s[0]\w9\w9\s[2]Ç”Ç¶Ç¶ÅB\e

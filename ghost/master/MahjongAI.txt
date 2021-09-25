@@ -16,6 +16,15 @@ function MJ.Naniwokiru $(
 	setstr @strDorahyouji $@arg[6];
 	split @aryPlayerRichi $@arg[7] ,;
 	split @aryPlayerGenbutsu $@arg[8] ,;
+	setstr @strVisiblePai $@arg[9];
+
+	split @arVisiblePai $(MJ.MakeArrayFromString ${@strVisiblePai}) ,;
+	loop 34 $(
+		adddictstr @arVisibleNum 0;
+	);
+	foreach @p @arVisiblePai $(
+		inc @arVisibleNum[$(MJ.GetSortCode ${@p})];
+	);
 
 	setstr @strTehai14 $(MJ.AddHai ${@strTehai13} ${@strTsumo});
 	split @arSutehaiKouho $(MJ.Uniq $(MJ.GetTehaiArrayWithoutFuro ${@strTehai14})) ,;
@@ -44,7 +53,8 @@ function MJ.Naniwokiru $(
 				setstr @isTsumo 1;
 				setstr @score $(MJ.GetScore ${@strTehaiRemoved} ${@machi} ${@strBafuhai} ${@strJifuhai} ${@strDora} ${@isTsumo});
 				if $[ ${@score} > 0 ] $(
-					inc @machiPoint ${@score};
+					setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode ${@machi})] ];
+					inc @machiPoint $[ ${@score} * ${@nNokori} ];
 				);
 			);
 		) else $(
@@ -63,24 +73,36 @@ function MJ.Naniwokiru $(
 							#面子
 							inc @elementPoint 90;
 						) else if $[ $(length ${@p}) == 4 ] $(
+							#塔子・対子
 							adddictstr @arTatsu ${@p};
 						);
 					);
 					foreach @tatsu @arTatsu $(
 						setstr @t1 $(substr ${@tatsu} 0 1);
 						setstr @t2 $(substr ${@tatsu} 2 1);
-						if $[ ${@t1} != 1 && ${@t1} + 1 == ${@t2} && ${@t2} != 9 ] $(
+						setstr @color $(substr ${@tatsu} 1 1);
+						if $[ (${@t1} != 1) && (${@t1} + 1 == ${@t2}) && (${@t2} != 9) ] $(
 							#両面
-							inc @elementPoint 60;
+							setstr @nNokori1 $[ 4 - $@arVisibleNum[$(MJ.GetSortCode $[ ${@t1} - 1 ]${@color})] ];
+							setstr @nNokori2 $[ 4 - $@arVisibleNum[$(MJ.GetSortCode $[ ${@t2} + 1 ]${@color})] ];
+							inc @elementPoint $[ 10 * (${@nNokori1} + ${@nNokori2}) ];
 						) else if $[ ${@t1} == ${@t2} ] $(
 							#対子
-							inc @elementPoint 40;
+							setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode ${@t1}${@color})] ];
+							inc @elementPoint $[ 20 * ${@nNokori} ];
 						) else if $[ ${@t1} == 1 && ${@t2} == 2 || ${@t1} == 8 && ${@t2} == 9 ] $(
 							#辺張
-							inc @elementPoint 20;
+							setstr @nNokori 0;
+							if $[ ${@t1} == 1 ] $(
+								setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode 3${@color})] ];
+							) else $(
+								setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode 7${@color})] ];
+							);
+							inc @elementPoint $[ 10 * ${@nNokori} - 5 ];
 						) else $(
 							#嵌張
-							inc @elementPoint 30;
+							setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode $[ ${@t1} + 1 ]${@color})] ];
+							inc @elementPoint $[ 10 * ${@nNokori} ];
 						);
 					);
 				);
