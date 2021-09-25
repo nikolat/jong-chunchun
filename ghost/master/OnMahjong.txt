@@ -97,10 +97,7 @@ MJ.gameend: $(
 		split @a ${System.Request.Reference${@i}} $(chr 1);
 		setstr @playerName $@a[0];
 		setstr @score $@a[1];
-		clear @a;
-		split @a $(MJ.SetArrayElement MJ.Save.Player.Score $(MJ.B ${@playerName}) ${@score}) ,;
-		clear MJ.Save.Player.Score;
-		copy @a MJ.Save.Player.Score;
+		setstr MJ.Save.Player.Score[$(MJ.B ${@playerName})] ${@score};
 		inc @i;
 	);
 	if $[ $(MJ.GetLeadPoint) > 0] $(
@@ -176,9 +173,7 @@ MJ.kyokuend.talk: \0\s[0]\e
 #===========================================================
 MJ.point: $(
 	if $[ ${System.Request.Reference3} == "=" ] $(
-		split @a $(MJ.SetArrayElement MJ.Save.Player.Score $(MJ.B ${System.Request.Reference2}) ${System.Request.Reference4}) ,;
-		clear MJ.Save.Player.Score;
-		copy @a MJ.Save.Player.Score;
+		setstr MJ.Save.Player.Score[$(MJ.B ${System.Request.Reference2})] ${System.Request.Reference4};
 		#‘Œ¸‚Ì‚Ý‚É”½‰ž
 	) else if $[ ${System.Request.Reference2} != ${MJ.PlayerName} ] $(
 		#Ž©•ª‚Ì“_”’Ê’m‚Ì‚Ý‚É”½‰ž
@@ -314,24 +309,16 @@ MJ.sutehai: $(
 	setstr @i 0;
 	while $[ $MJ.Save.Player.Richi[${@i}] != "" ] $(
 		if $[ $MJ.Save.Player.Richi[${@i}] ] $(
-			clear @newstr;
 			setstr @newstr $(sub $MJ.Save.Player.Genbutsu[${@i}] dummy "")${@sutehai};
-			clear @a;
-			split @a $(MJ.SetArrayElement MJ.Save.Player.Genbutsu ${@i} ${@newstr}) ,;
-			clear MJ.Save.Player.Genbutsu;
-			copy @a MJ.Save.Player.Genbutsu;
+			setstr MJ.Save.Player.Genbutsu[${@i}] ${@newstr};
 		);
 		inc @i;
 	);
 	if $[ ${@playerName} != ${MJ.PlayerName} ] $(
 		#‘¼‰Æ‚ÌŽÌ”v‚Ìê‡‚Íî•ñŽæ“¾‚É—¯‚ß‚é
 		setstr MJ.Save.Sutehai ${@sutehai};
-		clear @newstr;
 		setstr @newstr $(sub $MJ.Save.Player.Kawa[$(MJ.I ${@playerName})] dummy "")${@sutehai};
-		clear @a;
-		split @a $(MJ.SetArrayElement MJ.Save.Player.Kawa $(MJ.I ${@playerName}) ${@newstr}) ,;
-		clear MJ.Save.Player.Kawa;
-		copy @a MJ.Save.Player.Kawa;
+		setstr MJ.Save.Player.Kawa[$(MJ.I ${@playerName})] ${@newstr};
 	) else $(
 		clear MJ.Save.Sutehai;
 		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${@sutehai};
@@ -519,14 +506,8 @@ MJ.say: $(
 		);
 	) else if $[ ${@word} == "richi" ] $(
 		entry MJ.say.talk.other.richi;
-		split @a $(MJ.SetArrayElement MJ.Save.Player.Richi $(MJ.I ${@playerName}) 1) ,;
-		clear MJ.Save.Player.Richi;
-		copy @a MJ.Save.Player.Richi;
-		clear @a;
-		setstr @newstr $MJ.Save.Player.Kawa[$(MJ.I ${@playerName})];
-		split @a $(MJ.SetArrayElement MJ.Save.Player.Genbutsu $(MJ.I ${@playerName}) ${@newstr}) ,;
-		clear MJ.Save.Player.Genbutsu;
-		copy @a MJ.Save.Player.Genbutsu;
+		setstr MJ.Save.Player.Richi[$(MJ.I ${@playerName})] 1;
+		setstr MJ.Save.Player.Genbutsu[$(MJ.I ${@playerName})] $MJ.Save.Player.Kawa[$(MJ.I ${@playerName})];
 	);
 )
 MJ.say.talk.other.richi: \0\s[0]\w9\w9\s[2]‚Ó‚¦‚¦B\e
@@ -576,23 +557,6 @@ function MJ.SendResponse $(
 function MJ.IsSSTP $(
 	split @sendertype ${System.Request.SenderType} ,;
 	return $[ $(find @sendertype sstp) >= 0 ];
-);
-
-#name[index] = value
-function MJ.SetArrayElement $(
-	setstr @name $@arg[1];
-	setstr @index $@arg[2];
-	setstr @value $@arg[3];
-	setstr @i 0;
-	while $[ $${@name}[${@i}] != "" ] $(
-		if $[ ${@i} == ${@index} ] $(
-			adddictstr @r ${@value};
-		) else $(
-			adddictstr @r $${@name}[${@i}];
-		);
-		inc @i;
-	);
-	return $(join @r ,);
 );
 
 function MJ.GetLeadPoint $(

@@ -44,7 +44,7 @@ function MJ.Naniwokiru $(
 				setstr @isTsumo 1;
 				setstr @score $(MJ.GetScore ${@strTehaiRemoved} ${@machi} ${@strBafuhai} ${@strJifuhai} ${@strDora} ${@isTsumo});
 				if $[ ${@score} > 0 ] $(
-					setstr @machiPoint $[ ${@machiPoint} + ${@score} ];
+					inc @machiPoint ${@score};
 				);
 			);
 		) else $(
@@ -92,17 +92,17 @@ function MJ.Naniwokiru $(
 		#ŒÇ—§”v‚ğ—Dæ“I‚ÉØ‚é
 		setstr @koritsuPoint 0;
 		if $[ $(find @arKoritsuhai ${@sutehai}) >= 0 ] $(
-			setstr @koritsuPoint 500;
+			inc @koritsuPoint 500;
 		);
 		#Šù‚ÉÌ‚Ä‚½”v‚ğ—Dæ“I‚ÉØ‚é
 		setstr @furitenPoint 0;
 		if $[ $(match ${@strKawa} ${@sutehai}) >= 0 ] $(
-			setstr @furitenPoint 10;
+			inc @furitenPoint 10;
 		);
 		#ƒhƒ‰‚Íc‚µ‚Ä‚¨‚«‚½‚¢
 		setstr @doraPoint 0;
 		if $[ $(find @arDora ${@sutehai}) >= 0 ] $(
-			setstr @doraPoint -50;
+			dec @doraPoint 50;
 		);
 		#Œ»•¨‚ğ—Dæ“I‚ÉØ‚é
 		setstr @genbutsuPoint 0;
@@ -110,10 +110,10 @@ function MJ.Naniwokiru $(
 		while $[ $@aryPlayerRichi[${@i}] != "" ] $(
 			if $@aryPlayerRichi[${@i}] $(
 				if $[ $(match @aryPlayerGenbutsu[${@i}] ${@sutehai}) >= 0 ] $(
-					setstr @genbutsuPoint $[ ${@genbutsuPoint} + 2000 ];
+					inc @genbutsuPoint 2000;
 					#e‚ÌƒŠ[ƒ`‚Í“Á‚É”ğ‚¯‚½‚¢
 					if $[ ${@i} == 0 ] $(
-						setstr @genbutsuPoint $[ ${@genbutsuPoint} + 1000 ];
+						inc @genbutsuPoint 1000;
 					);
 				);
 			);
