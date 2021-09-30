@@ -131,6 +131,7 @@ MJ.kyokustart: ${MJ.kyokuinit}$(
 		adddictstr MJ.Save.Player.Richi 0;
 		adddictstr MJ.Save.Player.Genbutsu dummy;
 	);
+	setstr MJ.Save.IsIppatsuChance 0;
 	entry MJ.kyokustart.talk;
 )
 MJ.kyokustart.talk: \0\s[0]\e
@@ -154,6 +155,8 @@ MJ.kyokuinit: $(
 	clear MJ.Save.Player.Richi;
 	clear MJ.Save.Player.Genbutsu;
 	clear MJ.Save.VisiblePai;
+	clear MJ.Save.Say.Own;
+	clear MJ.Save.IsIppatsuChance;
 )
 
 #===========================================================
@@ -181,7 +184,9 @@ MJ.point: $(
 	) else if $[ ${MJ.Save.Status} == "流局" ] $(
 		#流局では一々喋らない
 	) else if $[ ${System.Request.Reference3} == "+" ] $(
-		if ${MJ.hasUradora} $(
+		if ${MJ.isYakuman} $(
+			entry MJ.point.plus.isYakuman;
+		) else if ${MJ.hasUradora} $(
 			entry MJ.point.plus.hasUradora;
 		) else if $[ 8000 <= ${System.Request.Reference4} ] $(
 			entry MJ.point.plus.large;
@@ -196,6 +201,7 @@ MJ.point: $(
 		);
 	);
 )
+MJ.point.plus.isYakuman: \0\s[5]やっくまーん！\e
 MJ.point.plus.hasUradora: \0\s[5]わーい、\_w[500]裏ドラ♪\e
 MJ.point.plus.small: \0\s[5]ありがと。\e
 MJ.point.plus.small: \0\s[6]見直した？\e
@@ -205,6 +211,15 @@ MJ.point.minus.small: \0\s[8]強いんだね。\e
 MJ.point.minus.small: \0\s[4]あちゃー…。\e
 MJ.point.minus.large: \0\s[3]ひどーい。\e
 MJ.point.minus.large: \0\s[7]むー。\e
+
+#供託とか含めると正確ではないけど簡易的な判定
+MJ.isYakuman: $(
+	if $[ ${MJ.Save.Jifuhai} == "1z" ] $(
+		echo $[ 48000 <= ${System.Request.Reference4} ];
+	) else $(
+		echo $[ 32000 <= ${System.Request.Reference4} ];
+	);
+)
 
 MJ.hasUradora: $(
 	if $[ ${MJ.Save.Tsumo} != "" ] $(
@@ -301,6 +316,7 @@ MJ.open: $(
 		);
 		clear MJ.Save.Furo.Other;
 	);
+	setstr MJ.Save.IsIppatsuChance 0;
 )
 
 #===========================================================
@@ -343,6 +359,13 @@ MJ.sutehai: $(
 		setstr MJ.Save.Player.Kawa[$(MJ.I ${@playerName})] ${@newstr};
 		setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@sutehai};
 	) else $(
+		#一発判定用
+		if $[ ${MJ.Save.Say.Own} == "richi" ] $(
+			clear MJ.Save.Say.Own;
+			setstr MJ.Save.IsIppatsuChance 1;
+		) else $(
+			setstr MJ.Save.IsIppatsuChance 0;
+		);
 		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${@sutehai};
 		if $[ ${MJ.Save.Tsumo} == "" ] $(
 			#副露後
@@ -513,7 +536,11 @@ MJ.say: $(
 			setstr @say "\s[5]ロン";
 			setstr @aqtk "ろ'ん";
 		) else if $[ ${@word} == "tsumo" ] $(
-			setstr @say "\s[5]ツモ";
+			if ${MJ.Save.IsIppatsuChance} $(
+				setstr @say "\s[5]一発ツモ！";
+			) else $(
+				setstr @say "\s[5]ツモ";
+			);
 			setstr @aqtk "つ'も";
 		) else if $[ ${@word} == "richi" ] $(
 			if $[ $(find MJ.Save.Player.Richi 1) >= 0 ] $(
@@ -530,6 +557,7 @@ MJ.say: $(
 			setstr @say "\s[3]ノーテン";
 			setstr @aqtk "の'ーてん";
 		);
+		setstr MJ.Save.Say.Own ${@word};
 		echo \0${@say}\e;
 		if ${MJ.IsSoundEnabled} $(
 			callsaori aqtk PLAYASYNC ${@aqtk};
