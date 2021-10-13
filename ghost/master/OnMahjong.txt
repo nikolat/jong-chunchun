@@ -163,7 +163,7 @@ MJ.kyokuinit: $(
 # kyokuend ˆê‹ÇI—¹
 #===========================================================
 MJ.kyokuend: ${MJ.kyokuinit}$(
-	if $[ $(match ${System.Request.Status} talking) < 0 ] $(
+	if $(MJ.CanTalk) $(
 		entry MJ.kyokuend.talk;
 	);
 )
@@ -329,7 +329,7 @@ MJ.tsumo: $(
 	setstr MJ.Save.Nokori ${System.Request.Reference3};
 	setstr MJ.Save.Tsumo ${System.Request.Reference4};
 	setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${System.Request.Reference4};
-	if $[ $(match ${System.Request.Status} talking) < 0 ] $(
+	if $(MJ.CanTalk) $(
 		entry MJ.tsumo.talk;
 	);
 )
@@ -372,12 +372,12 @@ MJ.sutehai: $(
 			setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@sutehai});
 		) else if $[ ${MJ.Save.Tsumo} == ${@sutehai} ] $(
 			#ƒcƒ‚Ø‚è
-			if $[ $(match ${System.Request.Status} talking) < 0 && $(rand 5) == 0 ] $(
+			if $[ $(MJ.CanTalk) && $(rand 5) == 0 ] $(
 				entry MJ.sutehai.talk.tsumogiri;
 			);
 		) else $(
 			#èo‚µ
-			if $[ $(match ${System.Request.Status} talking) < 0 && $(rand 5) == 0 ] $(
+			if $[ $(MJ.CanTalk) && $(rand 5) == 0 ] $(
 				entry MJ.sutehai.talk.tedashi;
 			);
 			setstr MJ.Save.Tehai $(MJ.AddHai ${MJ.Save.Tehai} ${MJ.Save.Tsumo});
@@ -619,6 +619,19 @@ function MJ.SendResponse $(
 function MJ.IsSSTP $(
 	split @sendertype ${System.Request.SenderType} ,;
 	return $[ $(find @sendertype sstp) >= 0 ];
+);
+
+function MJ.CanTalk $(
+	split @a talking,choosing,minimizing,timecritical ,;
+	split @status ${System.Request.Status} ,;
+	setstr @i 0;
+	while $[ $@a[${@i}] != "" ] $(
+		if $[ $(find @status $@a[${@i}]) >= 0 ] $(
+			return 0;
+		);
+		inc @i;
+	);
+	return 1;
 );
 
 function MJ.GetLeadPoint $(
