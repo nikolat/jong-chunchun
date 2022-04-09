@@ -679,6 +679,7 @@ function MJ.GetPlayers $(
 	setstr @oyaname $@arg[1];
 	setstr @findoya 0;
 	setstr @i 0;
+	setstr @c 0;
 	while $[ $(size @r) < 4 ] $(
 		if $[ $MJ.Save.PlayerName[${@i}] == ${@oyaname} ] $(
 			setstr @findoya 1;
@@ -687,6 +688,10 @@ function MJ.GetPlayers $(
 			adddictstr @r $MJ.Save.PlayerName[${@i}];
 		);
 		setstr @i $[ (${@i} + 1) % 4 ];
+		inc @c;
+		if $[ ${@c} > 10 ] $(
+			break;
+		);
 	);
 	return $(join @r ,);
 );
