@@ -4,7 +4,7 @@ name,雀-チュンチュン
 sakura.name,チュンチュン
 kero.name,none
 craftman,Don
-craftmanurl,http://nikolat.herokuapp.com/
+craftmanurl,https://nikolat.github.io/
 homeurl,https://raw.githubusercontent.com/nikolat/jong-chunchun/main/
 shiori,shiori.dll
 icon,icon.ico
