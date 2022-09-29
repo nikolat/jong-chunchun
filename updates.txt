@@ -3,7 +3,7 @@ file,ghost/master/MahjongAI.txt1c21bab0a7ba4cf11586a34a98be4433size=20494date
 file,ghost/master/OnMahjong.txt4c54f9d95e6120f712f0c49adb27961dsize=22717date=2012-12-21T00:00:00
 file,ghost/master/descript.txt0a3e14adc1e091278cdb7013f6ddfa9dsize=302date=2012-12-21T00:00:00
 file,ghost/master/dict/event.txt9bc86474229abb3dbb11fdc96a35c322size=3639date=2012-12-21T00:00:00
-file,ghost/master/dict/resource.txt6bbea371a1850efb0ef9ffc053038cc9size=531date=2012-12-21T00:00:00
+file,ghost/master/dict/resource.txtdd85aa50a6284552981ce996313d2b4csize=526date=2012-12-21T00:00:00
 file,ghost/master/icon.icoa9efb16e6031bc042ca90d6e021844cbsize=15086date=2012-12-21T00:00:00
 file,ghost/master/kawarirc.kis5766cd284863e7598efe1e5d71975b0esize=251date=2012-12-21T00:00:00
 file,ghost/master/saori/MahjongUtil/MahjongUtil.dll35dd69d234c4aea8a4d4050f2d0ad952size=225792date=2012-12-21T00:00:00
@@ -15,7 +15,7 @@ file,ghost/master/saori/aqtk/AqTalkSaori_readme.txtb8b46f2feafc004edd8dfa77397b
 file,ghost/master/saori/aqtk/AquesTalk.dll8bfacc9e1c9d6f1a1f6803739a9ed7d6size=110592date=2012-12-21T00:00:00
 file,ghost/master/shiori.dlld18882c2ffcefb9c529c2597419ea2c7size=282624date=2012-12-21T00:00:00
 file,install.txta919ce968a116af61b1ac58b9811b124size=77date=2012-12-21T00:00:00
-file,readme.txt83029d668e89fea3b24d97c52a663902size=2638date=2012-12-21T00:00:00
+file,readme.txta083df325a007d8e3d8e87cb87eefd46size=2632date=2012-12-21T00:00:00
 file,shell/master/descript.txt65fdce11ea482f851f00f8b01955f6fesize=811date=2012-12-21T00:00:00
 file,shell/master/element0101.pnga0ea1e43194b88fd45567822f8f4d0ffsize=11729date=2012-12-21T00:00:00
 file,shell/master/element0102.png16472a3617d6694807c078969d4c3de4size=11441date=2012-12-21T00:00:00
