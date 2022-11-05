@@ -1,0 +1,238 @@
+
+TH.Hand.None: 0
+TH.Hand.HighCards: 1
+TH.Hand.OnePair: 2
+TH.Hand.TwoPair: 3
+TH.Hand.ThreeOfAKind: 4
+TH.Hand.Straight: 5
+TH.Hand.Flush: 6
+TH.Hand.FullHouse: 7
+TH.Hand.FourOfAKind: 8
+TH.Hand.StraightFlush: 9
+
+=kis
+function TH.AI.PreFlop $(
+	clear @ret;
+	clear @action;
+	split @action $@arg[1] ,;
+	setstr @h1_suit $(substr $TH.hand[0] 0 1);
+	setstr @h1_num $(substr $TH.hand[0] 1 2);
+	setstr @h2_suit $(substr $TH.hand[1] 0 1);
+	setstr @h2_num $(substr $TH.hand[1] 1 2);
+	setstr @vs_allin 0;
+	# 条件式を楽に書けるようにするためのswap。
+	if $[ ${@h2_num} == 1 || ${@h1_num} < ${@h2_num} ] $(
+		setstr @tmp ${@h1_num};
+		setstr @h1_num ${@h2_num};
+		setstr @h2_num ${@tmp};
+	);
+	# ペアハンドなら強いので出来るだけraiseしていく。
+	if $[ ${@h1_num} == ${@h2_num} ] $(
+		if $[ ${h1_num} == 1 || ${h1_num} >= 11 ] $(
+			setstr @vs_allin 1;
+		);
+		if $[ ${TH.blind} < ${TH.current_bet} ] $(
+			adddictstr @ret call;
+		) else $(
+			adddictstr @ret raise;
+			adddictstr @ret $[ ${TH.blind} * 2 ];
+		);
+	) else if $[ $(find @action check) != -1 ] $(
+		# check出来るときはcheckする。
+		adddictstr @ret check;
+	) else if $[ ${@h1_num} == 1 && ${@h1_suit} == ${@h2_suit} && ${@h2_num} >= 5 ] $(
+		# スーテッドのA-Anyならcallする。
+		setstr @vs_allin 1;
+		adddictstr @ret call;
+	) else if $[ ${@h1_num} == 1 && ${@h2_num} >= 8 ] $(
+		# オフスートでも8以上ならcallする。
+		if $[ ${@h2_num} >= 11 ] $(
+			setstr @vs_allin 1;
+		);
+		adddictstr @ret call;
+	) else if $[ ${@h1_num} >= 10 && ${@h2_num} >= 10 ] $(
+		# TT以上ならcallする。
+		adddictstr @ret call;
+	) else if $[ ${@h1_suit} == ${@h2_suit} && ${@h1_num} + 1 == ${@h2_num} && ${@h1_num} >= 7 ] $(
+		# まあまあなスーテッドコネクターならcallする。
+		adddictstr @ret call;
+	);
+	if $[ $(size @ret) == 0 ] $(
+		# 特に条件に当てはまらなければ降りる。
+		adddictstr @ret fold;
+	) else if $[ ${TH.blind} * 10 > ${TH.stack} ] $(
+		# スタックがblindの10倍より低ければraise,callの代わりにall-inをする。
+		clear @ret;
+		adddictstr @ret allin;
+	) else if $[ ${TH.blind} * 5 < ${TH.current_bet} ] $(
+		# ベット額が高すぎる場合は一部の強い手を除いて降りる。
+		if $[ ${vs_allin} == 0 ] $(
+			clear @ret;
+			adddictstr @ret fold;
+		);
+	);
+	return $(join @ret ,);
+);
+
+function TH.AI.Flop $(
+	clear @ret;
+	clear @action;
+	split @action $@arg[1] ,;
+	setstr @hand_strength $(callsaori th hand $TH.hand[0] $TH.hand[1]);
+	setstr @community_strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2]);
+	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.hand[0] $TH.hand[1]);
+	# ベットされている場合はコミュニティカードとペアになっている可能性
+	# があるのでそれを想定した勝率を計算する。
+	setstr @rate -1;
+	if $[ ${TH.current_bet} > 0 ] $(
+		clear @list;
+		clear @suit;
+		split @suit S,H,C,D ,
+		foreach @s @suit $(
+			setstr @num $(substr $TH.community[0] 1 2);
+			if $[ $(find @list ${@s}${@num}) == -1 ] $(
+				adddictstr @list ${@s}${@num};
+			);
+		);
+		clear @l;
+		copy TH.hand @l;
+		copy TH.community @l;
+		foreach @e @l $(
+			setstr @pos $(find @list @e);
+			if $[ ${@pos} != -1] $(
+				clear @list[${@pos}];
+			);
+		);
+		if $[ $(size @list) > 0 ] $(
+			setstr @sum 0;
+			foreach @e @list $(
+				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
+			);
+		);
+	);
+	# それ以外の場合はランダムハンドに対する勝率を計算する。
+	if $[ ${@rate} < 0 ] $(
+		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
+	);
+
+	# 手札とコミュニティカードを合わせることで役が出来ているなら
+	# raiseする。
+	setstr TH.strength ${@strength};
+	if $[ ${@community_strength} < ${@strength} && ${@strength} >= ${TH.Hand.ThreeOfAKind} ] $(
+		adddictstr @ret raise;
+		adddictstr @ret ${TH.pot};
+	) else if $[ ${@hand_strength} == ${TH.Hand.HighCards} && ${@community_strength} == ${TH.Hand.HighCards} && ${@strength} >= ${TH.hand.OnePair} ] $(
+		adddictstr @ret raise;
+		adddictstr @ret ${TH.pot};
+	) else if $[ ${@hand_strength} == ${TH.Hand.HighCards} && ${@community_strength} == ${TH.Hand.OnePair} && ${@strength} >= ${TH.hand.TwoPair} ] $(
+		adddictstr @ret raise;
+		adddictstr @ret ${TH.pot};
+	) else if $[ $(find @action check) != -1 ] $(
+		adddictstr @ret check;
+	) else if $[ ${@rate} * (${TH.pot} + ${TH.total_bet} + ${TH.current_bet}) / ${TH.current_bet} >= 100 ] $(
+		# 推定勝率がオッズに合うならcallする。
+		adddictstr @ret call;
+	) else $(
+		adddictstr @ret fold;
+	);
+	return $(join @ret ,);
+);
+
+function TH.AI.Turn $(
+	clear @ret;
+	clear @action;
+	split @action $@arg[1] ,;
+	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] $TH.hand[0] $TH.hand[1]);
+	setstr @rate -1;
+	if $[ ${TH.current_bet} > 0 ] $(
+		clear @list;
+		clear @suit;
+		split @suit S,H,C,D ,
+		foreach @s @suit $(
+			setstr @num $(substr $TH.community[0] 1 2);
+			if $[ $(find @list ${@s}${@num}) == -1 ] $(
+				adddictstr @list ${@s}${@num};
+			);
+		);
+		clear @l;
+		copy TH.hand @l;
+		copy TH.community @l;
+		foreach @e @l $(
+			setstr @pos $(find @list @e);
+			if $[ ${@pos} != -1] $(
+				clear @list[${@pos}];
+			);
+		);
+		if $[ $(size @list) > 0 ] $(
+			setstr @sum 0;
+			foreach @e @list $(
+				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
+			);
+		);
+	);
+	if $[ ${@rate} < 0 ] $(
+		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
+	);
+	if $[ ${@strength} > ${TH.strength} ] $(
+		setstr TH.strength ${@strength};
+		adddictstr @ret raise;
+		adddictstr @ret ${TH.pot};
+	) else if $[ $(find @action check) != -1 ] $(
+		adddictstr @ret check;
+	) else if $[ ${@rate} * (${TH.pot} + ${TH.total_bet} + ${TH.current_bet}) / ${TH.current_bet} >= 100 ] $(
+		adddictstr @ret call;
+	) else $(
+		adddictstr @ret fold;
+	);
+	return $(join @ret ,);
+);
+
+function TH.AI.River $(
+	clear @ret;
+	clear @action;
+	split @action $@arg[1] ,;
+	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] TH.community[4] $TH.hand[0] $TH.hand[1]);
+	setstr @rate -1;
+	if $[ ${TH.current_bet} > 0 ] $(
+		clear @list;
+		clear @suit;
+		split @suit S,H,C,D ,
+		foreach @s @suit $(
+			setstr @num $(substr $TH.community[0] 1 2);
+			if $[ $(find @list ${@s}${@num}) == -1 ] $(
+				adddictstr @list ${@s}${@num};
+			);
+		);
+		clear @l;
+		copy TH.hand @l;
+		copy TH.community @l;
+		foreach @e @l $(
+			setstr @pos $(find @list @e);
+			if $[ ${@pos} != -1] $(
+				clear @list[${@pos}];
+			);
+		);
+		if $[ $(size @list) > 0 ] $(
+			setstr @sum 0;
+			foreach @e @list $(
+				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
+			);
+		);
+	);
+	if $[ ${@rate} < 0 ] $(
+		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
+	);
+	if $[ ${@strength} > ${TH.strength} ] $(
+		setstr TH.strength ${@strength};
+		adddictstr @ret raise;
+		adddictstr @ret ${TH.pot};
+	) else if $[ $(find @action check) != -1 ] $(
+		adddictstr @ret check;
+	) else if $[ ${@rate} * (${TH.pot} + ${TH.total_bet} + ${TH.current_bet}) / ${TH.current_bet} >= 100 ] $(
+		adddictstr @ret call;
+	) else $(
+		adddictstr @ret fold;
+	);
+	return $(join @ret ,);
+);
+=end

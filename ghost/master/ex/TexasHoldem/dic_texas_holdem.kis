@@ -1,0 +1,218 @@
+TH.Version: POKER/1.0
+
+TH.GhostName: 雀-チュンチュン
+
+OnPoker: $(
+	#応答が必要なイベント。
+	#応答方法はraiseotherかnotifyotherを使う。
+
+	#Reference0: プロトコルバージョン(POKER/1.0)
+	#Reference1: サーバーゴースト名
+	#Reference2: サーバーのイベント名
+
+	setstr @command ${System.Request.Reference3};
+	if $[ ${@command} == "hello" ] $(
+		setstr @str \![raiseother,${System.Request.Reference1},${System.Request.Reference2},${TH.Version},${TH.GhostName}]\e;
+		entry @str;
+	) else if $[ ${@command} == "action" ] $(
+		#Reference4以降に使用可能なアクションが入っている。
+
+		#使用可能なアクションは
+		#bet,raise,allin,check,call,foldの6つの内のいくつか。
+		#返答しない場合は自動的にfoldになるので注意。
+		#bet/raiseする場合はレイズ額も送る必要がある。
+
+		#使用可能なアクションを配列に保存。
+		clear @action;
+		setstr @i 4;
+		while $[ ${System.Request.Reference${@i}} != "" ] $(
+			adddictstr @action ${System.Request.Reference${@i}};
+			inc @i;
+		);
+		#プリフロップ、フロップ、ターン、リバーで処理を分ける。
+		clear @ret;
+		setstr @size $(size TH.community);
+		if $[ ${@size} == 0 ] $(
+			split @ret $(TH.AI.PreFlop $(join @action ,)) ,;
+		) else if $[ ${@size} == 3 ] $(
+			split @ret $(TH.AI.Flop $(join @action ,)) ,;
+		) else if $[ ${@size} == 4 ] $(
+			split @ret $(TH.AI.Turn $(join @action ,)) ,;
+		) else if $[ ${@size} == 5 ] $(
+			split @ret $(TH.AI.River $(join @action ,)) ,;
+		);
+		setstr @str \![raiseother,${System.Request.Reference1},${System.Request.Reference2},${TH.Version},${TH.GhostName},$(join @ret ,)]\e;
+		entry @str;
+	);
+)
+
+OnPokerNotify: $(
+	#応答する必要の無いイベント。
+
+	#Reference0: プロトコルのバージョン(POKER/1.0)
+
+	setstr @command ${System.Request.Reference1};
+	if $[ ${@command} == "game_start" ] $(
+		#Reference2以降に参加できたゴースト名が入っている
+
+		setstr @i 2;
+		while $[ ${System.Request.Reference${@i}} != "" ] $(
+			if $[ ${System.Request.Reference${@i}} == ${TH.GhostName} ] $(
+				#ゲームに参加できた
+				entry TH.gamestart.talk;
+				break;
+			);
+			inc @i;
+		);
+		#参加人数が多くて弾かれた
+	) else if $[ ${@command} == "round_start" ] $(
+		#Reference2: ブラインドの金額
+		#Reference3以降に「ゴースト名(バイト値1)スタック」が入っている
+
+		setstr TH.blind ${System.Request.Reference2};
+		setstr TH.bet 0;
+		clear TH.players;
+		setstr @i 3;
+		while $[ ${System.Request.Reference${@i}} != "" ] $(
+			adddictstr TH.players ${System.Request.Reference${@i}};
+			clear @info;
+			split @info ${System.Request.Reference${@i}} $(chr 1);
+			if $[ $@info[0] == ${TH.GhostName} ] $(
+				setstr TH.stack $@info[1];
+				break;
+			);
+			inc @i;
+		);
+		setstr TH.round_players $(size TH.players);
+		setstr TH.n_players ${TH.round_players};
+	) else if $[ ${@command} == "hand" ] $(
+		#Reference2: 配られたカードの情報
+		#Reference3: 配られたカードの情報
+		#スートは頭文字 S,H,C,D の4つのいずれか、その後に数字が続く。
+		#例:
+		#Reference2: S1
+		#Reference3: H12
+		#この形式はFLIPでも一緒。
+
+		clear TH.hand;
+		adddictstr TH.hand ${System.Request.Reference2};
+		adddictstr TH.hand ${System.Request.Reference3};
+	) else if $[ ${@command} == "flip" ] $(
+		#Reference2: 現在のポット
+		#Reference3以降にコミュニティカードの情報が入っている。
+		#プリフロップならReference3以降は存在しない。
+
+		setstr TH.pot ${System.Request.Reference2};
+		clear TH.community;
+		setstr @i 3;
+		while $[ ${System.Request.Reference${@i}} != "" ] $(
+			adddictstr TH.community ${System.Request.Reference${@i}};
+			inc @i;
+		);
+		setstr TH.current_bet 0;
+	) else if $[ ${@command} == "blind_bet" ] $(
+		#Reference2: 強制ベットの金額
+		#SBやBBでの強制ベットをしたことが通知される。
+
+		setstr TH.bet ${System.Request.Reference2};
+	) else if $[ ${@command} == "bet" ] $(
+		#アクションを行ったプレイヤーとベット周りの情報。
+
+		#Reference2: 現在のベット総額
+		#Reference3: 現在のベット額
+		#Reference4: アクションを行ったプレイヤーのゴースト名
+		#Reference5: 行ったアクション
+
+		setstr TH.total_bet ${System.Request.Reference2};
+		setstr TH.current_bet ${System.Request.Reference3};
+		setstr @player ${System.Request.Reference4};
+		setstr @action ${System.Request.Reference5};
+		if $[ ${@action} == "fold" ] $(
+			dec TH.n_players;
+		);
+		if $[ ${@player} == ${TH.GhostName} ] $(
+			if $[ ${@action} == "bet" ] $(
+				setstr @say "\s[0]ベット";
+				setstr @aqtk "ベ'ット";
+			) else if $[ ${@action} == "raise" ] $(
+				setstr @say "\s[8]レイズ";
+				setstr @aqtk "レ'イズ";
+			) else if $[ ${@action} == "allin" ] $(
+				setstr @say "\s[7]オールイン";
+				setstr @aqtk "オールイ'ン";
+			) else if $[ ${@action} == "check" ] $(
+				setstr @say "\s[6]チェック";
+				setstr @aqtk "チェ'ック";
+			) else if $[ ${@action} == "call" ] $(
+				setstr @say "\s[5]コール";
+				setstr @aqtk "コ'ール";
+			) else if $[ ${@action} == "fold" ] $(
+				setstr @say "\s[3]フォールド";
+				setstr @aqtk "フォ'ールド";
+			);
+			if ${MJ.IsSoundEnabled} $(
+				callsaori aqtk PLAYASYNC ${@aqtk};
+			);
+			echo \0${@say}\e;
+		);
+	) else if $[ ${@command} == "show_down" ] $(
+		#ショーダウン時のカード情報が送られてくる。
+		#Reference2以降に
+		#「ゴースト名(バイト値1)1枚目のカード(バイト値1)2枚目のカード」
+		#が入っている。
+	) else if $[ ${@command} == "round_result" ] $(
+		#そのラウンドの勝者、および参加者の残りスタックの情報。
+
+		#Reference2: 現在のラウンドの勝者がバイト値1区切りで入っている。
+		#Reference3以降に「ゴースト名(バイト値1)スタック」が入っている。
+
+		#基本的に勝者は1人だが2人以上になるケースもある。
+		#また、スタックが0になったのはここでしか通知しないため注意。
+
+		clear @winner;
+		split @winner ${System.Request.Reference2} $(chr 1);
+		clear TH.players;
+		setstr @i 3;
+		while $[ ${System.Request.Reference${@i}} != "" ] $(
+			adddictstr TH.players ${System.Request.Reference${@i}};
+			clear @info;
+			split @info ${System.Request.Reference${@i}} $(chr 1);
+			if $[ $@info[0] == ${TH.GhostName} ] $(
+				setstr TH.stack $@info[1];
+				break;
+			);
+			inc @i;
+		);
+		if $[ $(find @winner ${TH.GhostName}) != -1 ] $(
+			#そのラウンドで勝った時のリアクション
+			entry TH.winner.talk;
+		) else if $[ ${TH.stack} <= 0 ] $(
+			#ゲームに負けた時のリアクション
+			if $[ ${TH.save.gameover} != 1 ] $(
+				entry TH.loser.talk;
+				setstr TH.save.gameover 1;
+			);
+		);
+	) else if $[ ${@command} == "game_result" ] $(
+		#Reference2: ゲームの勝者のゴースト名
+
+		setstr @winner ${System.Request.Reference2};
+		#この辺にゲーム終了時の処理
+		if $[ ${@winner} == ${TH.GhostName} ] $(
+			#ゲームに勝ったときのリアクション
+			entry TH.gameend.winner.talk;
+		) else $(
+			entry TH.gameend.loser.talk;
+		);
+	);
+)
+TH.gamestart.talk: \0\s[5]わくわくっ！\e
+TH.gamestart.talk: \0\s[1]優しくしてね？\e
+TH.winner.talk: \0\s[5]やったー！\e
+TH.winner.talk: \0\s[5]ありがとー！\e
+TH.loser.talk: \0\s[4]やられちゃった…\e
+TH.loser.talk: \0\s[4]ふえぇ…\e
+TH.gameend.winner.talk: \0\s[5]%selfname、\_w[500]お金持ちー！\e
+TH.gameend.winner.talk: \0\s[2]あれ？\_w[500]勝っちゃった？\e
+TH.gameend.loser.talk: \0\s[8]おめでとう。\e
+TH.gameend.loser.talk: \0\s[1]強気な人、\_w[500]かっこいいね…。\e
