@@ -22,8 +22,8 @@ TH.talk.action.fold: \0\s[3]フォールド\e$(AQ.ExecAqtk "フォ'ールド")
 TH.talk.round.win: \0\s[5]やったー！\e
 TH.talk.round.win: \0\s[5]ありがとー！\e
 #ドロップアウト
-TH.talk.round.dropout: \0\s[4]やられちゃった…\e
-TH.talk.round.dropout: \0\s[4]ふえぇ…\e
+TH.talk.round.dropout: \0\s[4]やられちゃった…。\e
+TH.talk.round.dropout: \0\s[4]ふえぇ…。\e
 #ゲーム終了
 TH.talk.game_result.win: \0\s[5]%selfname、\_w[500]お金持ちー！\e
 TH.talk.game_result.win: \0\s[2]あれ？\_w[500]勝っちゃった？\e
