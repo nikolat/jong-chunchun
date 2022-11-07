@@ -113,3 +113,35 @@ sys.key.r: $(
 
 OnSurfaceRestore: \1\s[10]\0\s[0]\e
 
+#################################################
+#Sound
+#################################################
+AQ.SoundDefault: 1
+AQ.IsSoundEnabled: $(
+	if $[ ${AQ.Sound} != "" ] $(
+		entry AQ.Sound;
+	) else $(
+		echo ${AQ.SoundDefault};
+	);
+)
+sys.key.m: $(
+	if $[ ${AQ.Sound} == "" ] $(
+		setstr AQ.Sound $[ !${AQ.SoundDefault} ];
+	) else $(
+		setstr AQ.Sound $[ !${AQ.Sound} ];
+	);
+	if ${AQ.Sound} $(
+		echo \0\_qSound: ON\_q\e;
+	) else $(
+		echo \0\_qSound: OFF\_q\e;
+	);
+)
+
+=kis
+function AQ.ExecAqtk $(
+	setstr @aqtk $@arg[1];
+	if ${AQ.IsSoundEnabled} $(
+		callsaori aqtk PLAYASYNC ${@aqtk};
+	);
+);
+=end

@@ -559,9 +559,7 @@ MJ.say: $(
 		);
 		setstr MJ.Save.Say.Own ${@word};
 		echo \0${@say}\e;
-		if ${MJ.IsSoundEnabled} $(
-			callsaori aqtk PLAYASYNC ${@aqtk};
-		);
+		AQ.ExecAqtk ${@aqtk};
 	) else $(
 		if $[ ${@word} == "chi" || ${@word} == "pon" || ${@word} == "kan" ] $(
 			setstr MJ.Save.Furo.Other ${@word};
@@ -706,27 +704,3 @@ function MJ.I $(
 	return $(find MJ.Save.Players $@arg[1]);
 );
 =end
-
-#===========================================================
-# Sound
-#===========================================================
-MJ.SoundDefault: 1
-MJ.IsSoundEnabled: $(
-	if $[ ${MJ.Sound} != "" ] $(
-		entry MJ.Sound;
-	) else $(
-		echo ${MJ.SoundDefault};
-	);
-)
-sys.key.m: $(
-	if $[ ${MJ.Sound} == "" ] $(
-		setstr MJ.Sound $[ !${MJ.SoundDefault} ];
-	) else $(
-		setstr MJ.Sound $[ !${MJ.Sound} ];
-	);
-	if ${MJ.Sound} $(
-		echo \0\_qSound: ON\_q\e;
-	) else $(
-		echo \0\_qSound: OFF\_q\e;
-	);
-)

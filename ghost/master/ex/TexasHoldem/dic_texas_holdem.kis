@@ -150,9 +150,7 @@ OnPokerNotify: $(
 				setstr @say "\s[3]フォールド";
 				setstr @aqtk "フォ'ールド";
 			);
-			if ${MJ.IsSoundEnabled} $(
-				callsaori aqtk PLAYASYNC ${@aqtk};
-			);
+			AQ.ExecAqtk ${@aqtk};
 			echo \0${@say}\e;
 		);
 	) else if $[ ${@command} == "show_down" ] $(
