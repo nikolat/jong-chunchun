@@ -1,7 +1,38 @@
+#===========================================================
+# LICENSE: CC0 1.0 Universal
+# http://creativecommons.org/publicdomain/zero/1.0/
+#===========================================================
+
+#===========================================================
+# 設定
+#===========================================================
 TH.Version: POKER/1.0
-
 TH.GhostName: 雀-チュンチュン
+#ゲーム開始
+TH.talk.game_start: \0\s[5]わくわくっ！\e
+TH.talk.game_start: \0\s[1]優しくしてね？\e
+#各種アクション
+TH.talk.action.bet: \0\s[0]ベット\e$(AQ.ExecAqtk "ベ'ット")
+TH.talk.action.raise: \0\s[8]レイズ\e$(AQ.ExecAqtk "レ'イズ")
+TH.talk.action.allin: \0\s[7]オールイン\e$(AQ.ExecAqtk "オールイ'ン")
+TH.talk.action.check: \0\s[6]チェック\e$(AQ.ExecAqtk "チェ'ック")
+TH.talk.action.call: \0\s[5]コール\e$(AQ.ExecAqtk "コ'ール")
+TH.talk.action.fold: \0\s[3]フォールド\e$(AQ.ExecAqtk "フォ'ールド")
+#ラウンド勝利
+TH.talk.round.win: \0\s[5]やったー！\e
+TH.talk.round.win: \0\s[5]ありがとー！\e
+#ドロップアウト
+TH.talk.round.dropout: \0\s[4]やられちゃった…\e
+TH.talk.round.dropout: \0\s[4]ふえぇ…\e
+#ゲーム終了
+TH.talk.game_result.win: \0\s[5]%selfname、\_w[500]お金持ちー！\e
+TH.talk.game_result.win: \0\s[2]あれ？\_w[500]勝っちゃった？\e
+TH.talk.game_result.lose: \0\s[8]おめでとう。\e
+TH.talk.game_result.lose: \0\s[1]強気な人、\_w[500]かっこいいね…。\e
 
+#===========================================================
+# 以下は変更不要
+#===========================================================
 OnPoker: $(
 	#応答が必要なイベント。
 	#応答方法はraiseotherかnotifyotherを使う。
@@ -59,7 +90,7 @@ OnPokerNotify: $(
 		while $[ ${System.Request.Reference${@i}} != "" ] $(
 			if $[ ${System.Request.Reference${@i}} == ${TH.GhostName} ] $(
 				#ゲームに参加できた
-				entry TH.gamestart.talk;
+				entry TH.talk.game_start;
 				break;
 			);
 			inc @i;
@@ -131,27 +162,7 @@ OnPokerNotify: $(
 			dec TH.n_players;
 		);
 		if $[ ${@player} == ${TH.GhostName} ] $(
-			if $[ ${@action} == "bet" ] $(
-				setstr @say "\s[0]ベット";
-				setstr @aqtk "ベ'ット";
-			) else if $[ ${@action} == "raise" ] $(
-				setstr @say "\s[8]レイズ";
-				setstr @aqtk "レ'イズ";
-			) else if $[ ${@action} == "allin" ] $(
-				setstr @say "\s[7]オールイン";
-				setstr @aqtk "オールイ'ン";
-			) else if $[ ${@action} == "check" ] $(
-				setstr @say "\s[6]チェック";
-				setstr @aqtk "チェ'ック";
-			) else if $[ ${@action} == "call" ] $(
-				setstr @say "\s[5]コール";
-				setstr @aqtk "コ'ール";
-			) else if $[ ${@action} == "fold" ] $(
-				setstr @say "\s[3]フォールド";
-				setstr @aqtk "フォ'ールド";
-			);
-			AQ.ExecAqtk ${@aqtk};
-			echo \0${@say}\e;
+			entry TH.talk.action.${@action};
 		);
 	) else if $[ ${@command} == "show_down" ] $(
 		#ショーダウン時のカード情報が送られてくる。
@@ -183,12 +194,12 @@ OnPokerNotify: $(
 		);
 		if $[ $(find @winner ${TH.GhostName}) != -1 ] $(
 			#そのラウンドで勝った時のリアクション
-			entry TH.winner.talk;
+			entry TH.talk.round.win;
 		) else if $[ ${TH.stack} <= 0 ] $(
 			#ゲームに負けた時のリアクション
-			if $[ ${TH.save.gameover} != 1 ] $(
-				entry TH.loser.talk;
-				setstr TH.save.gameover 1;
+			if $[ ${TH.save.dropout} != 1 ] $(
+				entry TH.talk.round.dropout;
+				setstr TH.save.dropout 1;
 			);
 		);
 	) else if $[ ${@command} == "game_result" ] $(
@@ -198,19 +209,9 @@ OnPokerNotify: $(
 		#この辺にゲーム終了時の処理
 		if $[ ${@winner} == ${TH.GhostName} ] $(
 			#ゲームに勝ったときのリアクション
-			entry TH.gameend.winner.talk;
+			entry TH.talk.game_result.win;
 		) else $(
-			entry TH.gameend.loser.talk;
+			entry TH.talk.game_result.lose;
 		);
 	);
 )
-TH.gamestart.talk: \0\s[5]わくわくっ！\e
-TH.gamestart.talk: \0\s[1]優しくしてね？\e
-TH.winner.talk: \0\s[5]やったー！\e
-TH.winner.talk: \0\s[5]ありがとー！\e
-TH.loser.talk: \0\s[4]やられちゃった…\e
-TH.loser.talk: \0\s[4]ふえぇ…\e
-TH.gameend.winner.talk: \0\s[5]%selfname、\_w[500]お金持ちー！\e
-TH.gameend.winner.talk: \0\s[2]あれ？\_w[500]勝っちゃった？\e
-TH.gameend.loser.talk: \0\s[8]おめでとう。\e
-TH.gameend.loser.talk: \0\s[1]強気な人、\_w[500]かっこいいね…。\e
