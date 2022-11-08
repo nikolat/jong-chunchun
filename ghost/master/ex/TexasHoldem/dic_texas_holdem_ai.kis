@@ -66,7 +66,7 @@ function TH.AI.PreFlop $(
 		adddictstr @ret allin;
 	) else if $[ ${TH.blind} * 5 < ${TH.current_bet} ] $(
 		# ƒxƒbƒgŠz‚ª‚‚·‚¬‚éê‡‚Íˆê•”‚Ì‹­‚¢Žè‚ðœ‚¢‚Ä~‚è‚éB
-		if $[ ${vs_allin} == 0 ] $(
+		if $[ ${@vs_allin} == 0 ] $(
 			clear @ret;
 			adddictstr @ret fold;
 		);
