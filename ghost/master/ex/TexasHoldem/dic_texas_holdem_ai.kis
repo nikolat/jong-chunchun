@@ -28,7 +28,7 @@ function TH.AI.PreFlop $(
 	);
 	# ペアハンドなら強いので出来るだけraiseしていく。
 	if $[ ${@h1_num} == ${@h2_num} ] $(
-		if $[ ${h1_num} == 1 || ${h1_num} >= 11 ] $(
+		if $[ ${@h1_num} == 1 || ${@h1_num} >= 11 ] $(
 			setstr @vs_allin 1;
 		);
 		if $[ ${TH.blind} < ${TH.current_bet} ] $(
