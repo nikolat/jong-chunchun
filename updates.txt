@@ -5,7 +5,7 @@ file,ghost/master/descript.txt0a3e14adc1e091278cdb7013f6ddfa9dsize=302date=20
 file,ghost/master/dict/event.txt3b84f93564601fee5e100c5ae09b2bdesize=4243date=2012-12-21T00:00:00
 file,ghost/master/dict/resource.txtdd85aa50a6284552981ce996313d2b4csize=526date=2012-12-21T00:00:00
 file,ghost/master/ex/TexasHoldem/dic_texas_holdem.kisc0a382f6aeb737fcccf47fdf4ff6b73esize=7246date=2012-12-21T00:00:00
-file,ghost/master/ex/TexasHoldem/dic_texas_holdem_ai.kisdebda1a22dd7078615773dcd641ed193size=7558date=2012-12-21T00:00:00
+file,ghost/master/ex/TexasHoldem/dic_texas_holdem_ai.kis95d3958a5fbe70a4317c0c18f55dc353size=7559date=2012-12-21T00:00:00
 file,ghost/master/icon.icoa9efb16e6031bc042ca90d6e021844cbsize=15086date=2012-12-21T00:00:00
 file,ghost/master/kawarirc.kis87dc0ea316c8e60010fed3868749828asize=404date=2012-12-21T00:00:00
 file,ghost/master/saori/MahjongUtil/MahjongUtil.dll35dd69d234c4aea8a4d4050f2d0ad952size=225792date=2012-12-21T00:00:00
