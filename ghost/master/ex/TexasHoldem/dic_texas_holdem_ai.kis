@@ -84,32 +84,32 @@ function TH.AI.Flop $(
 	# ベットされている場合はコミュニティカードとペアになっている可能性
 	# があるのでそれを想定した勝率を計算する。
 	setstr @rate -1;
-	if $[ ${TH.current_bet} > 0 ] $(
-		clear @list;
-		clear @suit;
-		split @suit S,H,C,D ,
-		foreach @s @suit $(
-			setstr @num $(substr $TH.community[0] 1 2);
-			if $[ $(find @list ${@s}${@num}) == -1 ] $(
-				adddictstr @list ${@s}${@num};
-			);
-		);
-		clear @l;
-		copy TH.hand @l;
-		copy TH.community @l;
-		foreach @e @l $(
-			setstr @pos $(find @list @e);
-			if $[ ${@pos} != -1] $(
-				clear @list[${@pos}];
-			);
-		);
-		if $[ $(size @list) > 0 ] $(
-			setstr @sum 0;
-			foreach @e @list $(
-				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
-			);
-		);
-	);
+#	if $[ ${TH.current_bet} > 0 ] $(
+#		clear @list;
+#		clear @suit;
+#		split @suit S,H,C,D ,
+#		foreach @s @suit $(
+#			setstr @num $(substr $TH.community[0] 1 2);
+#			if $[ $(find @list ${@s}${@num}) == -1 ] $(
+#				adddictstr @list ${@s}${@num};
+#			);
+#		);
+#		clear @l;
+#		copy TH.hand @l;
+#		copy TH.community @l;
+#		foreach @e @l $(
+#			setstr @pos $(find @list @e);
+#			if $[ ${@pos} != -1] $(
+#				clear @list[${@pos}];
+#			);
+#		);
+#		if $[ $(size @list) > 0 ] $(
+#			setstr @sum 0;
+#			foreach @e @list $(
+#				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
+#			);
+#		);
+#	);
 	# それ以外の場合はランダムハンドに対する勝率を計算する。
 	if $[ ${@rate} < 0 ] $(
 		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
@@ -121,10 +121,10 @@ function TH.AI.Flop $(
 	if $[ ${@community_strength} < ${@strength} && ${@strength} >= ${TH.Hand.ThreeOfAKind} ] $(
 		adddictstr @ret raise;
 		adddictstr @ret ${TH.pot};
-	) else if $[ ${@hand_strength} == ${TH.Hand.HighCards} && ${@community_strength} == ${TH.Hand.HighCards} && ${@strength} >= ${TH.hand.OnePair} ] $(
+	) else if $[ ${@hand_strength} == ${TH.Hand.HighCards} && ${@community_strength} == ${TH.Hand.HighCards} && ${@strength} >= ${TH.Hand.OnePair} ] $(
 		adddictstr @ret raise;
 		adddictstr @ret ${TH.pot};
-	) else if $[ ${@hand_strength} == ${TH.Hand.HighCards} && ${@community_strength} == ${TH.Hand.OnePair} && ${@strength} >= ${TH.hand.TwoPair} ] $(
+	) else if $[ ${@hand_strength} == ${TH.Hand.HighCards} && ${@community_strength} == ${TH.Hand.OnePair} && ${@strength} >= ${TH.Hand.TwoPair} ] $(
 		adddictstr @ret raise;
 		adddictstr @ret ${TH.pot};
 	) else if $[ $(find @action check) != -1 ] $(
@@ -144,34 +144,34 @@ function TH.AI.Turn $(
 	split @action $@arg[1] ,;
 	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] $TH.hand[0] $TH.hand[1]);
 	setstr @rate -1;
-	if $[ ${TH.current_bet} > 0 ] $(
-		clear @list;
-		clear @suit;
-		split @suit S,H,C,D ,
-		foreach @s @suit $(
-			setstr @num $(substr $TH.community[0] 1 2);
-			if $[ $(find @list ${@s}${@num}) == -1 ] $(
-				adddictstr @list ${@s}${@num};
-			);
-		);
-		clear @l;
-		copy TH.hand @l;
-		copy TH.community @l;
-		foreach @e @l $(
-			setstr @pos $(find @list @e);
-			if $[ ${@pos} != -1] $(
-				clear @list[${@pos}];
-			);
-		);
-		if $[ $(size @list) > 0 ] $(
-			setstr @sum 0;
-			foreach @e @list $(
-				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
-			);
-		);
-	);
+#	if $[ ${TH.current_bet} > 0 ] $(
+#		clear @list;
+#		clear @suit;
+#		split @suit S,H,C,D ,
+#		foreach @s @suit $(
+#			setstr @num $(substr $TH.community[0] 1 2);
+#			if $[ $(find @list ${@s}${@num}) == -1 ] $(
+#				adddictstr @list ${@s}${@num};
+#			);
+#		);
+#		clear @l;
+#		copy TH.hand @l;
+#		copy TH.community @l;
+#		foreach @e @l $(
+#			setstr @pos $(find @list @e);
+#			if $[ ${@pos} != -1] $(
+#				clear @list[${@pos}];
+#			);
+#		);
+#		if $[ $(size @list) > 0 ] $(
+#			setstr @sum 0;
+#			foreach @e @list $(
+#				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
+#			);
+#		);
+#	);
 	if $[ ${@rate} < 0 ] $(
-		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
+		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
 	);
 	if $[ ${@strength} > ${TH.strength} ] $(
 		setstr TH.strength ${@strength};
@@ -193,34 +193,34 @@ function TH.AI.River $(
 	split @action $@arg[1] ,;
 	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] TH.community[4] $TH.hand[0] $TH.hand[1]);
 	setstr @rate -1;
-	if $[ ${TH.current_bet} > 0 ] $(
-		clear @list;
-		clear @suit;
-		split @suit S,H,C,D ,
-		foreach @s @suit $(
-			setstr @num $(substr $TH.community[0] 1 2);
-			if $[ $(find @list ${@s}${@num}) == -1 ] $(
-				adddictstr @list ${@s}${@num};
-			);
-		);
-		clear @l;
-		copy TH.hand @l;
-		copy TH.community @l;
-		foreach @e @l $(
-			setstr @pos $(find @list @e);
-			if $[ ${@pos} != -1] $(
-				clear @list[${@pos}];
-			);
-		);
-		if $[ $(size @list) > 0 ] $(
-			setstr @sum 0;
-			foreach @e @list $(
-				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
-			);
-		);
-	);
+#	if $[ ${TH.current_bet} > 0 ] $(
+#		clear @list;
+#		clear @suit;
+#		split @suit S,H,C,D ,
+#		foreach @s @suit $(
+#			setstr @num $(substr $TH.community[0] 1 2);
+#			if $[ $(find @list ${@s}${@num}) == -1 ] $(
+#				adddictstr @list ${@s}${@num};
+#			);
+#		);
+#		clear @l;
+#		copy TH.hand @l;
+#		copy TH.community @l;
+#		foreach @e @l $(
+#			setstr @pos $(find @list @e);
+#			if $[ ${@pos} != -1] $(
+#				clear @list[${@pos}];
+#			);
+#		);
+#		if $[ $(size @list) > 0 ] $(
+#			setstr @sum 0;
+#			foreach @e @list $(
+#				setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] $TH.community[4] ${TH.n_players} $TH.hand[0] $TH.hand[1] ${@e} N0);
+#			);
+#		);
+#	);
 	if $[ ${@rate} < 0 ] $(
-		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
+		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] $TH.community[4] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
 	);
 	if $[ ${@strength} > ${TH.strength} ] $(
 		setstr TH.strength ${@strength};
