@@ -191,7 +191,7 @@ function TH.AI.River $(
 	clear @ret;
 	clear @action;
 	split @action $@arg[1] ,;
-	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] TH.community[4] $TH.hand[0] $TH.hand[1]);
+	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.community[3] $TH.community[4] $TH.hand[0] $TH.hand[1]);
 	setstr @rate -1;
 #	if $[ ${TH.current_bet} > 0 ] $(
 #		clear @list;
