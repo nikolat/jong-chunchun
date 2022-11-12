@@ -18,7 +18,7 @@ file,ghost/master/saori/aqtk/AqLicense.txt646967832de73129b6495dc5ff2ed311size
 file,ghost/master/saori/aqtk/AqTalkSaori.dll3ca3db02a21292ac7fdbbe572f7e4254size=192512date=2012-12-21T00:00:00
 file,ghost/master/saori/aqtk/AqTalkSaori_readme.txtb8b46f2feafc004edd8dfa77397b0260size=5708date=2012-12-21T00:00:00
 file,ghost/master/saori/aqtk/AquesTalk.dll8bfacc9e1c9d6f1a1f6803739a9ed7d6size=110592date=2012-12-21T00:00:00
-file,ghost/master/shiori.dlld18882c2ffcefb9c529c2597419ea2c7size=282624date=2012-12-21T00:00:00
+file,ghost/master/shiori.dll118d5bb9e5d917d66c97722bc970edb9size=268800date=2012-12-21T00:00:00
 file,install.txta919ce968a116af61b1ac58b9811b124size=77date=2012-12-21T00:00:00
 file,readme.txt1e9d8ff1e8776444390341560c786928size=2777date=2012-12-21T00:00:00
 file,shell/master/descript.txt65fdce11ea482f851f00f8b01955f6fesize=811date=2012-12-21T00:00:00
