@@ -20,7 +20,7 @@ file,ghost/master/saori/aqtk/AqTalkSaori_readme.txtb8b46f2feafc004edd8dfa77397b
 file,ghost/master/saori/aqtk/AquesTalk.dll8bfacc9e1c9d6f1a1f6803739a9ed7d6size=110592date=2012-12-21T00:00:00
 file,ghost/master/shiori.dll118d5bb9e5d917d66c97722bc970edb9size=268800date=2012-12-21T00:00:00
 file,install.txta919ce968a116af61b1ac58b9811b124size=77date=2012-12-21T00:00:00
-file,readme.txt1e9d8ff1e8776444390341560c786928size=2777date=2012-12-21T00:00:00
+file,readme.txtbb52ab2bf2db6261e9b55a77e720b063size=2772date=2012-12-21T00:00:00
 file,shell/master/descript.txt65fdce11ea482f851f00f8b01955f6fesize=811date=2012-12-21T00:00:00
 file,shell/master/element0101.pnga0ea1e43194b88fd45567822f8f4d0ffsize=11729date=2012-12-21T00:00:00
 file,shell/master/element0102.png16472a3617d6694807c078969d4c3de4size=11441date=2012-12-21T00:00:00
