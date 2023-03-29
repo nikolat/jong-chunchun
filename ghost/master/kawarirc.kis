@@ -7,6 +7,10 @@ load MahjongAI.txt;
 load ex\TexasHoldem\dic_texas_holdem.kis;
 load ex\TexasHoldem\dic_texas_holdem_ai.kis;
 =end
+#セキュリティレベル指定
+=kis
+securitylevel low;
+=end
 #SAORI登録
 =kis
 saoriregist saori\aqtk\AqTalkSaori.dll aqtk preload;
