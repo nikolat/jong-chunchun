@@ -15,8 +15,8 @@ useorigin1: 1
 #################################################
 
 sakura.portalsites:$(urllist
-	"Disc-2"
-	"http://disc2.s56.xrea.com/"
+	"うかフィード"
+	"https://feed.ukagaka.net/"
 	"-"
 )
 sakura.recommendsites:$(urllist
