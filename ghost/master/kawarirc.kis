@@ -6,6 +6,7 @@ load OnMahjong.txt;
 load MahjongAI.txt;
 load ex\TexasHoldem\dic_texas_holdem.kis;
 load ex\TexasHoldem\dic_texas_holdem_ai.kis;
+load ex\Nostr\nostr.kis;
 =end
 #セキュリティレベル指定
 =kis

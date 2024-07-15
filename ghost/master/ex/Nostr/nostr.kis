@@ -1,0 +1,66 @@
+OnNostr: $(
+	if $[ ${System.Request.Reference0} != "Nostr/0.4" ] $(
+		echo \e;
+	) else if $[ ${System.Request.Reference1} != 42 ] $(
+		echo \e;
+	) else $(
+		setstr @content ${System.Request.Reference2};
+		if $[ $(match ${@content} "sutehai? sutehai") >= 0 ] $(
+			clear @a;
+			split @a ${@content} " ";
+			setstr @c $@a[3];
+			clear @a2;
+			split @a2 ${@c} \n;
+			setstr @pai $@a2[0];
+			echo \0\_q${@pai}\e;
+		) else if $[ $(match ${@content} naku?) >= 0 ] $(
+			clear @a;
+			split @a ${@content} " ";
+			setstr @word $@a[2];
+			if $[ ${@word} == "chi" ] $(
+				setstr @say "\s[0]チー";
+				setstr @aqtk "ち'ー";
+			) else if $[ ${@word} == "pon" ] $(
+				setstr @say "\s[0]ポン";
+				setstr @aqtk "ぽ'ん";
+			) else if $[ ${@word} == "kan" ] $(
+				setstr @say "\s[0]カン";
+				setstr @aqtk "か'ん";
+			) else if $[ ${@word} == "ron" ] $(
+				setstr @say "\s[5]ロン";
+				setstr @aqtk "ろ'ん";
+			);
+			if $[ ${@say} != "" ] $(
+				echo \0\_q${@say}\e;
+				AQ.ExecAqtk ${@aqtk};
+			) else $(
+				echo \e;
+			);
+		) else if $[ $(match ${@content} "sutehai?") >= 0 ] $(
+			clear @a;
+			split @a ${@content} " ";
+			setstr @c $@a[2];
+			clear @a2;
+			split @a2 ${@c} \n;
+			setstr @word $@a2[0];
+			if $[ ${@word} == "tsumo" ] $(
+				setstr @say "\s[5]ツモ";
+				setstr @aqtk "つ'も";
+			) else if $[ ${@word} == "richi" ] $(
+				setstr @say "\s[6]リーチ";
+				setstr @aqtk "り'ーち";
+			) else if $[ ${@word} == "ankan" || ${@word} == "kakan" ] $(
+				setstr @say "\s[0]カン";
+				setstr @aqtk "か'ん";
+			);
+			if $[ ${@say} != "" ] $(
+				echo \0\_q${@say}\e;
+				AQ.ExecAqtk ${@aqtk};
+			) else $(
+				echo \e;
+			);
+		) else $(
+			echo \e;
+		);
+	);
+)
