@@ -12,7 +12,8 @@ OnNostr: $(
 			clear @a2;
 			split @a2 ${@c} \n;
 			setstr @pai $@a2[0];
-			echo \0\_q${@pai}\e;
+			setstr @url $(N.GetPaiUrl ${@pai});
+			echo \0\_q\_b[${@url},centerx,centery,--option=opaque,--option=use_self_alpha,--option=background]\e;
 		) else if $[ $(match ${@content} naku?) >= 0 ] $(
 			clear @a;
 			split @a ${@content} " ";
@@ -64,3 +65,27 @@ OnNostr: $(
 		);
 	);
 )
+
+=kis
+function N.GetPaiUrl $(
+	setstr @pai $(substr $@arg[1] 1 1)$(substr $@arg[1] 0 1);
+	if $[ ${@pai} == "z1" ] $(
+		setstr @name east;
+	) else if $[ ${@pai} == "z2" ] $(
+		setstr @name south;
+	) else if $[ ${@pai} == "z3" ] $(
+		setstr @name west;
+	) else if $[ ${@pai} == "z4" ] $(
+		setstr @name north;
+	) else if $[ ${@pai} == "z5" ] $(
+		setstr @name white;
+	) else if $[ ${@pai} == "z6" ] $(
+		setstr @name green;
+	) else if $[ ${@pai} == "z7" ] $(
+		setstr @name red;
+	) else $(
+		setstr @name ${@pai};
+	);
+	return https://awayuki.github.io/emoji/mahjong-${@name}.png;
+);
+=end
