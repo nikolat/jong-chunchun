@@ -24,7 +24,7 @@ OnNostr: $(
 			) else if $[ ${@word} == "pon" ] $(
 				setstr @say "\s[0]ƒ|ƒ“";
 				setstr @aqtk "‚Û'‚ñ";
-			) else if $[ ${@word} == "kan" ] $(
+			) else if $[ ${@word} == "ankan" || ${@word} == "kakan" ] $(
 				setstr @say "\s[0]ƒJƒ“";
 				setstr @aqtk "‚©'‚ñ";
 			) else if $[ ${@word} == "ron" ] $(
