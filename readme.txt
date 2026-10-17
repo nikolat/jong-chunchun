@@ -32,7 +32,7 @@
 □SHIORIとして「華和梨」を使用しています。
 
     プログラマブル準AI 華和梨
-      https://kawari.github.io/
+      https://github.com/ukatech/kawari
 
 □SAORIとして「MahjongUtil.dll」を使用しています。
 

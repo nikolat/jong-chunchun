@@ -21,7 +21,7 @@ sakura.portalsites:$(urllist
 )
 sakura.recommendsites:$(urllist
 	"華和梨"
-	"https://kawari.github.io/"
+	"https://github.com/ukatech/kawari"
 	"-" 
 )
 
