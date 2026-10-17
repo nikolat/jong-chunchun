@@ -1,9 +1,9 @@
 
-#u‰Ø˜a—œv‹UAIŽ«‘
-#@Event Script
+#ã€Œè¯å’Œæ¢¨ã€å½AIè¾žæ›¸
+#ã€€Event Script
 
 #################################################
-#ƒCƒxƒ“ƒgŒÄ‚Ño‚µ
+#ã‚¤ãƒ™ãƒ³ãƒˆå‘¼ã³å‡ºã—
 #################################################
 
 System.Callback.OnEvent    : ${System.Request.Event}
@@ -11,26 +11,26 @@ System.Callback.OnResource : ${System.Request.ID}
 System.Callback.OnGET      : ${${System.Request.ID}}
 
 #################################################
-#Šî‘bƒCƒxƒ“ƒg
+#åŸºç¤Žã‚¤ãƒ™ãƒ³ãƒˆ
 #################################################
 
-OnFirstBoot          : \1\s[10]\0\s[5]‚Í‚¶‚ß‚Ü‚µ‚ÄA\_w[500]‚æ‚ë‚µ‚­[B\e
-OnGhostChanged       : \1\s[10]\0\s[5]‚Í[‚¢A\_w[500]%selfname‚Å[‚·B\e
-OnShellChanged       : \1\s[10]\0\s[0]‚¨‚Ü‚½‚¹B\e
+OnFirstBoot          : \1\s[10]\0\s[5]ã¯ã˜ã‚ã¾ã—ã¦ã€\_w[500]ã‚ˆã‚ã—ããƒ¼ã€‚\e
+OnGhostChanged       : \1\s[10]\0\s[5]ã¯ãƒ¼ã„ã€\_w[500]%selfnameã§ãƒ¼ã™ã€‚\e
+OnShellChanged       : \1\s[10]\0\s[0]ãŠã¾ãŸã›ã€‚\e
 OnWindowStateRestore : \1\s[10]\0\s[0]\e
 
-OnBoot : \1\s[10]\0\s[5]‚æ‚ë‚µ‚­[B\e
-OnBoot : \1\s[10]\0\s[0]‚Ü‚½‰ï‚Á‚½‚ËB\e
-OnBoot : \1\s[10]\0\s[1]¡“ú‚àA\_w[500]‚·‚é‚ÌH\e
-OnBoot : \1\s[10]\0\s[5]‚²Žw–¼‚ ‚è‚ª‚Æ‚¤‚²‚´‚¢‚Ü[‚·B\e
+OnBoot : \1\s[10]\0\s[5]ã‚ˆã‚ã—ããƒ¼ã€‚\e
+OnBoot : \1\s[10]\0\s[0]ã¾ãŸä¼šã£ãŸã­ã€‚\e
+OnBoot : \1\s[10]\0\s[1]ä»Šæ—¥ã‚‚ã€\_w[500]ã™ã‚‹ã®ï¼Ÿ\e
+OnBoot : \1\s[10]\0\s[5]ã”æŒ‡åã‚ã‚ŠãŒã¨ã†ã”ã–ã„ã¾ãƒ¼ã™ã€‚\e
 
-OnClose : \1\s[10]\0\s[5]‚¶‚á[‚Ë[B\_w[500]\-\e
-OnClose : \1\s[10]\0\s[3]‚à‚¤”æ‚ê‚¿‚á‚Á‚½[B\_w[500]\-\e
-OnClose : \1\s[10]\0\s[4]‚¿‚å‚Á‚Æ‹xŒeB\_w[500]\-\e
-OnClose : \1\s[10]\0\s[1]‚Ü‚½cA\_w[500]—V‚Ú‚¤‚ËH\_w[500]\-\e
+OnClose : \1\s[10]\0\s[5]ã˜ã‚ƒãƒ¼ã­ãƒ¼ã€‚\_w[500]\-\e
+OnClose : \1\s[10]\0\s[3]ã‚‚ã†ç–²ã‚Œã¡ã‚ƒã£ãŸãƒ¼ã€‚\_w[500]\-\e
+OnClose : \1\s[10]\0\s[4]ã¡ã‚‡ã£ã¨ä¼‘æ†©ã€‚\_w[500]\-\e
+OnClose : \1\s[10]\0\s[1]ã¾ãŸâ€¦ã€\_w[500]éŠã¼ã†ã­ï¼Ÿ\_w[500]\-\e
 
 #################################################
-#ƒlƒbƒgƒ[ƒNƒCƒxƒ“ƒg
+#ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã‚¤ãƒ™ãƒ³ãƒˆ
 #################################################
 
 OnUpdateBegin    : \0\s[0]\_qUpdate Begin.\_q\e
@@ -39,7 +39,7 @@ OnUpdateComplete : \0\s[0]\_q${System.Request.Reference0}.\_q\e
 OnUpdateFailure  : \0\s[0]\_q${System.Request.Reference0}.\_q\e
 
 #################################################
-#ƒ}ƒEƒXƒCƒxƒ“ƒg
+#ãƒžã‚¦ã‚¹ã‚¤ãƒ™ãƒ³ãƒˆ
 #################################################
 
 OnMouseDoubleClick : $(
@@ -48,21 +48,21 @@ OnMouseDoubleClick : $(
 	${MouseDoubleClick${System.Request.Reference3}}
 )
 
-MouseDoubleClick0 : \0\s[0]‚È‚ ‚ÉH\e
-MouseDoubleClick0 : \0\s[5]‚Põ‚Á‚ÄƒJƒƒCƒCI\e
-MouseDoubleClick0 : \0\s[4]“_”ŒvŽZ‚Á‚Ä‘S‘R‚í‚©‚ñ‚È‚¢‚æ[B\e
-MouseDoubleClick0 : \0\s[6]Žè‰ÁŒ¸‚µ‚È‚­‚Ä‚¢‚¢‚ñ‚¾‚æH\e
+MouseDoubleClick0 : \0\s[0]ãªã‚ã«ï¼Ÿ\e
+MouseDoubleClick0 : \0\s[5]ï¼‘ç´¢ã£ã¦ã‚«ãƒ¯ã‚¤ã‚¤ï¼\e
+MouseDoubleClick0 : \0\s[4]ç‚¹æ•°è¨ˆç®—ã£ã¦å…¨ç„¶ã‚ã‹ã‚“ãªã„ã‚ˆãƒ¼ã€‚\e
+MouseDoubleClick0 : \0\s[6]æ‰‹åŠ æ¸›ã—ãªãã¦ã„ã„ã‚“ã ã‚ˆï¼Ÿ\e
 
-MouseDoubleClick0Head : \0\s[4]“ü‚Á‚Ä‚Ü‚·‚æ[H\e
-MouseDoubleClick0Head : \0\s[3]Œ™‚¢‚É‚È‚Á‚¿‚á‚¤‚¼H\e
+MouseDoubleClick0Head : \0\s[4]å…¥ã£ã¦ã¾ã™ã‚ˆãƒ¼ï¼Ÿ\e
+MouseDoubleClick0Head : \0\s[3]å«Œã„ã«ãªã£ã¡ã‚ƒã†ãžï¼Ÿ\e
 
-MouseDoubleClick0Face : \0\s[2]Šç‚É‰½‚©•t‚¢‚Ä‚½H\e
-MouseDoubleClick0Face : \0\s[0]‚Ç‚¤‚©‚µ‚½H\e
+MouseDoubleClick0Face : \0\s[2]é¡”ã«ä½•ã‹ä»˜ã„ã¦ãŸï¼Ÿ\e
+MouseDoubleClick0Face : \0\s[0]ã©ã†ã‹ã—ãŸï¼Ÿ\e
 
-MouseDoubleClick0Bust : \0\s[8]ƒ_[ƒI\e
-MouseDoubleClick0Bust : \0\s[1]•‰‚¯‚½‚ç’E‚®ƒ‹[ƒ‹H\e
+MouseDoubleClick0Bust : \0\s[8]ãƒ€ãƒ¼ãƒ¡ï¼\e
+MouseDoubleClick0Bust : \0\s[1]è² ã‘ãŸã‚‰è„±ããƒ«ãƒ¼ãƒ«ï¼Ÿ\e
 
-# ‚Ü‚¸‚Íu•‚Å‚ç‚ê‚½ƒLƒƒƒ‰ƒNƒ^[v‚ðŠm’è
+# ã¾ãšã¯ã€Œæ’«ã§ã‚‰ã‚ŒãŸã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã€ã‚’ç¢ºå®š
 OnMouseMove : $(
 	if $[ ${System.Request.Reference3} == 0 ] $(
 		entry env.MouseMove.1st;
@@ -71,10 +71,10 @@ OnMouseMove : $(
 	);
 )
 
-# ‘±‚¢‚ÄAƒLƒƒƒ‰ƒNƒ^[–ˆ‚Éu•‚ÅƒJƒEƒ“ƒgv‚ðƒJƒEƒ“ƒgƒAƒbƒv‚µAÝ’è‚³‚ê‚½”’l‚É’B‚µ‚½‚ç
-# ƒJƒEƒ“ƒ^[‚ðƒŠƒZƒbƒg‚µA‚»‚Ìƒ|ƒCƒ“ƒg‚Ì•‚Å”½‰žƒg[ƒN‚ðs‚¤B
+# ç¶šã„ã¦ã€ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼æ¯Žã«ã€Œæ’«ã§ã‚«ã‚¦ãƒ³ãƒˆã€ã‚’ã‚«ã‚¦ãƒ³ãƒˆã‚¢ãƒƒãƒ—ã—ã€è¨­å®šã•ã‚ŒãŸæ•°å€¤ã«é”ã—ãŸã‚‰
+# ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã‚’ãƒªã‚»ãƒƒãƒˆã—ã€ãã®ãƒã‚¤ãƒ³ãƒˆã®æ’«ã§åå¿œãƒˆãƒ¼ã‚¯ã‚’è¡Œã†ã€‚
 
-#\h(\0)‘¤B
+#\h(\0)å´ã€‚
 env.MouseMove.1st : $(
 	inc sys.Move;
 	if $[ $[ ${sys.Move} > ${sys.SetMove1st} ] && $[ $(match ${System.Request.Status} talking) < 0 ] ] $(
@@ -83,21 +83,21 @@ env.MouseMove.1st : $(
 	);
 )
 
-# •‚Å”½‰ž‚Ü‚Å‚Ì‘Ò‚¿ŽžŠÔ
+# æ’«ã§åå¿œã¾ã§ã®å¾…ã¡æ™‚é–“
 sys.SetMove1st : 100
 
 MouseMove0 :
-MouseMove0Head : \0\s[5]%selfnameA‚¦‚ç‚¢H\e
-MouseMove0Head : \0\s[6]%selfnameA‚¢‚¢ŽqB\e
+MouseMove0Head : \0\s[5]%selfnameã€ãˆã‚‰ã„ï¼Ÿ\e
+MouseMove0Head : \0\s[6]%selfnameã€ã„ã„å­ã€‚\e
 
-MouseMove0Face : \0\s[6]ƒ|[ƒJ[ƒtƒFƒCƒXB\e
-MouseMove0Face : \0\s[5]”’iƒnƒNjI\e
+MouseMove0Face : \0\s[6]ãƒãƒ¼ã‚«ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã€‚\e
+MouseMove0Face : \0\s[5]ç™½ï¼ˆãƒã‚¯ï¼‰ï¼\e
 
-MouseMove0Bust : \0\s[1]%username‚ªŸ‚Á‚½‚çA\_w[500]D‚«‚É‚µ‚Ä‚¢‚¢‚æcH\e
-MouseMove0Bust : \0\s[2]ƒCƒJƒTƒ}H\_w[500]‰½‚à‰B‚µ‚Ä‚È‚¢‚æH\e
+MouseMove0Bust : \0\s[1]%usernameãŒå‹ã£ãŸã‚‰ã€\_w[500]å¥½ãã«ã—ã¦ã„ã„ã‚ˆâ€¦ï¼Ÿ\e
+MouseMove0Bust : \0\s[2]ã‚¤ã‚«ã‚µãƒžï¼Ÿ\_w[500]ä½•ã‚‚éš ã—ã¦ãªã„ã‚ˆï¼Ÿ\e
 
 #################################################
-#ƒL[ƒCƒxƒ“ƒg
+#ã‚­ãƒ¼ã‚¤ãƒ™ãƒ³ãƒˆ
 #################################################
 
 OnKeyPress: $(
@@ -108,7 +108,7 @@ sys.key.r: $(
 )
 
 #################################################
-#‚Ù‚©
+#ã»ã‹
 #################################################
 
 OnSurfaceRestore: \1\s[10]\0\s[0]\e

@@ -1,5 +1,5 @@
 #===========================================================
-# ‘ìã—U‹Z—pƒJƒWƒmƒ`ƒbƒv(Â)‚Æ‚Ù‚Ú“™‰¿
+# å“ä¸Šèª˜æŠ€ç”¨ã‚«ã‚¸ãƒãƒãƒƒãƒ—(é’)ã¨ã»ã¼ç­‰ä¾¡
 # https://github.com/Tatakinov/desktop_tempter_casino_chip_blue
 #===========================================================
 TH.Hand.None: 0
@@ -23,13 +23,13 @@ function TH.AI.PreFlop $(
 	setstr @h2_suit $(substr $TH.hand[1] 0 1);
 	setstr @h2_num $(substr $TH.hand[1] 1 2);
 	setstr @vs_allin 0;
-	# ğŒ®‚ğŠy‚É‘‚¯‚é‚æ‚¤‚É‚·‚é‚½‚ß‚ÌswapB
+	# æ¡ä»¶å¼ã‚’æ¥½ã«æ›¸ã‘ã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã®swapã€‚
 	if $[ ${@h2_num} == 1 || ${@h1_num} < ${@h2_num} ] $(
 		setstr @tmp ${@h1_num};
 		setstr @h1_num ${@h2_num};
 		setstr @h2_num ${@tmp};
 	);
-	# ƒyƒAƒnƒ“ƒh‚È‚ç‹­‚¢‚Ì‚Åo—ˆ‚é‚¾‚¯raise‚µ‚Ä‚¢‚­B
+	# ãƒšã‚¢ãƒãƒ³ãƒ‰ãªã‚‰å¼·ã„ã®ã§å‡ºæ¥ã‚‹ã ã‘raiseã—ã¦ã„ãã€‚
 	if $[ ${@h1_num} == ${@h2_num} ] $(
 		if $[ ${@h1_num} == 1 || ${@h1_num} >= 11 ] $(
 			setstr @vs_allin 1;
@@ -41,34 +41,34 @@ function TH.AI.PreFlop $(
 			adddictstr @ret $[ ${TH.blind} * 2 ];
 		);
 	) else if $[ $(find @action check) != -1 ] $(
-		# checko—ˆ‚é‚Æ‚«‚Ícheck‚·‚éB
+		# checkå‡ºæ¥ã‚‹ã¨ãã¯checkã™ã‚‹ã€‚
 		adddictstr @ret check;
 	) else if $[ ${@h1_num} == 1 && ${@h1_suit} == ${@h2_suit} && ${@h2_num} >= 5 ] $(
-		# ƒX[ƒeƒbƒh‚ÌA-Any‚È‚çcall‚·‚éB
+		# ã‚¹ãƒ¼ãƒ†ãƒƒãƒ‰ã®A-Anyãªã‚‰callã™ã‚‹ã€‚
 		setstr @vs_allin 1;
 		adddictstr @ret call;
 	) else if $[ ${@h1_num} == 1 && ${@h2_num} >= 8 ] $(
-		# ƒIƒtƒX[ƒg‚Å‚à8ˆÈã‚È‚çcall‚·‚éB
+		# ã‚ªãƒ•ã‚¹ãƒ¼ãƒˆã§ã‚‚8ä»¥ä¸Šãªã‚‰callã™ã‚‹ã€‚
 		if $[ ${@h2_num} >= 11 ] $(
 			setstr @vs_allin 1;
 		);
 		adddictstr @ret call;
 	) else if $[ ${@h1_num} >= 10 && ${@h2_num} >= 10 ] $(
-		# TTˆÈã‚È‚çcall‚·‚éB
+		# TTä»¥ä¸Šãªã‚‰callã™ã‚‹ã€‚
 		adddictstr @ret call;
 	) else if $[ ${@h1_suit} == ${@h2_suit} && ${@h1_num} + 1 == ${@h2_num} && ${@h1_num} >= 7 ] $(
-		# ‚Ü‚ ‚Ü‚ ‚ÈƒX[ƒeƒbƒhƒRƒlƒNƒ^[‚È‚çcall‚·‚éB
+		# ã¾ã‚ã¾ã‚ãªã‚¹ãƒ¼ãƒ†ãƒƒãƒ‰ã‚³ãƒã‚¯ã‚¿ãƒ¼ãªã‚‰callã™ã‚‹ã€‚
 		adddictstr @ret call;
 	);
 	if $[ $(size @ret) == 0 ] $(
-		# “Á‚ÉğŒ‚É“–‚Ä‚Í‚Ü‚ç‚È‚¯‚ê‚Î~‚è‚éB
+		# ç‰¹ã«æ¡ä»¶ã«å½“ã¦ã¯ã¾ã‚‰ãªã‘ã‚Œã°é™ã‚Šã‚‹ã€‚
 		adddictstr @ret fold;
 	) else if $[ ${TH.blind} * 10 > ${TH.stack} ] $(
-		# ƒXƒ^ƒbƒN‚ªblind‚Ì10”{‚æ‚è’á‚¯‚ê‚Îraise,call‚Ì‘ã‚í‚è‚Éall-in‚ğ‚·‚éB
+		# ã‚¹ã‚¿ãƒƒã‚¯ãŒblindã®10å€ã‚ˆã‚Šä½ã‘ã‚Œã°raise,callã®ä»£ã‚ã‚Šã«all-inã‚’ã™ã‚‹ã€‚
 		clear @ret;
 		adddictstr @ret allin;
 	) else if $[ ${TH.blind} * 5 < ${TH.current_bet} ] $(
-		# ƒxƒbƒgŠz‚ª‚‚·‚¬‚éê‡‚Íˆê•”‚Ì‹­‚¢è‚ğœ‚¢‚Ä~‚è‚éB
+		# ãƒ™ãƒƒãƒˆé¡ãŒé«˜ã™ãã‚‹å ´åˆã¯ä¸€éƒ¨ã®å¼·ã„æ‰‹ã‚’é™¤ã„ã¦é™ã‚Šã‚‹ã€‚
 		if $[ ${@vs_allin} == 0 ] $(
 			clear @ret;
 			adddictstr @ret fold;
@@ -84,8 +84,8 @@ function TH.AI.Flop $(
 	setstr @hand_strength $(callsaori th hand $TH.hand[0] $TH.hand[1]);
 	setstr @community_strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2]);
 	setstr @strength $(callsaori th hand $TH.community[0] $TH.community[1] $TH.community[2] $TH.hand[0] $TH.hand[1]);
-	# ƒxƒbƒg‚³‚ê‚Ä‚¢‚éê‡‚ÍƒRƒ~ƒ…ƒjƒeƒBƒJ[ƒh‚ÆƒyƒA‚É‚È‚Á‚Ä‚¢‚é‰Â”\«
-	# ‚ª‚ ‚é‚Ì‚Å‚»‚ê‚ğ‘z’è‚µ‚½Ÿ—¦‚ğŒvZ‚·‚éB
+	# ãƒ™ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹å ´åˆã¯ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£ã‚«ãƒ¼ãƒ‰ã¨ãƒšã‚¢ã«ãªã£ã¦ã„ã‚‹å¯èƒ½æ€§
+	# ãŒã‚ã‚‹ã®ã§ãã‚Œã‚’æƒ³å®šã—ãŸå‹ç‡ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 	setstr @rate -1;
 #	if $[ ${TH.current_bet} > 0 ] $(
 #		clear @list;
@@ -113,13 +113,13 @@ function TH.AI.Flop $(
 #			);
 #		);
 #	);
-	# ‚»‚êˆÈŠO‚Ìê‡‚Íƒ‰ƒ“ƒ_ƒ€ƒnƒ“ƒh‚É‘Î‚·‚éŸ—¦‚ğŒvZ‚·‚éB
+	# ãã‚Œä»¥å¤–ã®å ´åˆã¯ãƒ©ãƒ³ãƒ€ãƒ ãƒãƒ³ãƒ‰ã«å¯¾ã™ã‚‹å‹ç‡ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 	if $[ ${@rate} < 0 ] $(
 		setstr @rate $(callsaori th estimate $(size TH.community) $TH.community[0] $TH.community[1] $TH.community[2] ${TH.n_players} $TH.hand[0] $TH.hand[1]);
 	);
 
-	# èD‚ÆƒRƒ~ƒ…ƒjƒeƒBƒJ[ƒh‚ğ‡‚í‚¹‚é‚±‚Æ‚Å–ğ‚ªo—ˆ‚Ä‚¢‚é‚È‚ç
-	# raise‚·‚éB
+	# æ‰‹æœ­ã¨ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£ã‚«ãƒ¼ãƒ‰ã‚’åˆã‚ã›ã‚‹ã“ã¨ã§å½¹ãŒå‡ºæ¥ã¦ã„ã‚‹ãªã‚‰
+	# raiseã™ã‚‹ã€‚
 	setstr TH.strength ${@strength};
 	if $[ ${@community_strength} < ${@strength} && ${@strength} >= ${TH.Hand.ThreeOfAKind} ] $(
 		adddictstr @ret raise;
@@ -133,7 +133,7 @@ function TH.AI.Flop $(
 	) else if $[ $(find @action check) != -1 ] $(
 		adddictstr @ret check;
 	) else if $[ ${@rate} * (${TH.pot} + ${TH.total_bet} + ${TH.current_bet}) / ${TH.current_bet} >= 100 ] $(
-		# „’èŸ—¦‚ªƒIƒbƒY‚É‡‚¤‚È‚çcall‚·‚éB
+		# æ¨å®šå‹ç‡ãŒã‚ªãƒƒã‚ºã«åˆã†ãªã‚‰callã™ã‚‹ã€‚
 		adddictstr @ret call;
 	) else $(
 		adddictstr @ret fold;

@@ -1,26 +1,26 @@
 
-#u‰Ø˜a—œv‹UAI«‘
-#@Set Script
+#ã€Œè¯å’Œæ¢¨ã€å½AIè¾æ›¸
+#ã€€Set Script
 
 #################################################
-#ƒlƒbƒgƒ[ƒNXV
+#ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯æ›´æ–°
 #################################################
 
-#ƒlƒbƒgƒ[ƒNXV
+#ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯æ›´æ–°
 homeurl: https://raw.githubusercontent.com/nikolat/jong-chunchun/main/
 useorigin1: 1
 
 #################################################
-#‚¨‚·‚·‚ß
+#ãŠã™ã™ã‚
 #################################################
 
 sakura.portalsites:$(urllist
-	"‚¤‚©ƒtƒB[ƒh"
+	"ã†ã‹ãƒ•ã‚£ãƒ¼ãƒ‰"
 	"https://feed.ukagaka.net/"
 	"-"
 )
 sakura.recommendsites:$(urllist
-	"‰Ø˜a—œ"
+	"è¯å’Œæ¢¨"
 	"https://kawari.github.io/"
 	"-" 
 )

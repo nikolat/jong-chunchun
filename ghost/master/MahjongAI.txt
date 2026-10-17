@@ -3,9 +3,9 @@
 # http://creativecommons.org/publicdomain/zero/1.0/
 #===========================================================
 #===========================================================
-# ‰½‚ğØ‚é‚©
+# ä½•ã‚’åˆ‡ã‚‹ã‹
 #===========================================================
-#ƒeƒ“ƒpƒC‚É‹ß‚Ã‚¯‚é
+#ãƒ†ãƒ³ãƒ‘ã‚¤ã«è¿‘ã¥ã‘ã‚‹
 =kis
 function MJ.Naniwokiru $(
 	setstr @strTehai13 $@arg[1];
@@ -28,13 +28,13 @@ function MJ.Naniwokiru $(
 
 	setstr @strTehai14 $(MJ.AddHai ${@strTehai13} ${@strTsumo});
 	split @arSutehaiKouho $(MJ.Uniq $(MJ.GetTehaiArrayWithoutFuro ${@strTehai14})) ,;
-	#ƒhƒ‰
+	#ãƒ‰ãƒ©
 	split @arDorahyouji $(MJ.MakeArrayFromString ${@strDorahyouji}) ,;
 	foreach @d @arDorahyouji $(
 		adddictstr @arDora $(MJ.GetDoraFromDorahyouji ${@d});
 	);
 	setstr @strDora $(join @arDora "");
-	#ŒÇ—§”v
+	#å­¤ç«‹ç‰Œ
 	split @arKoritsuhai $(MJ.GetKoritsuHaiArray ${@strTehai14}) ,;
 
 	setstr @point -1;
@@ -44,12 +44,12 @@ function MJ.Naniwokiru $(
 		setstr @shantenPoint $[ 10000 * (10 - ${@shanten}) ];
 		setstr @machiPoint 0;
 		setstr @elementMaxPoint 0;
-		#ƒeƒ“ƒpƒC‚Í‘Ò‚¿‚ÌL‚³E˜a—¹“_‚Ì‚‚³‚ğl—¶
+		#ãƒ†ãƒ³ãƒ‘ã‚¤æ™‚ã¯å¾…ã¡ã®åºƒã•ãƒ»å’Œäº†ç‚¹ã®é«˜ã•ã‚’è€ƒæ…®
 		if $[ ${@shanten} == 0 ] $(
 			clear @arMachi;
 			split @arMachi $(MJ.GetMachiArray ${@strTehaiRemoved}) ,;
 			foreach @machi @arMachi $(
-				#ƒcƒ‚‚Á‚½ê‡‚ğ‘z’è
+				#ãƒ„ãƒ¢ã£ãŸå ´åˆã‚’æƒ³å®š
 				setstr @isTsumo 1;
 				setstr @score $(MJ.GetScore ${@strTehaiRemoved} ${@machi} ${@strBafuhai} ${@strJifuhai} ${@strDora} ${@isTsumo});
 				if $[ ${@score} > 0 ] $(
@@ -70,10 +70,10 @@ function MJ.Naniwokiru $(
 					clear @arTatsu;
 					foreach @p @ap $(
 						if $[ $(length ${@p}) == 6 ] $(
-							#–Êq
+							#é¢å­
 							inc @elementPoint 90;
 						) else if $[ $(length ${@p}) == 4 ] $(
-							#“ƒqE‘Îq
+							#å¡”å­ãƒ»å¯¾å­
 							adddictstr @arTatsu ${@p};
 						);
 					);
@@ -82,16 +82,16 @@ function MJ.Naniwokiru $(
 						setstr @t2 $(substr ${@tatsu} 2 1);
 						setstr @color $(substr ${@tatsu} 1 1);
 						if $[ (${@t1} != 1) && (${@t1} + 1 == ${@t2}) && (${@t2} != 9) ] $(
-							#—¼–Ê
+							#ä¸¡é¢
 							setstr @nNokori1 $[ 4 - $@arVisibleNum[$(MJ.GetSortCode $[ ${@t1} - 1 ]${@color})] ];
 							setstr @nNokori2 $[ 4 - $@arVisibleNum[$(MJ.GetSortCode $[ ${@t2} + 1 ]${@color})] ];
 							inc @elementPoint $[ 10 * (${@nNokori1} + ${@nNokori2}) ];
 						) else if $[ ${@t1} == ${@t2} ] $(
-							#‘Îq
+							#å¯¾å­
 							setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode ${@t1}${@color})] ];
 							inc @elementPoint $[ 20 * ${@nNokori} ];
 						) else if $[ ${@t1} == 1 && ${@t2} == 2 || ${@t1} == 8 && ${@t2} == 9 ] $(
-							#•Ó’£
+							#è¾ºå¼µ
 							setstr @nNokori 0;
 							if $[ ${@t1} == 1 ] $(
 								setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode 3${@color})] ];
@@ -100,7 +100,7 @@ function MJ.Naniwokiru $(
 							);
 							inc @elementPoint $[ 10 * ${@nNokori} - 5 ];
 						) else $(
-							#›Æ’£
+							#åµŒå¼µ
 							setstr @nNokori $[ 4 - $@arVisibleNum[$(MJ.GetSortCode $[ ${@t1} + 1 ]${@color})] ];
 							inc @elementPoint $[ 10 * ${@nNokori} ];
 						);
@@ -111,29 +111,29 @@ function MJ.Naniwokiru $(
 				);
 			);
 		);
-		#ŒÇ—§”v‚ğ—Dæ“I‚ÉØ‚é
+		#å­¤ç«‹ç‰Œã‚’å„ªå…ˆçš„ã«åˆ‡ã‚‹
 		setstr @koritsuPoint 0;
 		if $[ $(find @arKoritsuhai ${@sutehai}) >= 0 ] $(
 			inc @koritsuPoint 500;
 		);
-		#Šù‚ÉÌ‚Ä‚½”v‚ğ—Dæ“I‚ÉØ‚é
+		#æ—¢ã«æ¨ã¦ãŸç‰Œã‚’å„ªå…ˆçš„ã«åˆ‡ã‚‹
 		setstr @furitenPoint 0;
 		if $[ $(match ${@strKawa} ${@sutehai}) >= 0 ] $(
 			inc @furitenPoint 10;
 		);
-		#ƒhƒ‰‚Íc‚µ‚Ä‚¨‚«‚½‚¢
+		#ãƒ‰ãƒ©ã¯æ®‹ã—ã¦ãŠããŸã„
 		setstr @doraPoint 0;
 		if $[ $(find @arDora ${@sutehai}) >= 0 ] $(
 			dec @doraPoint 50;
 		);
-		#Œ»•¨‚ğ—Dæ“I‚ÉØ‚é
+		#ç¾ç‰©ã‚’å„ªå…ˆçš„ã«åˆ‡ã‚‹
 		setstr @genbutsuPoint 0;
 		setstr @i 0;
 		while $[ $@aryPlayerRichi[${@i}] != "" ] $(
 			if $@aryPlayerRichi[${@i}] $(
 				if $[ $(match @aryPlayerGenbutsu[${@i}] ${@sutehai}) >= 0 ] $(
 					inc @genbutsuPoint 2000;
-					#e‚ÌƒŠ[ƒ`‚Í“Á‚É”ğ‚¯‚½‚¢
+					#è¦ªã®ãƒªãƒ¼ãƒã¯ç‰¹ã«é¿ã‘ãŸã„
 					if $[ ${@i} == 0 ] $(
 						inc @genbutsuPoint 1000;
 					);
@@ -153,7 +153,7 @@ function MJ.Naniwokiru $(
 	return $(entry @arDahai);
 );
 
-#è”v‚©‚ç•›˜I‚ğœ‹
+#æ‰‹ç‰Œã‹ã‚‰å‰¯éœ²ã‚’é™¤å»
 function MJ.GetTehaiArrayWithoutFuro $(
 	setstr @strTehai $@arg[1];
 	setstr @i 0;
@@ -168,7 +168,7 @@ function MJ.GetTehaiArrayWithoutFuro $(
 	return $(join @r ,);
 );
 
-#”z—ñ‚©‚çd•¡‚·‚é—v‘f‚ğœ‚­
+#é…åˆ—ã‹ã‚‰é‡è¤‡ã™ã‚‹è¦ç´ ã‚’é™¤ã
 function MJ.Uniq $(
 	split @ary $@arg[1] ,;
 	setstr @i 0;
@@ -181,7 +181,7 @@ function MJ.Uniq $(
 	return $(join @r ,);
 );
 
-#ŒÇ—§”v‚Ì’Tõ
+#å­¤ç«‹ç‰Œã®æ¢ç´¢
 function MJ.GetKoritsuHaiArray $(
 	split @hai $(MJ.GetTehaiArrayWithoutFuro $@arg[1]) ,;
 	setstr @strTehai $(join @hai "");
@@ -213,7 +213,7 @@ function MJ.GetKoritsuHaiArray $(
 	return $(join @r ,);
 );
 
-#”v‚ğ’Ç‰Á
+#ç‰Œã‚’è¿½åŠ 
 function MJ.AddHai $(
 	setstr @strHai1 $@arg[1];
 	setstr @strHai2 $@arg[2];
@@ -264,7 +264,7 @@ function MJ.AddHai $(
 	return ${@strToAdd};
 );
 
-#”v‚ğœ‹
+#ç‰Œã‚’é™¤å»
 function MJ.RemoveHai $(
 	setstr @strHai1 $@arg[1];
 	setstr @strHai2 $@arg[2];
@@ -306,7 +306,7 @@ function MJ.RemoveHai $(
 	return ${@strToRemove};
 );
 
-#"1m2m3m" -> "1m,2m,3m"•ÏŠ·
+#"1m2m3m" -> "1m,2m,3m"å¤‰æ›
 function MJ.MakeArrayFromString $(
 	setstr @s $@arg[1];
 	setstr @i 0;
@@ -321,10 +321,10 @@ function MJ.MakeArrayFromString $(
 	return $(join @r ,);
 );
 
-#ƒ\[ƒg
+#ã‚½ãƒ¼ãƒˆ
 function MJ.SortHai $(
 	split @a $@arg[1] ,;
-	#ƒoƒuƒ‹ƒ\[ƒg‚Å‚¢‚¢‚âc
+	#ãƒãƒ–ãƒ«ã‚½ãƒ¼ãƒˆã§ã„ã„ã‚„â€¦
 	while $[ $(size @a) > 0 ] $(
 		setstr @n $(size @a);
 		setstr @index -1;
@@ -353,7 +353,7 @@ function MJ.SortHai $(
 	return $(join @r ,);
 );
 
-#ƒhƒ‰•\¦”v‚©‚çƒhƒ‰‚ğ‹‚ß‚é
+#ãƒ‰ãƒ©è¡¨ç¤ºç‰Œã‹ã‚‰ãƒ‰ãƒ©ã‚’æ±‚ã‚ã‚‹
 function MJ.GetDoraFromDorahyouji $(
 	setstr @hai $@arg[1];
 	setstr @num $(substr ${@hai} 0 1);
@@ -372,7 +372,7 @@ function MJ.GetDoraFromDorahyouji $(
 	);
 );
 
-#ƒ\[ƒg‡’è‹`
+#ã‚½ãƒ¼ãƒˆé †å®šç¾©
 function MJ.GetSortCode $(
 	setstr @s $@arg[1];
 	split @a "1m,2m,3m,4m,5m,6m,7m,8m,9m,1p,2p,3p,4p,5p,6p,7p,8p,9p,1s,2s,3s,4s,5s,6s,7s,8s,9s,1z,2z,3z,4z,5z,6z,7z" ",";
@@ -381,9 +381,9 @@ function MJ.GetSortCode $(
 );
 
 #===========================================================
-# •›˜I”»’f
+# å‰¯éœ²åˆ¤æ–­
 #===========================================================
-#ƒJƒ“‘åD‚«İ’è ƒVƒƒƒ“ƒeƒ“”‚ªã‚ª‚ç‚È‚¢ŒÀ‚èƒJƒ“‚·‚é
+#ã‚«ãƒ³å¤§å¥½ãè¨­å®š ã‚·ãƒ£ãƒ³ãƒ†ãƒ³æ•°ãŒä¸ŠãŒã‚‰ãªã„é™ã‚Šã‚«ãƒ³ã™ã‚‹
 function MJ.GetAnkanHaiBest $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
@@ -411,7 +411,7 @@ function MJ.GetAnkanHaiBest $(
 	return $(entry @arAnkanHaiUseful);
 );
 
-#–{“–‚Í5‰ñ–Ú‚ÌÈ‚Ìê‡‚ğl—¶‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢
+#æœ¬å½“ã¯5å›ç›®ã®æ§“ã®å ´åˆã‚’è€ƒæ…®ã—ãªã„ã¨ã„ã‘ãªã„
 function MJ.CanAnkan $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
@@ -425,18 +425,18 @@ function MJ.CanAnkan $(
 	if $[ $(size @arAnkanHai) == 0 ] $(
 		return 0;
 	);
-	#ƒŠ[ƒ`Œã‚Ìê‡
+	#ãƒªãƒ¼ãƒå¾Œã®å ´åˆ
 	if ${@isRichi} $(
-		#‘—‚èƒJƒ“‚Ìê‡
+		#é€ã‚Šã‚«ãƒ³ã®å ´åˆ
 		if $[ $(find @arAnkanHai ${@tsumoHai}) == -1 ] $(
 			return 0;
 		);
-		#˜a—¹‚ÌŒ`‚ª•Ï‚í‚éê‡
+		#å’Œäº†ã®å½¢ãŒå¤‰ã‚ã‚‹å ´åˆ
 		split @arMentsuPattern $(MJ.GetMentsuPattern ${@tehai}) |;
 		foreach @m @arMentsuPattern $(
 			clear @ap;
 			split @ap ${@m} ,;
-			#í‚ÉˆÃ‚Å‚È‚¢‚Æƒ_ƒ
+			#å¸¸ã«æš—åˆ»ã§ãªã„ã¨ãƒ€ãƒ¡
 			if $[ $(find @ap ${@tsumoHai}${@tsumoHai}${@tsumoHai}) == -1 ] $(
 				return 0;
 			);
@@ -469,7 +469,7 @@ function MJ.Count $(
 	return ${@n};
 );
 
-#ƒJƒ“‘åD‚«İ’è ƒVƒƒƒ“ƒeƒ“”‚ªã‚ª‚ç‚È‚¢ŒÀ‚èƒJƒ“‚·‚é
+#ã‚«ãƒ³å¤§å¥½ãè¨­å®š ã‚·ãƒ£ãƒ³ãƒ†ãƒ³æ•°ãŒä¸ŠãŒã‚‰ãªã„é™ã‚Šã‚«ãƒ³ã™ã‚‹
 function MJ.GetKakanHaiBest $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
@@ -494,7 +494,7 @@ function MJ.GetKakanHaiBest $(
 	return $(entry @arKakanHaiUseful);
 );
 
-#–{“–‚Í5‰ñ–Ú‚ÌÈ‚Ìê‡‚ğl—¶‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢
+#æœ¬å½“ã¯5å›ç›®ã®æ§“ã®å ´åˆã‚’è€ƒæ…®ã—ãªã„ã¨ã„ã‘ãªã„
 function MJ.CanKakan $(
 	setstr @tehai $@arg[1];
 	setstr @tsumoHai $@arg[2];
@@ -535,7 +535,7 @@ function MJ.ShouldRichi $(
 	if $[ !$(MJ.CanRichi ${@tehai} ${@shanten} ${@isRichi} ${@nokori}) ] $(
 		return 0;
 	);
-	#ƒeƒ“ƒpƒC‘¦ƒŠ[
+	#ãƒ†ãƒ³ãƒ‘ã‚¤å³ãƒªãƒ¼
 	return 1;
 );
 
@@ -550,7 +550,7 @@ function MJ.CanRichi $(
 	return 0;
 );
 
-#ƒJƒ“‘åD‚«İ’è ƒVƒƒƒ“ƒeƒ“”‚ªã‚ª‚ç‚È‚¢ŒÀ‚èƒJƒ“‚·‚é
+#ã‚«ãƒ³å¤§å¥½ãè¨­å®š ã‚·ãƒ£ãƒ³ãƒ†ãƒ³æ•°ãŒä¸ŠãŒã‚‰ãªã„é™ã‚Šã‚«ãƒ³ã™ã‚‹
 function MJ.ShouldDaiminkan $(
 	setstr @tehai $@arg[1];
 	setstr @sutehai $@arg[2];
@@ -635,7 +635,7 @@ function MJ.ShouldSayTenpai $(
 	setstr @kyoku $@arg[3];
 	setstr @isRichi $@arg[4];
 	setstr @lead $@arg[5];
-	#ƒI[ƒ‰ƒX‚Å“Œ‰Æ‚Å–¢ƒŠ[ƒ`‚ÅŒ»İ1ˆÊ‚Å2ˆÊ‚Æ‚Ì·‚ª4000“_‚æ‚è‘½‚¢‚È‚çƒm[ƒeƒ“éŒ¾‚·‚é
+	#ã‚ªãƒ¼ãƒ©ã‚¹ã§æ±å®¶ã§æœªãƒªãƒ¼ãƒã§ç¾åœ¨1ä½ã§2ä½ã¨ã®å·®ãŒ4000ç‚¹ã‚ˆã‚Šå¤šã„ãªã‚‰ãƒãƒ¼ãƒ†ãƒ³å®£è¨€ã™ã‚‹
 	if $[ ${@bafuhai} != "2z" || ${@jifuhai} != "1z" || ${@kyoku} != 4 || ${@isRichi} || ${@lead} <= 4000 ] $(
 		return 1;
 	);
@@ -643,9 +643,9 @@ function MJ.ShouldSayTenpai $(
 );
 
 #===========================================================
-# SAORI‚ğg—p‚·‚éŠÖ”
+# SAORIã‚’ä½¿ç”¨ã™ã‚‹é–¢æ•°
 #===========================================================
-#–ğ‚Ì‚ ‚éƒVƒƒƒ“ƒeƒ“”‚ğ‹‚ß‚é
+#å½¹ã®ã‚ã‚‹ã‚·ãƒ£ãƒ³ãƒ†ãƒ³æ•°ã‚’æ±‚ã‚ã‚‹
 function MJ.GetShantenYaku $(
 	setstr @strTehai $@arg[1];
 	setstr @strBafuhai $@arg[2];
@@ -654,7 +654,7 @@ function MJ.GetShantenYaku $(
 	return ${@r};
 );
 
-#è”v‚ÌŒ`‚Ìƒpƒ^[ƒ“‚ğ‹‚ß‚é(–ß‚è’l‚Ì‹æØ‚è•¶š‚É’ˆÓ)
+#æ‰‹ç‰Œã®å½¢ã®ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’æ±‚ã‚ã‚‹(æˆ»ã‚Šå€¤ã®åŒºåˆ‡ã‚Šæ–‡å­—ã«æ³¨æ„)
 function MJ.GetMentsuPattern $(
 	setstr @strTehai $@arg[1];
 	setstr @res $(callsaorix mj @res shanten ${@strTehai});
@@ -666,7 +666,7 @@ function MJ.GetMentsuPattern $(
 	return $(join @r |);
 );
 
-#‘Ò‚¿‚ğ‹‚ß‚é
+#å¾…ã¡ã‚’æ±‚ã‚ã‚‹
 function MJ.GetMachiArray $(
 	setstr @strTehai $@arg[1];
 	setstr @res $(callsaori mj machi ${@strTehai});
@@ -674,7 +674,7 @@ function MJ.GetMachiArray $(
 	return $(join @r ,);
 );
 
-#˜a—¹“_‚ğ‹‚ß‚é
+#å’Œäº†ç‚¹ã‚’æ±‚ã‚ã‚‹
 function MJ.GetScore $(
 	setstr @strTehai $@arg[1];
 	setstr @strAtarihai $@arg[2];

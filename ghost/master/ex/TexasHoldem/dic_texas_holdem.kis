@@ -4,69 +4,69 @@
 #===========================================================
 
 #===========================================================
-# İ’è
+# è¨­å®š
 #===========================================================
 TH.Version: POKER/1.0
-TH.GhostName: -ƒ`ƒ…ƒ“ƒ`ƒ…ƒ“
-#ƒQ[ƒ€ŠJn
-TH.talk.game_start: \0\s[5]‚í‚­‚í‚­‚ÁI\e
-TH.talk.game_start: \0\s[1]—D‚µ‚­‚µ‚Ä‚ËH\e
-#ŠeíƒAƒNƒVƒ‡ƒ“
-TH.talk.action.bet: \0\s[0]ƒxƒbƒg\e$(AQ.ExecAqtk "ƒx'ƒbƒg")
-TH.talk.action.raise: \0\s[8]ƒŒƒCƒY\e$(AQ.ExecAqtk "ƒŒ'ƒCƒY")
-TH.talk.action.allin: \0\s[7]ƒI[ƒ‹ƒCƒ“\e$(AQ.ExecAqtk "ƒI[ƒ‹ƒC'ƒ“")
-TH.talk.action.check: \0\s[6]ƒ`ƒFƒbƒN\e$(AQ.ExecAqtk "ƒ`ƒF'ƒbƒN")
-TH.talk.action.call: \0\s[5]ƒR[ƒ‹\e$(AQ.ExecAqtk "ƒR'[ƒ‹")
-TH.talk.action.fold: \0\s[3]ƒtƒH[ƒ‹ƒh\e$(AQ.ExecAqtk "ƒtƒH'[ƒ‹ƒh")
-#ƒ‰ƒEƒ“ƒhŸ—˜
-TH.talk.round.win: \0\s[5]‚â‚Á‚½[I\e
-TH.talk.round.win: \0\s[5]‚ ‚è‚ª‚Æ[I\e
-#ƒVƒ‡[ƒ_ƒEƒ“ˆø‚«•ª‚¯
-TH.talk.round.draw: \0\s[1]‹­‚¢‚ñ‚¾‚ËB\e
-TH.talk.round.draw: \0\s[8]c”OB\e
-#ƒVƒ‡[ƒ_ƒEƒ“•‰‚¯
-TH.talk.round.lose: \0\s[3]“Ç‚Ü‚ê‚¿‚á‚Á‚½‚©‚ÈcB\e
-TH.talk.round.lose: \0\s[3]‚±‚ê‚ÅŸ‚Ä‚È‚¢‚È‚ñ‚ÄcB\e
-#ƒhƒƒbƒvƒAƒEƒg
-TH.talk.round.dropout: \0\s[4]‚â‚ç‚ê‚¿‚á‚Á‚½cB\e
-TH.talk.round.dropout: \0\s[4]‚Ó‚¦‚¥cB\e
-#ƒQ[ƒ€I—¹
-TH.talk.game_result.win: \0\s[5]%selfnameA\_w[500]‚¨‹à‚¿[I\e
-TH.talk.game_result.win: \0\s[2]‚ ‚êH\_w[500]Ÿ‚Á‚¿‚á‚Á‚½H\e
-TH.talk.game_result.lose: \0\s[8]‚¨‚ß‚Å‚Æ‚¤B\e
-TH.talk.game_result.lose: \0\s[1]‹­‹C‚ÈlA\_w[500]‚©‚Á‚±‚¢‚¢‚ËcB\e
+TH.GhostName: é›€-ãƒãƒ¥ãƒ³ãƒãƒ¥ãƒ³
+#ã‚²ãƒ¼ãƒ é–‹å§‹
+TH.talk.game_start: \0\s[5]ã‚ãã‚ãã£ï¼\e
+TH.talk.game_start: \0\s[1]å„ªã—ãã—ã¦ã­ï¼Ÿ\e
+#å„ç¨®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
+TH.talk.action.bet: \0\s[0]ãƒ™ãƒƒãƒˆ\e$(AQ.ExecAqtk "ãƒ™'ãƒƒãƒˆ")
+TH.talk.action.raise: \0\s[8]ãƒ¬ã‚¤ã‚º\e$(AQ.ExecAqtk "ãƒ¬'ã‚¤ã‚º")
+TH.talk.action.allin: \0\s[7]ã‚ªãƒ¼ãƒ«ã‚¤ãƒ³\e$(AQ.ExecAqtk "ã‚ªãƒ¼ãƒ«ã‚¤'ãƒ³")
+TH.talk.action.check: \0\s[6]ãƒã‚§ãƒƒã‚¯\e$(AQ.ExecAqtk "ãƒã‚§'ãƒƒã‚¯")
+TH.talk.action.call: \0\s[5]ã‚³ãƒ¼ãƒ«\e$(AQ.ExecAqtk "ã‚³'ãƒ¼ãƒ«")
+TH.talk.action.fold: \0\s[3]ãƒ•ã‚©ãƒ¼ãƒ«ãƒ‰\e$(AQ.ExecAqtk "ãƒ•ã‚©'ãƒ¼ãƒ«ãƒ‰")
+#ãƒ©ã‚¦ãƒ³ãƒ‰å‹åˆ©
+TH.talk.round.win: \0\s[5]ã‚„ã£ãŸãƒ¼ï¼\e
+TH.talk.round.win: \0\s[5]ã‚ã‚ŠãŒã¨ãƒ¼ï¼\e
+#ã‚·ãƒ§ãƒ¼ãƒ€ã‚¦ãƒ³å¼•ãåˆ†ã‘
+TH.talk.round.draw: \0\s[1]å¼·ã„ã‚“ã ã­ã€‚\e
+TH.talk.round.draw: \0\s[8]æ®‹å¿µã€‚\e
+#ã‚·ãƒ§ãƒ¼ãƒ€ã‚¦ãƒ³è² ã‘
+TH.talk.round.lose: \0\s[3]èª­ã¾ã‚Œã¡ã‚ƒã£ãŸã‹ãªâ€¦ã€‚\e
+TH.talk.round.lose: \0\s[3]ã“ã‚Œã§å‹ã¦ãªã„ãªã‚“ã¦â€¦ã€‚\e
+#ãƒ‰ãƒ­ãƒƒãƒ—ã‚¢ã‚¦ãƒˆ
+TH.talk.round.dropout: \0\s[4]ã‚„ã‚‰ã‚Œã¡ã‚ƒã£ãŸâ€¦ã€‚\e
+TH.talk.round.dropout: \0\s[4]ãµãˆã‡â€¦ã€‚\e
+#ã‚²ãƒ¼ãƒ çµ‚äº†
+TH.talk.game_result.win: \0\s[5]%selfnameã€\_w[500]ãŠé‡‘æŒã¡ãƒ¼ï¼\e
+TH.talk.game_result.win: \0\s[2]ã‚ã‚Œï¼Ÿ\_w[500]å‹ã£ã¡ã‚ƒã£ãŸï¼Ÿ\e
+TH.talk.game_result.lose: \0\s[8]ãŠã‚ã§ã¨ã†ã€‚\e
+TH.talk.game_result.lose: \0\s[1]å¼·æ°—ãªäººã€\_w[500]ã‹ã£ã“ã„ã„ã­â€¦ã€‚\e
 
 #===========================================================
-# ˆÈ‰º‚Í•ÏX•s—v
+# ä»¥ä¸‹ã¯å¤‰æ›´ä¸è¦
 #===========================================================
 OnPoker: $(
-	#‰“š‚ª•K—v‚ÈƒCƒxƒ“ƒgB
-	#‰“š•û–@‚Íraiseother‚©notifyother‚ğg‚¤B
+	#å¿œç­”ãŒå¿…è¦ãªã‚¤ãƒ™ãƒ³ãƒˆã€‚
+	#å¿œç­”æ–¹æ³•ã¯raiseotherã‹notifyotherã‚’ä½¿ã†ã€‚
 
-	#Reference0: ƒvƒƒgƒRƒ‹ƒo[ƒWƒ‡ƒ“(POKER/1.0)
-	#Reference1: ƒT[ƒo[ƒS[ƒXƒg–¼
-	#Reference2: ƒT[ƒo[‚ÌƒCƒxƒ“ƒg–¼
+	#Reference0: ãƒ—ãƒ­ãƒˆã‚³ãƒ«ãƒãƒ¼ã‚¸ãƒ§ãƒ³(POKER/1.0)
+	#Reference1: ã‚µãƒ¼ãƒãƒ¼ã‚´ãƒ¼ã‚¹ãƒˆå
+	#Reference2: ã‚µãƒ¼ãƒãƒ¼ã®ã‚¤ãƒ™ãƒ³ãƒˆå
 
 	setstr @command ${System.Request.Reference3};
 	if $[ ${@command} == "hello" ] $(
 		setstr @str \![raiseother,${System.Request.Reference1},${System.Request.Reference2},${TH.Version},${TH.GhostName}]\e;
 		entry @str;
 	) else if $[ ${@command} == "action" ] $(
-		#Reference4ˆÈ~‚Ég—p‰Â”\‚ÈƒAƒNƒVƒ‡ƒ“‚ª“ü‚Á‚Ä‚¢‚éB
+		#Reference4ä»¥é™ã«ä½¿ç”¨å¯èƒ½ãªã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãŒå…¥ã£ã¦ã„ã‚‹ã€‚
 
-		#g—p‰Â”\‚ÈƒAƒNƒVƒ‡ƒ“‚Í
-		#bet,raise,allin,check,call,fold‚Ì6‚Â‚Ì“à‚Ì‚¢‚­‚Â‚©B
-		#•Ô“š‚µ‚È‚¢ê‡‚Í©“®“I‚Éfold‚É‚È‚é‚Ì‚Å’ˆÓB
-		#bet/raise‚·‚éê‡‚ÍƒŒƒCƒYŠz‚à‘—‚é•K—v‚ª‚ ‚éB
+		#ä½¿ç”¨å¯èƒ½ãªã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã¯
+		#bet,raise,allin,check,call,foldã®6ã¤ã®å†…ã®ã„ãã¤ã‹ã€‚
+		#è¿”ç­”ã—ãªã„å ´åˆã¯è‡ªå‹•çš„ã«foldã«ãªã‚‹ã®ã§æ³¨æ„ã€‚
+		#bet/raiseã™ã‚‹å ´åˆã¯ãƒ¬ã‚¤ã‚ºé¡ã‚‚é€ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
 
-		#g—p‰Â”\‚ÈƒAƒNƒVƒ‡ƒ“‚ğ”z—ñ‚É•Û‘¶B
+		#ä½¿ç”¨å¯èƒ½ãªã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’é…åˆ—ã«ä¿å­˜ã€‚
 		clear @action;
 		setstr @i 4;
 		while $[ ${System.Request.Reference${@i}} != "" ] $(
 			adddictstr @action ${System.Request.Reference${@i}};
 			inc @i;
 		);
-		#ƒvƒŠƒtƒƒbƒvAƒtƒƒbƒvAƒ^[ƒ“AƒŠƒo[‚Åˆ—‚ğ•ª‚¯‚éB
+		#ãƒ—ãƒªãƒ•ãƒ­ãƒƒãƒ—ã€ãƒ•ãƒ­ãƒƒãƒ—ã€ã‚¿ãƒ¼ãƒ³ã€ãƒªãƒãƒ¼ã§å‡¦ç†ã‚’åˆ†ã‘ã‚‹ã€‚
 		clear @ret;
 		setstr @size $(size TH.community);
 		if $[ ${@size} == 0 ] $(
@@ -84,27 +84,27 @@ OnPoker: $(
 )
 
 OnPokerNotify: $(
-	#‰“š‚·‚é•K—v‚Ì–³‚¢ƒCƒxƒ“ƒgB
+	#å¿œç­”ã™ã‚‹å¿…è¦ã®ç„¡ã„ã‚¤ãƒ™ãƒ³ãƒˆã€‚
 
-	#Reference0: ƒvƒƒgƒRƒ‹‚Ìƒo[ƒWƒ‡ƒ“(POKER/1.0)
+	#Reference0: ãƒ—ãƒ­ãƒˆã‚³ãƒ«ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³(POKER/1.0)
 
 	setstr @command ${System.Request.Reference1};
 	if $[ ${@command} == "game_start" ] $(
-		#Reference2ˆÈ~‚ÉQ‰Á‚Å‚«‚½ƒS[ƒXƒg–¼‚ª“ü‚Á‚Ä‚¢‚é
+		#Reference2ä»¥é™ã«å‚åŠ ã§ããŸã‚´ãƒ¼ã‚¹ãƒˆåãŒå…¥ã£ã¦ã„ã‚‹
 
 		setstr @i 2;
 		while $[ ${System.Request.Reference${@i}} != "" ] $(
 			if $[ ${System.Request.Reference${@i}} == ${TH.GhostName} ] $(
-				#ƒQ[ƒ€‚ÉQ‰Á‚Å‚«‚½
+				#ã‚²ãƒ¼ãƒ ã«å‚åŠ ã§ããŸ
 				entry TH.talk.game_start;
 				break;
 			);
 			inc @i;
 		);
-		#Q‰Ál”‚ª‘½‚­‚Ä’e‚©‚ê‚½
+		#å‚åŠ äººæ•°ãŒå¤šãã¦å¼¾ã‹ã‚ŒãŸ
 	) else if $[ ${@command} == "round_start" ] $(
-		#Reference2: ƒuƒ‰ƒCƒ“ƒh‚Ì‹àŠz
-		#Reference3ˆÈ~‚ÉuƒS[ƒXƒg–¼(ƒoƒCƒg’l1)ƒXƒ^ƒbƒNv‚ª“ü‚Á‚Ä‚¢‚é
+		#Reference2: ãƒ–ãƒ©ã‚¤ãƒ³ãƒ‰ã®é‡‘é¡
+		#Reference3ä»¥é™ã«ã€Œã‚´ãƒ¼ã‚¹ãƒˆå(ãƒã‚¤ãƒˆå€¤1)ã‚¹ã‚¿ãƒƒã‚¯ã€ãŒå…¥ã£ã¦ã„ã‚‹
 
 		setstr TH.blind ${System.Request.Reference2};
 		setstr TH.bet 0;
@@ -124,21 +124,21 @@ OnPokerNotify: $(
 		setstr TH.round_players $(size TH.players);
 		setstr TH.n_players ${TH.round_players};
 	) else if $[ ${@command} == "hand" ] $(
-		#Reference2: ”z‚ç‚ê‚½ƒJ[ƒh‚Ìî•ñ
-		#Reference3: ”z‚ç‚ê‚½ƒJ[ƒh‚Ìî•ñ
-		#ƒX[ƒg‚Í“ª•¶š S,H,C,D ‚Ì4‚Â‚Ì‚¢‚¸‚ê‚©A‚»‚ÌŒã‚É”š‚ª‘±‚­B
-		#—á:
+		#Reference2: é…ã‚‰ã‚ŒãŸã‚«ãƒ¼ãƒ‰ã®æƒ…å ±
+		#Reference3: é…ã‚‰ã‚ŒãŸã‚«ãƒ¼ãƒ‰ã®æƒ…å ±
+		#ã‚¹ãƒ¼ãƒˆã¯é ­æ–‡å­— S,H,C,D ã®4ã¤ã®ã„ãšã‚Œã‹ã€ãã®å¾Œã«æ•°å­—ãŒç¶šãã€‚
+		#ä¾‹:
 		#Reference2: S1
 		#Reference3: H12
-		#‚±‚ÌŒ`®‚ÍFLIP‚Å‚àˆêB
+		#ã“ã®å½¢å¼ã¯FLIPã§ã‚‚ä¸€ç·’ã€‚
 
 		clear TH.hand;
 		adddictstr TH.hand ${System.Request.Reference2};
 		adddictstr TH.hand ${System.Request.Reference3};
 	) else if $[ ${@command} == "flip" ] $(
-		#Reference2: Œ»İ‚Ìƒ|ƒbƒg
-		#Reference3ˆÈ~‚ÉƒRƒ~ƒ…ƒjƒeƒBƒJ[ƒh‚Ìî•ñ‚ª“ü‚Á‚Ä‚¢‚éB
-		#ƒvƒŠƒtƒƒbƒv‚È‚çReference3ˆÈ~‚Í‘¶İ‚µ‚È‚¢B
+		#Reference2: ç¾åœ¨ã®ãƒãƒƒãƒˆ
+		#Reference3ä»¥é™ã«ã‚³ãƒŸãƒ¥ãƒ‹ãƒ†ã‚£ã‚«ãƒ¼ãƒ‰ã®æƒ…å ±ãŒå…¥ã£ã¦ã„ã‚‹ã€‚
+		#ãƒ—ãƒªãƒ•ãƒ­ãƒƒãƒ—ãªã‚‰Reference3ä»¥é™ã¯å­˜åœ¨ã—ãªã„ã€‚
 
 		setstr TH.pot ${System.Request.Reference2};
 		clear TH.community;
@@ -149,17 +149,17 @@ OnPokerNotify: $(
 		);
 		setstr TH.current_bet 0;
 	) else if $[ ${@command} == "blind_bet" ] $(
-		#Reference2: ‹­§ƒxƒbƒg‚Ì‹àŠz
-		#SB‚âBB‚Å‚Ì‹­§ƒxƒbƒg‚ğ‚µ‚½‚±‚Æ‚ª’Ê’m‚³‚ê‚éB
+		#Reference2: å¼·åˆ¶ãƒ™ãƒƒãƒˆã®é‡‘é¡
+		#SBã‚„BBã§ã®å¼·åˆ¶ãƒ™ãƒƒãƒˆã‚’ã—ãŸã“ã¨ãŒé€šçŸ¥ã•ã‚Œã‚‹ã€‚
 
 		setstr TH.bet ${System.Request.Reference2};
 	) else if $[ ${@command} == "bet" ] $(
-		#ƒAƒNƒVƒ‡ƒ“‚ğs‚Á‚½ƒvƒŒƒCƒ„[‚Æƒxƒbƒgü‚è‚Ìî•ñB
+		#ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¡Œã£ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ãƒ™ãƒƒãƒˆå‘¨ã‚Šã®æƒ…å ±ã€‚
 
-		#Reference2: Œ»İ‚Ìƒxƒbƒg‘Šz
-		#Reference3: Œ»İ‚ÌƒxƒbƒgŠz
-		#Reference4: ƒAƒNƒVƒ‡ƒ“‚ğs‚Á‚½ƒvƒŒƒCƒ„[‚ÌƒS[ƒXƒg–¼
-		#Reference5: s‚Á‚½ƒAƒNƒVƒ‡ƒ“
+		#Reference2: ç¾åœ¨ã®ãƒ™ãƒƒãƒˆç·é¡
+		#Reference3: ç¾åœ¨ã®ãƒ™ãƒƒãƒˆé¡
+		#Reference4: ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ã‚’è¡Œã£ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚´ãƒ¼ã‚¹ãƒˆå
+		#Reference5: è¡Œã£ãŸã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 
 		setstr TH.total_bet ${System.Request.Reference2};
 		setstr TH.current_bet ${System.Request.Reference3};
@@ -175,18 +175,18 @@ OnPokerNotify: $(
 			entry TH.talk.action.${@action};
 		);
 	) else if $[ ${@command} == "show_down" ] $(
-		#ƒVƒ‡[ƒ_ƒEƒ“‚ÌƒJ[ƒhî•ñ‚ª‘—‚ç‚ê‚Ä‚­‚éB
-		#Reference2ˆÈ~‚É
-		#uƒS[ƒXƒg–¼(ƒoƒCƒg’l1)1–‡–Ú‚ÌƒJ[ƒh(ƒoƒCƒg’l1)2–‡–Ú‚ÌƒJ[ƒhv
-		#‚ª“ü‚Á‚Ä‚¢‚éB
+		#ã‚·ãƒ§ãƒ¼ãƒ€ã‚¦ãƒ³æ™‚ã®ã‚«ãƒ¼ãƒ‰æƒ…å ±ãŒé€ã‚‰ã‚Œã¦ãã‚‹ã€‚
+		#Reference2ä»¥é™ã«
+		#ã€Œã‚´ãƒ¼ã‚¹ãƒˆå(ãƒã‚¤ãƒˆå€¤1)1æšç›®ã®ã‚«ãƒ¼ãƒ‰(ãƒã‚¤ãƒˆå€¤1)2æšç›®ã®ã‚«ãƒ¼ãƒ‰ã€
+		#ãŒå…¥ã£ã¦ã„ã‚‹ã€‚
 	) else if $[ ${@command} == "round_result" ] $(
-		#‚»‚Ìƒ‰ƒEƒ“ƒh‚ÌŸÒA‚¨‚æ‚ÑQ‰ÁÒ‚Ìc‚èƒXƒ^ƒbƒN‚Ìî•ñB
+		#ãã®ãƒ©ã‚¦ãƒ³ãƒ‰ã®å‹è€…ã€ãŠã‚ˆã³å‚åŠ è€…ã®æ®‹ã‚Šã‚¹ã‚¿ãƒƒã‚¯ã®æƒ…å ±ã€‚
 
-		#Reference2: Œ»İ‚Ìƒ‰ƒEƒ“ƒh‚ÌŸÒ‚ªƒoƒCƒg’l1‹æØ‚è‚Å“ü‚Á‚Ä‚¢‚éB
-		#Reference3ˆÈ~‚ÉuƒS[ƒXƒg–¼(ƒoƒCƒg’l1)ƒXƒ^ƒbƒNv‚ª“ü‚Á‚Ä‚¢‚éB
+		#Reference2: ç¾åœ¨ã®ãƒ©ã‚¦ãƒ³ãƒ‰ã®å‹è€…ãŒãƒã‚¤ãƒˆå€¤1åŒºåˆ‡ã‚Šã§å…¥ã£ã¦ã„ã‚‹ã€‚
+		#Reference3ä»¥é™ã«ã€Œã‚´ãƒ¼ã‚¹ãƒˆå(ãƒã‚¤ãƒˆå€¤1)ã‚¹ã‚¿ãƒƒã‚¯ã€ãŒå…¥ã£ã¦ã„ã‚‹ã€‚
 
-		#Šî–{“I‚ÉŸÒ‚Í1l‚¾‚ª2lˆÈã‚É‚È‚éƒP[ƒX‚à‚ ‚éB
-		#‚Ü‚½AƒXƒ^ƒbƒN‚ª0‚É‚È‚Á‚½‚Ì‚Í‚±‚±‚Å‚µ‚©’Ê’m‚µ‚È‚¢‚½‚ß’ˆÓB
+		#åŸºæœ¬çš„ã«å‹è€…ã¯1äººã ãŒ2äººä»¥ä¸Šã«ãªã‚‹ã‚±ãƒ¼ã‚¹ã‚‚ã‚ã‚‹ã€‚
+		#ã¾ãŸã€ã‚¹ã‚¿ãƒƒã‚¯ãŒ0ã«ãªã£ãŸã®ã¯ã“ã“ã§ã—ã‹é€šçŸ¥ã—ãªã„ãŸã‚æ³¨æ„ã€‚
 
 		clear @winner;
 		split @winner ${System.Request.Reference2} $(chr 1);
@@ -204,29 +204,29 @@ OnPokerNotify: $(
 		);
 		if $[ $(find @winner ${TH.GhostName}) != -1 ] $(
 			if $[ $(size @winner) == 1 ] $(
-				#‚»‚Ìƒ‰ƒEƒ“ƒh‚ÅŸ‚Á‚½‚ÌƒŠƒAƒNƒVƒ‡ƒ“
+				#ãã®ãƒ©ã‚¦ãƒ³ãƒ‰ã§å‹ã£ãŸæ™‚ã®ãƒªã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 				entry TH.talk.round.win;
 			) else $(
-				#‚»‚Ìƒ‰ƒEƒ“ƒh‚Åˆø‚«•ª‚¯‚½‚ÌƒŠƒAƒNƒVƒ‡ƒ“
+				#ãã®ãƒ©ã‚¦ãƒ³ãƒ‰ã§å¼•ãåˆ†ã‘ãŸæ™‚ã®ãƒªã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 				entry TH.talk.round.draw;
 			);
 		) else if $[ ${TH.stack} <= 0 ] $(
-			#ƒQ[ƒ€‚É•‰‚¯‚½‚ÌƒŠƒAƒNƒVƒ‡ƒ“
+			#ã‚²ãƒ¼ãƒ ã«è² ã‘ãŸæ™‚ã®ãƒªã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 			if $[ ${TH.save.dropout} != 1 ] $(
 				entry TH.talk.round.dropout;
 				setstr TH.save.dropout 1;
 			);
 		) else if $[ !${TH.save.fold} ] $(
-			#ƒVƒ‡[ƒ_ƒEƒ“‚Å•‰‚¯‚½‚ÌƒŠƒAƒNƒVƒ‡ƒ“
+			#ã‚·ãƒ§ãƒ¼ãƒ€ã‚¦ãƒ³ã§è² ã‘ãŸæ™‚ã®ãƒªã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 			entry TH.talk.round.lose;
 		);
 	) else if $[ ${@command} == "game_result" ] $(
-		#Reference2: ƒQ[ƒ€‚ÌŸÒ‚ÌƒS[ƒXƒg–¼
+		#Reference2: ã‚²ãƒ¼ãƒ ã®å‹è€…ã®ã‚´ãƒ¼ã‚¹ãƒˆå
 
 		setstr @winner ${System.Request.Reference2};
-		#‚±‚Ì•Ó‚ÉƒQ[ƒ€I—¹‚Ìˆ—
+		#ã“ã®è¾ºã«ã‚²ãƒ¼ãƒ çµ‚äº†æ™‚ã®å‡¦ç†
 		if $[ ${@winner} == ${TH.GhostName} ] $(
-			#ƒQ[ƒ€‚ÉŸ‚Á‚½‚Æ‚«‚ÌƒŠƒAƒNƒVƒ‡ƒ“
+			#ã‚²ãƒ¼ãƒ ã«å‹ã£ãŸã¨ãã®ãƒªã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 			entry TH.talk.game_result.win;
 		) else $(
 			entry TH.talk.game_result.lose;

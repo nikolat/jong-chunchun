@@ -4,25 +4,25 @@
 #===========================================================
 
 #===========================================================
-# İ’è
+# è¨­å®š
 #===========================================================
-# ƒo[ƒWƒ‡ƒ“
+# ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 MJ.Version: UKAJONG/0.2
 
-# •Ô“š‚ÌƒCƒxƒ“ƒg–¼
+# è¿”ç­”æ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆå
 MJ.ResponseEventID: OnMahjongResponse
 
-#ƒCƒxƒ“ƒgƒƒO‚ğ‚¾‚ç‚¾‚çŒ©‚éƒ‚[ƒh
+#ã‚¤ãƒ™ãƒ³ãƒˆãƒ­ã‚°ã‚’ã ã‚‰ã ã‚‰è¦‹ã‚‹ãƒ¢ãƒ¼ãƒ‰
 MJ.ShowAllLogMode: 0
 
-# ©•ª‚Ì–¼‘O(sakura.name)
-MJ.PlayerName: ƒ`ƒ…ƒ“ƒ`ƒ…ƒ“
+# è‡ªåˆ†ã®åå‰(sakura.name)
+MJ.PlayerName: ãƒãƒ¥ãƒ³ãƒãƒ¥ãƒ³
 
 #===========================================================
 # ID: OnMahjong
-# Reference0: ƒo[ƒWƒ‡ƒ“(UKAJONG/0.2)
-# Reference1: ƒT[ƒoƒRƒ}ƒ“ƒh(gamestart|gameend|...)
-# Reference2ˆÈ~: ƒT[ƒoƒRƒ}ƒ“ƒh’Ç‰Áî•ñ
+# Reference0: ãƒãƒ¼ã‚¸ãƒ§ãƒ³(UKAJONG/0.2)
+# Reference1: ã‚µãƒ¼ãƒã‚³ãƒãƒ³ãƒ‰(gamestart|gameend|...)
+# Reference2ä»¥é™: ã‚µãƒ¼ãƒã‚³ãƒãƒ³ãƒ‰è¿½åŠ æƒ…å ±
 #===========================================================
 OnMahjong: $(
 	if ${MJ.ShowAllLogMode} $(
@@ -35,7 +35,7 @@ OnMahjong: $(
 )
 
 #===========================================================
-# ƒCƒxƒ“ƒgƒƒO‚‚ê—¬‚µ
+# ã‚¤ãƒ™ãƒ³ãƒˆãƒ­ã‚°å‚ã‚Œæµã—
 #===========================================================
 MJ.ShowAllLog: $(
 	setstr @res "ID: OnMahjong\n";
@@ -49,14 +49,14 @@ MJ.ShowAllLog: $(
 )
 
 #===========================================================
-# ƒƒCƒ“ˆ—
+# ãƒ¡ã‚¤ãƒ³å‡¦ç†
 #===========================================================
 MJ.Main: $(
 	entry MJ.${System.Request.Reference1};
 )
 
 #===========================================================
-# hello Ú‘±Šm”F
+# hello æ¥ç¶šç¢ºèª
 #===========================================================
 MJ.hello: $(
 	MJ.SendResponse ${System.Request.Reference1} ump=${MJ.ump_version} name=${MJ.PlayerName};
@@ -64,12 +64,12 @@ MJ.hello: $(
 MJ.ump_version: ?
 
 #===========================================================
-# gamestart ƒQ[ƒ€(”¼‘‘)ŠJn
-# Reference2: È(“Œ|“ì|¼|–k)
-# Reference3: ƒvƒŒƒCƒ„[–¼1
-# Reference4: ƒvƒŒƒCƒ„[–¼2
-# Reference5: ƒvƒŒƒCƒ„[–¼3
-# Reference6: ƒvƒŒƒCƒ„[–¼4
+# gamestart ã‚²ãƒ¼ãƒ (åŠè˜)é–‹å§‹
+# Reference2: å¸­(æ±|å—|è¥¿|åŒ—)
+# Reference3: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å1
+# Reference4: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å2
+# Reference5: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å3
+# Reference6: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å4
 #===========================================================
 MJ.gamestart: $(
 	setstr @i 3;
@@ -80,15 +80,15 @@ MJ.gamestart: $(
 	);
 	entry MJ.gamestart.talk;
 )
-MJ.gamestart.talk: \0\s[0]‚¢‚­‚æ[B\e
-MJ.gamestart.talk: \0\s[5]‚¨è_‚ç‚©‚ÉB\e
+MJ.gamestart.talk: \0\s[0]ã„ãã‚ˆãƒ¼ã€‚\e
+MJ.gamestart.talk: \0\s[5]ãŠæ‰‹æŸ”ã‚‰ã‹ã«ã€‚\e
 
 #===========================================================
-# gameend ƒQ[ƒ€I—¹
-# Reference2: ƒvƒŒƒCƒ„[–¼1[0x01]“_”
-# Reference3: ƒvƒŒƒCƒ„[–¼2[0x01]“_”
-# Reference4: ƒvƒŒƒCƒ„[–¼3[0x01]“_”
-# Reference5: ƒvƒŒƒCƒ„[–¼4[0x01]“_”
+# gameend ã‚²ãƒ¼ãƒ çµ‚äº†
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å1[0x01]ç‚¹æ•°
+# Reference3: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å2[0x01]ç‚¹æ•°
+# Reference4: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å3[0x01]ç‚¹æ•°
+# Reference5: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å4[0x01]ç‚¹æ•°
 #===========================================================
 MJ.gameend: $(
 	setstr @i 2;
@@ -108,17 +108,17 @@ MJ.gameend: $(
 	clear MJ.Save.PlayerName;
 	clear MJ.Save.Player.Score;
 )
-MJ.gameend.talk.top: \0\s[5]‚¢‚Á‚¿‚Î[‚ñI\e
-MJ.gameend.talk.top: \0\s[1]%selfnameA\_w[500]Ÿ‚Á‚¿‚á‚Á‚½H\e
-MJ.gameend.talk.normal: \0\s[0]Šy‚µ‚©‚Á‚½‚ËB\e
-MJ.gameend.talk.normal: \0\s[0]‚Ü‚½—V‚ñ‚Å‚ËB\e
+MJ.gameend.talk.top: \0\s[5]ã„ã£ã¡ã°ãƒ¼ã‚“ï¼\e
+MJ.gameend.talk.top: \0\s[1]%selfnameã€\_w[500]å‹ã£ã¡ã‚ƒã£ãŸï¼Ÿ\e
+MJ.gameend.talk.normal: \0\s[0]æ¥½ã—ã‹ã£ãŸã­ã€‚\e
+MJ.gameend.talk.normal: \0\s[0]ã¾ãŸéŠã‚“ã§ã­ã€‚\e
 
 #===========================================================
-# kyokustart ˆê‹Ç‚ªn‚Ü‚é‚Æ‚«‚É‘—‚é
-# Reference2: ê•—(“Œ|“ì|¼|–k)
-# Reference3: e(ex.ƒvƒŒƒCƒ„[–¼1)
-# Reference4: –{ê(ex.1)
-# Reference5: ‹Ÿ‘õ(ex.1000)
+# kyokustart ä¸€å±€ãŒå§‹ã¾ã‚‹ã¨ãã«é€ã‚‹
+# Reference2: å ´é¢¨(æ±|å—|è¥¿|åŒ—)
+# Reference3: è¦ª(ex.ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å1)
+# Reference4: æœ¬å ´(ex.1)
+# Reference5: ä¾›è¨—(ex.1000)
 #===========================================================
 MJ.kyokustart: ${MJ.kyokuinit}$(
 	setstr MJ.Save.Richi 0;
@@ -160,7 +160,7 @@ MJ.kyokuinit: $(
 )
 
 #===========================================================
-# kyokuend ˆê‹ÇI—¹
+# kyokuend ä¸€å±€çµ‚äº†
 #===========================================================
 MJ.kyokuend: ${MJ.kyokuinit}$(
 	if $(MJ.CanTalk) $(
@@ -170,19 +170,19 @@ MJ.kyokuend: ${MJ.kyokuinit}$(
 MJ.kyokuend.talk: \0\s[0]\e
 
 #===========================================================
-# point ƒvƒŒƒCƒ„[‚Ì“_”‚ğ’Ê’m‚·‚é
-# Reference2: ƒvƒŒƒCƒ„[–¼
-# Reference3: (=|+|-) =‚Í“_”‚Ì’¼w’èA+-‚Í‘Œ¸‚ğˆÓ–¡‚·‚é
-# Reference4: “_”
+# point ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç‚¹æ•°ã‚’é€šçŸ¥ã™ã‚‹
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
+# Reference3: (=|+|-) =ã¯ç‚¹æ•°ã®ç›´æŒ‡å®šã€+-ã¯å¢—æ¸›ã‚’æ„å‘³ã™ã‚‹
+# Reference4: ç‚¹æ•°
 #===========================================================
 MJ.point: $(
 	if $[ ${System.Request.Reference3} == "=" ] $(
 		setstr MJ.Save.Player.Score[$(MJ.B ${System.Request.Reference2})] ${System.Request.Reference4};
-		#‘Œ¸‚Ì‚İ‚É”½‰
+		#å¢—æ¸›ã®ã¿ã«åå¿œ
 	) else if $[ ${System.Request.Reference2} != ${MJ.PlayerName} ] $(
-		#©•ª‚Ì“_”’Ê’m‚Ì‚İ‚É”½‰
-	) else if $[ ${MJ.Save.Status} == "—¬‹Ç" ] $(
-		#—¬‹Ç‚Å‚ÍˆêX’‚ç‚È‚¢
+		#è‡ªåˆ†ã®ç‚¹æ•°é€šçŸ¥ã®ã¿ã«åå¿œ
+	) else if $[ ${MJ.Save.Status} == "æµå±€" ] $(
+		#æµå±€ã§ã¯ä¸€ã€…å–‹ã‚‰ãªã„
 	) else if $[ ${System.Request.Reference3} == "+" ] $(
 		if ${MJ.isYakuman} $(
 			entry MJ.point.plus.isYakuman;
@@ -201,18 +201,18 @@ MJ.point: $(
 		);
 	);
 )
-MJ.point.plus.isYakuman: \0\s[5]‚â‚Á‚­‚Ü[‚ñI\e
-MJ.point.plus.hasUradora: \0\s[5]‚í[‚¢A\_w[500]— ƒhƒ‰ô\e
-MJ.point.plus.small: \0\s[5]‚ ‚è‚ª‚ÆB\e
-MJ.point.plus.small: \0\s[6]Œ©’¼‚µ‚½H\e
-MJ.point.plus.large: \0\s[5]ƒ‰ƒbƒL[ô\e
-MJ.point.plus.large: \0\s[1]‚²‚ß‚ñ‚ËH\e
-MJ.point.minus.small: \0\s[8]‹­‚¢‚ñ‚¾‚ËB\e
-MJ.point.minus.small: \0\s[4]‚ ‚¿‚á[cB\e
-MJ.point.minus.large: \0\s[3]‚Ğ‚Ç[‚¢B\e
-MJ.point.minus.large: \0\s[7]‚Ş[B\e
+MJ.point.plus.isYakuman: \0\s[5]ã‚„ã£ãã¾ãƒ¼ã‚“ï¼\e
+MJ.point.plus.hasUradora: \0\s[5]ã‚ãƒ¼ã„ã€\_w[500]è£ãƒ‰ãƒ©â™ª\e
+MJ.point.plus.small: \0\s[5]ã‚ã‚ŠãŒã¨ã€‚\e
+MJ.point.plus.small: \0\s[6]è¦‹ç›´ã—ãŸï¼Ÿ\e
+MJ.point.plus.large: \0\s[5]ãƒ©ãƒƒã‚­ãƒ¼â™ª\e
+MJ.point.plus.large: \0\s[1]ã”ã‚ã‚“ã­ï¼Ÿ\e
+MJ.point.minus.small: \0\s[8]å¼·ã„ã‚“ã ã­ã€‚\e
+MJ.point.minus.small: \0\s[4]ã‚ã¡ã‚ƒãƒ¼â€¦ã€‚\e
+MJ.point.minus.large: \0\s[3]ã²ã©ãƒ¼ã„ã€‚\e
+MJ.point.minus.large: \0\s[7]ã‚€ãƒ¼ã€‚\e
 
-#‹Ÿ‘õ‚Æ‚©ŠÜ‚ß‚é‚Æ³Šm‚Å‚Í‚È‚¢‚¯‚ÇŠÈˆÕ“I‚È”»’è
+#ä¾›è¨—ã¨ã‹å«ã‚ã‚‹ã¨æ­£ç¢ºã§ã¯ãªã„ã‘ã©ç°¡æ˜“çš„ãªåˆ¤å®š
 MJ.isYakuman: $(
 	if $[ ${MJ.Save.Jifuhai} == "1z" ] $(
 		echo $[ 48000 <= ${System.Request.Reference4} ];
@@ -243,9 +243,9 @@ MJ.hasUradora: $(
 )
 
 #===========================================================
-# haipai ”z”v‚ğ”z‚é
-# Reference2: ƒvƒŒƒCƒ„[–¼
-# Reference3: ”z”v(ex.1m2m3m4p5p6p7s8s9s1z5z6z7z)
+# haipai é…ç‰Œã‚’é…ã‚‹
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
+# Reference3: é…ç‰Œ(ex.1m2m3m4p5p6p7s8s9s1z5z6z7z)
 #===========================================================
 MJ.haipai: $(
 	setstr MJ.Save.Tehai ${System.Request.Reference3};
@@ -253,11 +253,11 @@ MJ.haipai: $(
 )
 
 #===========================================================
-# dora ƒhƒ‰•\¦”v‚ğ‘—‚é
-# Reference2: ”v(ex.7z)
+# dora ãƒ‰ãƒ©è¡¨ç¤ºç‰Œã‚’é€ã‚‹
+# Reference2: ç‰Œ(ex.7z)
 #===========================================================
 MJ.dora: $(
-	if $[ ${MJ.Save.Status} == "˜a—¹" ] $(
+	if $[ ${MJ.Save.Status} == "å’Œäº†" ] $(
 		setstr MJ.Save.Uradorahyouji ${MJ.Save.Uradorahyouji}${System.Request.Reference2};
 	) else $(
 		setstr MJ.Save.Dorahyouji ${MJ.Save.Dorahyouji}${System.Request.Reference2};
@@ -266,9 +266,9 @@ MJ.dora: $(
 )
 
 #===========================================================
-# open è”v‚ğŒöŠJ‚·‚é(ƒ`[Aƒ|ƒ“AƒJƒ“)
-# Reference2: ƒvƒŒƒCƒ„[–¼
-# Reference3: ”v(ex.1p2p3p)
+# open æ‰‹ç‰Œã‚’å…¬é–‹ã™ã‚‹(ãƒãƒ¼ã€ãƒãƒ³ã€ã‚«ãƒ³)
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
+# Reference3: ç‰Œ(ex.1p2p3p)
 #===========================================================
 MJ.open: $(
 	setstr @h ${System.Request.Reference3};
@@ -281,16 +281,16 @@ MJ.open: $(
 			setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@toRemove})<${@h}>;
 		) else if $[ ${MJ.Save.Furo.Own} == "kan" ] $(
 			if $[ $(length ${@h}) == 2 ] $(
-				#‰ÁÈ
+				#åŠ æ§“
 				setstr MJ.Save.Tehai $(MJ.AddHai ${MJ.Save.Tehai} ${MJ.Save.Tsumo});
 				setstr MJ.Save.Tehai $(sub ${MJ.Save.Tehai} ${@h}${@h}${@h} ${@h}${@h}${@h}${@h});
 				setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@h});
 			) else if $[ ${MJ.Save.Tsumo} != "" ] $(
-				#ˆÃÈ
+				#æš—æ§“
 				setstr MJ.Save.Tehai $(MJ.AddHai ${MJ.Save.Tehai} ${MJ.Save.Tsumo});
 				setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@h})"("${@h}")";
 			) else $(
-				#‘å–¾È
+				#å¤§æ˜æ§“
 				setstr @toRemove $(MJ.RemoveHai ${@h} ${MJ.Save.Sutehai});
 				setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@toRemove})<${@h}>;
 			);
@@ -303,13 +303,13 @@ MJ.open: $(
 			setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@toAdd};
 		) else if $[ ${MJ.Save.Furo.Other} == "kan" ] $(
 			if $[ $(length ${@h}) == 2 ] $(
-				#‰ÁÈ
+				#åŠ æ§“
 				setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@h};
 			) else if $[ $(match ${@h} ${MJ.Save.Sutehai}) == -1 ] $(
-				#ˆÃÈ
+				#æš—æ§“
 				setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@h};
 			) else $(
-				#‘å–¾È
+				#å¤§æ˜æ§“
 				setstr @toAdd $(MJ.RemoveHai ${@h} ${MJ.Save.Sutehai});
 				setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@toAdd};
 			);
@@ -320,10 +320,10 @@ MJ.open: $(
 )
 
 #===========================================================
-# tsumo ©–Ì
-# Reference2: ƒvƒŒƒCƒ„[–¼(©•ª)
-# Reference3: c‚è–‡”
-# Reference4: ”v(ex.7z)
+# tsumo è‡ªæ‘¸
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å(è‡ªåˆ†)
+# Reference3: æ®‹ã‚Šæšæ•°
+# Reference4: ç‰Œ(ex.7z)
 #===========================================================
 MJ.tsumo: $(
 	setstr MJ.Save.Nokori ${System.Request.Reference3};
@@ -336,15 +336,15 @@ MJ.tsumo: $(
 MJ.tsumo.talk: \0\s[0]\e
 
 #===========================================================
-# sutehai Ì”v
-# Reference2: ƒvƒŒƒCƒ„[–¼
-# Reference3: ”v(ex.7z)
+# sutehai æ¨ç‰Œ
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
+# Reference3: ç‰Œ(ex.7z)
 #===========================================================
 MJ.sutehai: $(
 	setstr @playerName ${System.Request.Reference2};
 	setstr @sutehai ${System.Request.Reference3};
 	setstr MJ.Save.Sutehai ${@sutehai};
-	#’N‚©ƒŠ[ƒ`‚µ‚Ä‚¢‚½‚çŒ»•¨‚ğXV
+	#èª°ã‹ãƒªãƒ¼ãƒã—ã¦ã„ãŸã‚‰ç¾ç‰©ã‚’æ›´æ–°
 	setstr @i 0;
 	while $[ $MJ.Save.Player.Richi[${@i}] != "" ] $(
 		if $[ $MJ.Save.Player.Richi[${@i}] ] $(
@@ -354,12 +354,12 @@ MJ.sutehai: $(
 		inc @i;
 	);
 	if $[ ${@playerName} != ${MJ.PlayerName} ] $(
-		#‘¼‰Æ‚ÌÌ”v‚Ìê‡‚Íî•ñæ“¾‚É—¯‚ß‚é
+		#ä»–å®¶ã®æ¨ç‰Œã®å ´åˆã¯æƒ…å ±å–å¾—ã«ç•™ã‚ã‚‹
 		setstr @newstr $(sub $MJ.Save.Player.Kawa[$(MJ.I ${@playerName})] dummy "")${@sutehai};
 		setstr MJ.Save.Player.Kawa[$(MJ.I ${@playerName})] ${@newstr};
 		setstr MJ.Save.VisiblePai ${MJ.Save.VisiblePai}${@sutehai};
 	) else $(
-		#ˆê”­”»’è—p
+		#ä¸€ç™ºåˆ¤å®šç”¨
 		if $[ ${MJ.Save.Say.Own} == "richi" ] $(
 			clear MJ.Save.Say.Own;
 			setstr MJ.Save.IsIppatsuChance 1;
@@ -368,15 +368,15 @@ MJ.sutehai: $(
 		);
 		setstr MJ.Save.Kawa ${MJ.Save.Kawa}${@sutehai};
 		if $[ ${MJ.Save.Tsumo} == "" ] $(
-			#•›˜IŒã
+			#å‰¯éœ²å¾Œ
 			setstr MJ.Save.Tehai $(MJ.RemoveHai ${MJ.Save.Tehai} ${@sutehai});
 		) else if $[ ${MJ.Save.Tsumo} == ${@sutehai} ] $(
-			#ƒcƒ‚Ø‚è
+			#ãƒ„ãƒ¢åˆ‡ã‚Š
 			if $[ $(MJ.CanTalk) && $(rand 5) == 0 ] $(
 				entry MJ.sutehai.talk.tsumogiri;
 			);
 		) else $(
-			#èo‚µ
+			#æ‰‹å‡ºã—
 			if $[ $(MJ.CanTalk) && $(rand 5) == 0 ] $(
 				entry MJ.sutehai.talk.tedashi;
 			);
@@ -386,13 +386,13 @@ MJ.sutehai: $(
 	);
 	clear MJ.Save.Tsumo;
 )
-# ‘¼‰Æiƒ†[ƒUj‚ÉŒå‚ç‚ê‚é‚±‚Æ‚Í©•ª‚ª•s—˜‚É‚È‚é‚±‚ÆB
-# ‚Å‚àƒS[ƒXƒg‚É‚Í‚»‚ê‚­‚ç‚¢‚Ìu‰Âˆ¤‚ç‚µ‚³v‚ª‚ ‚Á‚Ä‚à‚æ‚¢B
-MJ.sutehai.talk.tsumogiri: \0\s[3]cB\e
-MJ.sutehai.talk.tedashi: \0\s[5]ô\e
+# ä»–å®¶ï¼ˆãƒ¦ãƒ¼ã‚¶ï¼‰ã«æ‚Ÿã‚‰ã‚Œã‚‹ã“ã¨ã¯è‡ªåˆ†ãŒä¸åˆ©ã«ãªã‚‹ã“ã¨ã€‚
+# ã§ã‚‚ã‚´ãƒ¼ã‚¹ãƒˆã«ã¯ãã‚Œãã‚‰ã„ã®ã€Œå¯æ„›ã‚‰ã—ã•ã€ãŒã‚ã£ã¦ã‚‚ã‚ˆã„ã€‚
+MJ.sutehai.talk.tsumogiri: \0\s[3]â€¦ã€‚\e
+MJ.sutehai.talk.tedashi: \0\s[5]â™ª\e
 
 #===========================================================
-# sutehai? Ì”v‚ğq‚Ë‚é
+# sutehai? æ¨ç‰Œã‚’å°‹ã­ã‚‹
 #===========================================================
 MJ.sutehai?: $(
 	if $[ ${MJ.Save.Tsumo} != "" ] $(
@@ -402,7 +402,7 @@ MJ.sutehai?: $(
 		setstr @kakanHai "";
 		if $[ ${@shanten} >= 0 ] $(
 			if ${MJ.Save.Richi} $(
-				#ƒŠ[ƒ`Ï‚È‚çƒcƒ‚Ø‚è
+				#ãƒªãƒ¼ãƒæ¸ˆãªã‚‰ãƒ„ãƒ¢åˆ‡ã‚Š
 				setstr @dahai ${MJ.Save.Tsumo};
 			) else $(
 				setstr @dahai $(MJ.Naniwokiru ${MJ.Save.Tehai} ${MJ.Save.Tsumo} ${MJ.Save.Kawa} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Dorahyouji}
@@ -431,7 +431,7 @@ MJ.sutehai?: $(
 			setstr @select ${@dahai};
 		);
 	) else $(
-		#•›˜IŒã
+		#å‰¯éœ²å¾Œ
 		setstr @dahai $(MJ.Naniwokiru ${MJ.Save.Tehai} "" ${MJ.Save.Kawa} ${MJ.Save.Bafuhai} ${MJ.Save.Jifuhai} ${MJ.Save.Dorahyouji}
 			$(join MJ.Save.Player.Richi ,) $(join MJ.Save.Player.Genbutsu ,) ${MJ.Save.VisiblePai});
 		setstr @action sutehai;
@@ -440,15 +440,15 @@ MJ.sutehai?: $(
 	MJ.SendResponse ${System.Request.Reference1} ${@action} ${@select};
 )
 
-#ƒRƒ}ƒ“ƒh‚ğ‘—‚ç‚È‚¢‚±‚Æ‚ÅƒT[ƒo[‚É‘Î‰‚ğˆÏ”C‚·‚é
+#ã‚³ãƒãƒ³ãƒ‰ã‚’é€ã‚‰ãªã„ã“ã¨ã§ã‚µãƒ¼ãƒãƒ¼ã«å¯¾å¿œã‚’å§”ä»»ã™ã‚‹
 #MJ.sutehai?: $(
 #	MJ.SendResponse ${System.Request.Reference1} "";
 #)
 
 #===========================================================
-# naku? ”v‚ğ–Â‚­‚©q‚Ë‚éBƒNƒ‰ƒCƒAƒ“ƒg‚ª‰Â”\‚ÈƒRƒ}ƒ“ƒh‚à‘—‚é
+# naku? ç‰Œã‚’é³´ãã‹å°‹ã­ã‚‹ã€‚ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆãŒå¯èƒ½ãªã‚³ãƒãƒ³ãƒ‰ã‚‚é€ã‚‹
 # Reference2: (ron|kan|pon|chi)
-# Reference3: ˆÈ~AReference2“¯—l
+# Reference3: ä»¥é™ã€Reference2åŒæ§˜
 #===========================================================
 MJ.naku?: $(
 	setstr @action "";
@@ -488,13 +488,13 @@ MJ.naku?: $(
 	MJ.SendResponse ${System.Request.Reference1} ${@action} ${@h1} ${@h2};
 )
 
-#ƒRƒ}ƒ“ƒh‚ğ‘—‚ç‚È‚¢‚±‚Æ‚ÅƒT[ƒo[‚É‘Î‰‚ğˆÏ”C‚·‚é
+#ã‚³ãƒãƒ³ãƒ‰ã‚’é€ã‚‰ãªã„ã“ã¨ã§ã‚µãƒ¼ãƒãƒ¼ã«å¯¾å¿œã‚’å§”ä»»ã™ã‚‹
 #MJ.naku?: $(
 #	MJ.SendResponse ${System.Request.Reference1} "";
 #)
 
 #===========================================================
-# tenpai? ƒeƒ“ƒpƒC‚ğéŒ¾‚·‚é‚©q‚Ë‚é
+# tenpai? ãƒ†ãƒ³ãƒ‘ã‚¤ã‚’å®£è¨€ã™ã‚‹ã‹å°‹ã­ã‚‹
 #===========================================================
 MJ.tenpai?: $(
 	setstr @action "";
@@ -506,14 +506,14 @@ MJ.tenpai?: $(
 	MJ.SendResponse ${System.Request.Reference1} ${@action};
 )
 
-#ƒRƒ}ƒ“ƒh‚ğ‘—‚ç‚È‚¢‚±‚Æ‚ÅƒT[ƒo[‚É‘Î‰‚ğˆÏ”C‚·‚é
+#ã‚³ãƒãƒ³ãƒ‰ã‚’é€ã‚‰ãªã„ã“ã¨ã§ã‚µãƒ¼ãƒãƒ¼ã«å¯¾å¿œã‚’å§”ä»»ã™ã‚‹
 #MJ.tenpai?: $(
 #	MJ.SendResponse ${System.Request.Reference1} "";
 #)
 
 #===========================================================
-# say ”­º
-# Reference2: ƒvƒŒƒCƒ„[–¼
+# say ç™ºå£°
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
 # Reference3: (chi|pon|kan|ron|tsumo|richi|tenpai|noten)
 #===========================================================
 MJ.say: $(
@@ -521,41 +521,41 @@ MJ.say: $(
 	setstr @word ${System.Request.Reference3};
 	if $[ ${@playerName} == ${MJ.PlayerName} ] $(
 		if $[ ${@word} == "chi" ] $(
-			setstr @say "\s[0]ƒ`[";
-			setstr @aqtk "‚¿'[";
+			setstr @say "\s[0]ãƒãƒ¼";
+			setstr @aqtk "ã¡'ãƒ¼";
 			setstr MJ.Save.Furo.Own chi;
 		) else if $[ ${@word} == "pon" ] $(
-			setstr @say "\s[0]ƒ|ƒ“";
-			setstr @aqtk "‚Û'‚ñ";
+			setstr @say "\s[0]ãƒãƒ³";
+			setstr @aqtk "ã½'ã‚“";
 			setstr MJ.Save.Furo.Own pon;
 		) else if $[ ${@word} == "kan" ] $(
-			setstr @say "\s[0]ƒJƒ“";
-			setstr @aqtk "‚©'‚ñ";
+			setstr @say "\s[0]ã‚«ãƒ³";
+			setstr @aqtk "ã‹'ã‚“";
 			setstr MJ.Save.Furo.Own kan;
 		) else if $[ ${@word} == "ron" ] $(
-			setstr @say "\s[5]ƒƒ“";
-			setstr @aqtk "‚ë'‚ñ";
+			setstr @say "\s[5]ãƒ­ãƒ³";
+			setstr @aqtk "ã‚'ã‚“";
 		) else if $[ ${@word} == "tsumo" ] $(
 			if ${MJ.Save.IsIppatsuChance} $(
-				setstr @say "\s[5]ˆê”­ƒcƒ‚I";
+				setstr @say "\s[5]ä¸€ç™ºãƒ„ãƒ¢ï¼";
 			) else $(
-				setstr @say "\s[5]ƒcƒ‚";
+				setstr @say "\s[5]ãƒ„ãƒ¢";
 			);
-			setstr @aqtk "‚Â'‚à";
+			setstr @aqtk "ã¤'ã‚‚";
 		) else if $[ ${@word} == "richi" ] $(
 			if $[ $(find MJ.Save.Player.Richi 1) >= 0 ] $(
-				setstr @say "\s[5]’Ç‚Á‚©‚¯ƒŠ[ƒ`I";
+				setstr @say "\s[5]è¿½ã£ã‹ã‘ãƒªãƒ¼ãƒï¼";
 			) else $(
-				setstr @say "\s[6]ƒŠ[ƒ`";
+				setstr @say "\s[6]ãƒªãƒ¼ãƒ";
 			);
-			setstr @aqtk "‚è'[‚¿";
+			setstr @aqtk "ã‚Š'ãƒ¼ã¡";
 			setstr MJ.Save.Richi 1;
 		) else if $[ ${@word} == "tenpai" ] $(
-			setstr @say "\s[5]ƒeƒ“ƒpƒC";
-			setstr @aqtk "‚Ä'‚ñ‚Ï‚¢";
+			setstr @say "\s[5]ãƒ†ãƒ³ãƒ‘ã‚¤";
+			setstr @aqtk "ã¦'ã‚“ã±ã„";
 		) else if $[ ${@word} == "noten" ] $(
-			setstr @say "\s[3]ƒm[ƒeƒ“";
-			setstr @aqtk "‚Ì'[‚Ä‚ñ";
+			setstr @say "\s[3]ãƒãƒ¼ãƒ†ãƒ³";
+			setstr @aqtk "ã®'ãƒ¼ã¦ã‚“";
 		);
 		setstr MJ.Save.Say.Own ${@word};
 		echo \0${@say}\e;
@@ -570,24 +570,24 @@ MJ.say: $(
 		);
 	);
 )
-MJ.say.talk.other.richi: \0\s[0]\w9\w9\s[2]‚Ó‚¦‚¦B\e
+MJ.say.talk.other.richi: \0\s[0]\w9\w9\s[2]ãµãˆãˆã€‚\e
 
 #===========================================================
-# agari ‚ ‚ª‚è
-# Reference2: ƒvƒŒƒCƒ„[–¼
-# Reference3: •„
-# Reference4: –ğ,ƒnƒ“”
-# Reference5: ˆÈ~AReference4“¯—l
+# agari ã‚ãŒã‚Š
+# Reference2: ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
+# Reference3: ç¬¦
+# Reference4: å½¹,ãƒãƒ³æ•°
+# Reference5: ä»¥é™ã€Reference4åŒæ§˜
 #===========================================================
 MJ.agari: $(
-	setstr MJ.Save.Status ˜a—¹;
+	setstr MJ.Save.Status å’Œäº†;
 )
 
 #===========================================================
-# ryukyoku —¬‹Ç
+# ryukyoku æµå±€
 #===========================================================
 MJ.ryukyoku: $(
-	setstr MJ.Save.Status —¬‹Ç;
+	setstr MJ.Save.Status æµå±€;
 )
 
 #===========================================================
@@ -646,9 +646,9 @@ function MJ.GetLeadPoint $(
 
 function MJ.GetBafuhai $(
 	setstr @bafu $@arg[1];
-	if $[ ${@bafu} == "“Œ" ] $(
+	if $[ ${@bafu} == "æ±" ] $(
 		return 1z;
-	) else if $[ ${@bafu} == "“ì" ] $(
+	) else if $[ ${@bafu} == "å—" ] $(
 		return 2z;
 	);
 	return "";
@@ -672,7 +672,7 @@ function MJ.GetJifuhai $(
 	return ${@n}z;
 );
 
-#MJ.Save.PlayerName‚ğ“Œ‰Æ‚©‚ç•À‚×’¼‚µ‚½‚à‚Ì‚ğ“¾‚é
+#MJ.Save.PlayerNameã‚’æ±å®¶ã‹ã‚‰ä¸¦ã¹ç›´ã—ãŸã‚‚ã®ã‚’å¾—ã‚‹
 function MJ.GetPlayers $(
 	setstr @oyaname $@arg[1];
 	setstr @findoya 0;
@@ -694,12 +694,12 @@ function MJ.GetPlayers $(
 	return $(join @r ,);
 );
 
-#ƒQ[ƒ€ŠJnÈ‡index
+#ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚å¸­é †index
 function MJ.B $(
 	return $(find MJ.Save.PlayerName $@arg[1]);
 );
 
-#“Œ‰Æ‚©‚ç‚Ìindex
+#æ±å®¶ã‹ã‚‰ã®index
 function MJ.I $(
 	return $(find MJ.Save.Players $@arg[1]);
 );
